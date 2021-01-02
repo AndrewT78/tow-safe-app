@@ -11,5 +11,5 @@ phases:
       - npm run build
 artifacts:
   files:
-    - build/index.html
+    - build/*
     - index.html
