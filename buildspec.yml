@@ -12,4 +12,5 @@ phases:
 artifacts:
   files:
     - build/*
-    - index.html
+  discard-paths: yes
+    
