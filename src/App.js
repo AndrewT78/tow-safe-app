@@ -10,6 +10,9 @@ import {
   Link
 } from "react-router-dom";
 
+import VanConfig from "./configcomponents/VanConfig"
+
+
 function App() {
   return (
     <Router>
@@ -17,7 +20,7 @@ function App() {
     <Container> 
       <Switch>
         <Route path="/van">
-          <p>Configure the van</p>
+          <VanConfig></VanConfig>
         </Route> 
         <Route path="/">
         <Row>
@@ -37,4 +40,8 @@ function App() {
   );
 }
 
+
+
 export default App;
+
+
