@@ -7,20 +7,28 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  useHistory
 } from "react-router-dom";
 
 import VanConfig from "./configcomponents/VanConfig"
 
 
 function App() {
+  const history = useHistory();
+
+
   return (
     <Router>
     <div class="App">
     <Container> 
       <Switch>
         <Route path="/van">
-          <VanConfig></VanConfig>
+          <VanConfig onSubmit={(data) => {
+              console.log('Submit in Parent, props are ', data);
+              history.push("/");
+            }}>
+          </VanConfig>
         </Route> 
         <Route path="/">
         <Row>
