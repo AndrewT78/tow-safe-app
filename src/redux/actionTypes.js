@@ -1,0 +1,1 @@
+export const UPDATE_VAN_CONFIG = "UPDATE_VAN_CONFIG";

@@ -3,49 +3,30 @@ import './App.css';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import { Col, Row } from 'react-bootstrap';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useHistory
-} from "react-router-dom";
+import { connect } from "react-redux";
 
 import VanConfig from "./configcomponents/VanConfig"
+import { getVanConfig } from "./redux/selectors";
 
 
-function App() {
+const App = ({ vanConfig }) => {
   return (
-    <Router>
+   
     <div class="App">
-    <Container> 
-      <Switch>
-        <Route path="/van">
-          <VanConfig onSubmit={(data) => {
-              console.log('Submit in Parent, props are ', data);              
-            }}>
-          </VanConfig>
-        </Route> 
-        <Route path="/">
-        <Row>
-        <Col>
-          <Link to="van">
-            <Button variant="primary" size="lg" block>
-              Get Started
-           </Button> 
-         </Link>  
-        </Col>
-      </Row>
-        </Route> 
-      </Switch>          
+    <Container>     
+          <VanConfig></VanConfig>       
+          {vanConfig ? vanConfig.atm : "No Van Config"}
+
+
     </Container>
     </div>
-    </Router>
   );
 }
 
+const mapStateToProps = state => {  
+  console.log('Mapping State to props, state is ', state);
+  const vanConfig = getVanConfig(state);
+  return { vanConfig };
+};
 
-
-export default App;
-
-
+export default connect(mapStateToProps)(App);

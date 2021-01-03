@@ -2,31 +2,43 @@ import React, { Component } from 'react';
 
 import {Form, Button} from "react-bootstrap";
 
+import { connect } from "react-redux";
+import { updateVanConfig } from "../redux/actions";
 
-const VanConfig = (props) => {
 
-    const onFormSubmit = e => {
-        e.preventDefault()
-        const formData = new FormData(e.target),
-              formDataObj = Object.fromEntries(formData.entries())        
-        props.onSubmit(formDataObj);
+class VanConfig extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = { };
       }
 
-  return (
-    <Form onSubmit={onFormSubmit}>
+    updateATM = input => {      
+        this.setState({ atm: parseInt(input)});
+    };
+
+    handleSubmit = () => {
+        this.props.updateVanConfig(this.state);
+        console.log('Will set data to be ', this.state);
+        this.setState({ atm: null});
+      };
+
+  render() {
+      return (
+    <Form>
     <Form.Group controlId="vanConfigForm.atm">          
-      <Form.Control type="number" placeholder="ATM" name="atm"/>
-    </Form.Group>
-    <Form.Group controlId="vanConfigForm.tare">          
-      <Form.Control type="number" placeholder="Tare" name="tare"/>
-    </Form.Group>
-    <Form.Group controlId="vanConfigForm.tbm">          
-      <Form.Control type="number" placeholder="Ball Weight" name="tbm"/>
-    </Form.Group>
-    <Button type="submit">Next</Button>
+      <Form.Control type="number" placeholder="ATM" name="atm" onChange={ e => this.updateATM(e.target.value)}/>
+    </Form.Group>   
+    <Button onClick={e => this.handleSubmit()}>Next</Button>
     </Form>
-  );
+      );
+  }
+    
+  
 
 }  
 
-export default VanConfig;
+export default connect(
+    null,
+    { updateVanConfig }
+  )(VanConfig);
