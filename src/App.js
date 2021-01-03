@@ -15,9 +15,6 @@ import VanConfig from "./configcomponents/VanConfig"
 
 
 function App() {
-  const history = useHistory();
-
-
   return (
     <Router>
     <div class="App">
@@ -25,8 +22,7 @@ function App() {
       <Switch>
         <Route path="/van">
           <VanConfig onSubmit={(data) => {
-              console.log('Submit in Parent, props are ', data);
-              history.push("/");
+              console.log('Submit in Parent, props are ', data);              
             }}>
           </VanConfig>
         </Route> 
