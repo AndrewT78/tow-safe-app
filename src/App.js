@@ -13,9 +13,8 @@ const App = ({ vanConfig }) => {
   return (
    
     <div class="App">
-    <Container>     
-          <VanConfig></VanConfig>       
-          {vanConfig ? vanConfig.atm : "No Van Config"}
+    <Container>               
+          {vanConfig ? <div>ATM : {vanConfig.atm}</div> : <div>Welcome to TowSafe, Let's get setup<VanConfig></VanConfig></div>}
 
 
     </Container>
