@@ -30,5 +30,5 @@ it('shows the van config when the van has been configured', () => {
   renderApp(<App />, {initialState : {configs : { vanConfig: { atm: 1234 }}}});  
   const vanATMInput = screen.queryByPlaceholderText("ATM");
   expect(vanATMInput).not.toBeInTheDocument();
-  const vanATMDisplay = screen.getByText(/1234/);
+  const vanATMDisplay = screen.getByText(/1266/);
 });
