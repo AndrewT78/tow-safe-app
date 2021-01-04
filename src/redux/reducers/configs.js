@@ -1,6 +1,7 @@
 import { UPDATE_VAN_CONFIG } from "../actionTypes";
 
 const initialState = {
+    
 };
 
 export default function(state = initialState, action) {
@@ -9,7 +10,7 @@ export default function(state = initialState, action) {
         case UPDATE_VAN_CONFIG: {            
             return {
                 ...state,
-                vanConfig : action.payload.config
+                vanConfig : action.config
             };        
         }
         default:
