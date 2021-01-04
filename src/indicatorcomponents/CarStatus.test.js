@@ -18,13 +18,11 @@ function renderComponent(
   return rtlRender(ui, { wrapper: Wrapper, ...renderOptions })
 }
 
-it('renders a tile showing the car config', () => {
-  renderComponent(<CarStatus />, {initialState : {configs : { carConfig: { gvm: 2000, tare: 1000, gcm: 3000 }}}});  
-  
-  const gvm = screen.getByText(/2000/);
-  expect(gvm).toBeInTheDocument();
-
-  const tare = screen.getByText(/1000/);
-  expect(tare).toBeInTheDocument();
+it('shows total weight and gvm', () => {
+    renderComponent(<CarStatus />, {initialState : {configs : { carConfig: { gvm: 2000, tare: 1000, gcm: 3000 }}}}); 
+    const totalWeight = screen.getByText("1000 (2000)");
+    expect(totalWeight).toBeInTheDocument();
 });
+
+
 

@@ -5,3 +5,7 @@ export const getVanConfig = store => {
 export const getCarConfig = store => {
   return store.configs.carConfig;
 }
+
+export const getCarStatus = store => {
+  return { totalWeight: store.configs.carConfig.tare };
+}

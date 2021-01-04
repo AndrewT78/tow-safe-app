@@ -1,5 +1,6 @@
 import {getVanConfig} from "./selectors";
 import {getCarConfig} from "./selectors";
+import {getCarStatus} from "./selectors";
 
 describe('Van config selectors', () => {
 
@@ -19,7 +20,7 @@ describe('Van config selectors', () => {
   });
 });
 
-describe('Car config selectors', () => {
+describe('Car selectors', () => {
 
   const store = {
       configs: {
@@ -35,4 +36,9 @@ describe('Car config selectors', () => {
 it('should return the car config from the store', () => {
   expect(getCarConfig(store)).toEqual({ tare: 1000, gvm: 2000, gcm: 3000});
 });
+
+it('should return the status of the car', () => {
+  expect(getCarStatus(store)).toEqual({ totalWeight: 1000});
+});
+
 });
