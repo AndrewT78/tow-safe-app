@@ -13,11 +13,11 @@ import { getCarConfig } from "./redux/selectors";
 
 
 const getVanConfigPane = () => {
-  return (<div><Alert variant="light">Welcome to TowSafe, Let's start by setting up your van details</Alert><VanConfig></VanConfig></div>);
+  return (<div><Alert variant="secondary">Welcome to TowSafe, Let's start by setting up your van details</Alert><VanConfig></VanConfig></div>);
 }
 
 const getCarConfigPane = () => {
-  return (<div><Alert variant="light">Now let's setup your tow vehicle</Alert><CarConfig></CarConfig></div>);
+  return (<div><Alert variant="secondary">Now let's setup your tow vehicle</Alert><CarConfig></CarConfig></div>);
 }
 
 const App = ({ vanConfig, carConfig }) => {
