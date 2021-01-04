@@ -19,7 +19,6 @@ class VanConfig extends React.Component {
 
     handleSubmit = () => {
         this.props.updateVanConfig(this.state);
-        console.log('Will set data to be ', this.state);
         this.setState({ atm: null});
       };
 

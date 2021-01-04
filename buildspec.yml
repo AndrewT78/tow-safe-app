@@ -3,14 +3,13 @@ version: 0.2
 phases:  
   pre_build: 
     commands:
-      - n latest
-      - echo Will check node and npm versions
-      - node -v
-      - npm -v
+      - n latest      
       - echo Installing npm dependencies
       - npm install
   build: 
     commands:
+      - echo running tests
+      - npm test
       - echo Build Started
       - npm run build
 artifacts:
