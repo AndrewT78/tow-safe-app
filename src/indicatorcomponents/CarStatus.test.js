@@ -24,5 +24,22 @@ it('shows total weight and gvm', () => {
     expect(totalWeight).toBeInTheDocument();
 });
 
+it("renders green when weight is below the threshold", () => {
+    renderComponent(<CarStatus />, {initialState : {configs : { carConfig: { gvm: 2000, tare: 1780, gcm: 3000 }}}});
+    const alertBox = screen.getByTestId("car-status-box");
+    expect(alertBox).toHaveClass("alert-success");
+});
+
+it("renders orange when weight is above the threshold", () => {
+    renderComponent(<CarStatus />, {initialState : {configs : { carConfig: { gvm: 2000, tare: 1800, gcm: 3000 }}}});
+    const alertBox = screen.getByTestId("car-status-box");
+    expect(alertBox).toHaveClass("alert-warning");
+});
+
+it("renders red when weight is above the gvm", () => {
+    renderComponent(<CarStatus />, {initialState : {configs : { carConfig: { gvm: 2000, tare: 2001, gcm: 3000 }}}});
+    const alertBox = screen.getByTestId("car-status-box");
+    expect(alertBox).toHaveClass("alert-danger");
+});
 
 

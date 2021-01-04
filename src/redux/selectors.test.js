@@ -1,6 +1,7 @@
 import {getVanConfig} from "./selectors";
 import {getCarConfig} from "./selectors";
 import {getCarStatus} from "./selectors";
+import {status} from "./statusConstants";
 
 describe('Van config selectors', () => {
 
@@ -32,13 +33,45 @@ describe('Car selectors', () => {
       }
   };
 
+  const storeWarning = {
+    configs: {
+      carConfig: {
+          tare: 900,
+          gvm: 1000,
+          gcm: 3000
+      }
+  }
+  }
+
+  const storeError = {
+    configs: {
+      carConfig: {
+          tare: 1001,
+          gvm: 1000,
+          gcm: 3000
+      }
+  }
+  }
+
 
 it('should return the car config from the store', () => {
   expect(getCarConfig(store)).toEqual({ tare: 1000, gvm: 2000, gcm: 3000});
 });
 
-it('should return the status of the car', () => {
-  expect(getCarStatus(store)).toEqual({ totalWeight: 1000});
+it('should return the totalWeight of the car', () => {
+  expect(getCarStatus(store).totalWeight).toEqual(1000);
+});
+
+it('should return a status of OK when the weight is less than the warning threshold', () => {
+  expect(getCarStatus(store).status).toEqual(status.OK);
+});
+
+it('should return a status of WARNING when the weight is above the warning threshold', () => {
+  expect(getCarStatus(storeWarning).status).toEqual(status.WARNING);
+});
+
+it('should return a status of OVER when the weight is above the GVM', () => {
+  expect(getCarStatus(storeError).status).toEqual(status.OVER);
 });
 
 });
