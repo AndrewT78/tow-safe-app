@@ -14,7 +14,7 @@ const App = ({ vanConfig }) => {
    
     <div class="App">
     <Container>               
-          {vanConfig ? <div>ATM : {vanConfig.atm}</div> : <div>Welcome to TowSafe, Let's get setup<VanConfig></VanConfig></div>}
+          {vanConfig ? <div>ATM : {vanConfig.atm}</div> : <div>Welcome to TowSafe, Let's get setup shall we<VanConfig></VanConfig></div>}
 
 
     </Container>
