@@ -11,3 +11,14 @@ describe('Van Config Actions', () => {
       expect(actions.updateVanConfig(config)).toEqual(expectedAction)
     })
   })
+
+  describe('Car Config Actions', () => {
+    it('should create an action to update the car config', () => {
+      const config = { gvm : 1000, tare: 100, gcm: 2000}
+      const expectedAction = {
+        type: types.UPDATE_CAR_CONFIG,
+        config
+      }
+      expect(actions.updateCarConfig(config)).toEqual(expectedAction)
+    })
+  })

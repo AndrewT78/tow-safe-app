@@ -1,4 +1,5 @@
 import {getVanConfig} from "./selectors";
+import {getCarConfig} from "./selectors";
 
 describe('Van config selectors', () => {
 
@@ -16,4 +17,22 @@ describe('Van config selectors', () => {
   it('should return the van config from the store', () => {
     expect(getVanConfig(store)).toEqual({ atm: 456, tare: 123, tbm: 13});
   });
+});
+
+describe('Car config selectors', () => {
+
+  const store = {
+      configs: {
+          carConfig: {
+              tare: 1000,
+              gvm: 2000,
+              gcm: 3000
+          }
+      }
+  };
+
+
+it('should return the car config from the store', () => {
+  expect(getCarConfig(store)).toEqual({ tare: 1000, gvm: 2000, gcm: 3000});
+});
 });

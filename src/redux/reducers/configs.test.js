@@ -23,4 +23,18 @@ describe('configs reducer', () => {
     )
 
   })
+
+  it('should update the car config', () => {
+    expect(
+      reducer([], {
+        type: types.UPDATE_CAR_CONFIG,
+        config: { gvm: 2000, tare: 1000, gcm: 3000}
+      })
+    ).toEqual(
+      {
+        carConfig: { gvm: 2000, tare: 1000, gcm: 3000}
+      }
+    )
+
+  })
 })

@@ -1,4 +1,5 @@
 import { UPDATE_VAN_CONFIG } from "./actionTypes";
+import { UPDATE_CAR_CONFIG } from "./actionTypes";
 
 
 export const updateVanConfig = config => ({
@@ -6,3 +7,7 @@ export const updateVanConfig = config => ({
   config  
 });
 
+export const updateCarConfig = config => ({
+  type: UPDATE_CAR_CONFIG,  
+  config  
+});
