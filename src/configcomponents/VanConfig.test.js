@@ -4,12 +4,13 @@ import rootReducer from "./../redux/reducers";
 import { createStore } from "redux";
 import VanConfig from "./VanConfig";
 
+const myStore = createStore(rootReducer, {});
 
 function renderApp(    
   ui,
   {
     initialState,
-    store = createStore(rootReducer, initialState),
+    store = myStore,
     ...renderOptions
   } = {}
 ) {
@@ -51,7 +52,7 @@ it('disables the next button until all fields are valid', () => {
 });
 
 
-xit('updates the van config when the button is pressed', () => {    
+it('updates the van config when the button is pressed', () => {    
     renderApp(<VanConfig/>);  
     const atmInput = screen.getByPlaceholderText("ATM");
     fireEvent.change(atmInput, { target: { value: '2000' } });
@@ -64,4 +65,6 @@ xit('updates the van config when the button is pressed', () => {
 
     const nextButton = screen.getByText('Next');
     fireEvent.click(nextButton);    
+
+    expect(myStore.getState().configs.vanConfig).toEqual({ atm: 2000, tare: 1000, tbm: 150});
 });
