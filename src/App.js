@@ -9,6 +9,7 @@ import VanConfig from "./configcomponents/VanConfig"
 import CarConfig from "./configcomponents/CarConfig"
 import { getVanConfig } from "./redux/selectors";
 import { getCarConfig } from "./redux/selectors";
+import CarStatus from './indicatorcomponents/CarStatus';
 
 
 
@@ -20,13 +21,17 @@ const getCarConfigPane = () => {
   return (<div><Alert variant="secondary">Now let's setup your tow vehicle</Alert><CarConfig></CarConfig></div>);
 }
 
+const getStatusPane = () => {
+  return (<CarStatus></CarStatus>);
+}
+
 const App = ({ vanConfig, carConfig }) => {
   
   return (
    
     <div>
     <Container>               
-          {vanConfig && carConfig? <div>ATM : {vanConfig.atm}</div> : 
+          {vanConfig && carConfig? getStatusPane() : 
             vanConfig ? getCarConfigPane() : getVanConfigPane()
           }
     </Container>
