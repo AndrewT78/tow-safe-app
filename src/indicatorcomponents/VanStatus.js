@@ -18,11 +18,11 @@ const VanStatus = ({ vanConfig, vanStatus }) => {
                 <Col>
                     <Row>
                         <Col>
-                        {`${vanStatus.totalWeight} (${vanConfig.atm})`}
+                        {`${vanStatus.totalWeight} (${vanConfig.atm}) - Total Weight (ATM)`}
                         </Col>                       
                     </Row>
                     <Row>
-                        <Col>{`Remaining Payload: ${vanStatus.remainingPayload}`}</Col>
+                        <Col>{`${vanStatus.remainingPayload} - Remaining Payload`}</Col>
                     </Row>
                 </Col>
             </Row>            

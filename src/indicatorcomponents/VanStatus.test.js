@@ -20,13 +20,13 @@ function renderComponent(
 
 it('shows total weight and atm', () => {
     renderComponent(<VanStatus />, {initialState : {configs : { vanConfig: { atm: 3300, tare: 2150, tbm: 180 }}}}); 
-    const totalWeight = screen.getByText("2150 (3300)");
+    const totalWeight = screen.getByText("2150 (3300) - Total Weight (ATM)");
     expect(totalWeight).toBeInTheDocument();
 });
 
 it('shows the amount of payloadload remaining', () => {
     renderComponent(<VanStatus />, {initialState : {configs : { vanConfig: { atm: 2000, tare: 1600, tbm: 180 }}}}); 
-    const payloadRemaining = screen.getByText("Remaining Payload: 400");
+    const payloadRemaining = screen.getByText("400 - Remaining Payload");
     expect(payloadRemaining).toBeInTheDocument();
 });
 

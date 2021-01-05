@@ -18,11 +18,11 @@ const CarStatus = ({ carConfig, carStatus }) => {
                 <Col>
                     <Row>
                         <Col>
-                        {`${carStatus.totalWeight} (${carConfig.gvm})`}
+                        {`${carStatus.totalWeight} (${carConfig.gvm}) - Total Weight (GVM)`}
                         </Col>                       
                     </Row>
                     <Row>
-                        <Col>{`Remaining Payload: ${carStatus.remainingPayload}`}</Col>
+                        <Col>{`${carStatus.remainingPayload} - Remaining Payload`}</Col>
                     </Row>
                 </Col>
             </Row>            

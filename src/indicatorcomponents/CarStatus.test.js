@@ -20,13 +20,13 @@ function renderComponent(
 
 it('shows total weight and gvm', () => {
     renderComponent(<CarStatus />, {initialState : {configs : { carConfig: { gvm: 2000, tare: 1000, gcm: 3000 }}}}); 
-    const totalWeight = screen.getByText("1000 (2000)");
+    const totalWeight = screen.getByText("1000 (2000) - Total Weight (GVM)");
     expect(totalWeight).toBeInTheDocument();
 });
 
 it('shows the amount of payloadload remaining', () => {
     renderComponent(<CarStatus />, {initialState : {configs : { carConfig: { gvm: 2000, tare: 1600, gcm: 3000 }}}}); 
-    const payloadRemaining = screen.getByText("Remaining Payload: 400");
+    const payloadRemaining = screen.getByText("400 - Remaining Payload");
     expect(payloadRemaining).toBeInTheDocument();
 });
 

@@ -28,13 +28,13 @@ const storeState = {
 
 it('shows total weight and gcm', () => {
     renderComponent(<CombinedStatus />, {initialState : storeState}); 
-    const totalWeight = screen.getByText("5000 (7000)");
+    const totalWeight = screen.getByText("5000 (7000) - Combined Weight (GCM)");
     expect(totalWeight).toBeInTheDocument();
 });
 
 it('shows the total car weight with the towball applied, and the gvm', () => {
   renderComponent(<CombinedStatus />, {initialState : storeState}); 
-    const totalCarWeight = screen.getByText("3180 (3500)");
+    const totalCarWeight = screen.getByText("3180 (3500) - Car Weight inc TBM (GVM)");
     expect(totalCarWeight).toBeInTheDocument();
 });
 
