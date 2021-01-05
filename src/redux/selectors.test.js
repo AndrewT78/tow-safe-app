@@ -2,6 +2,7 @@ import {getVanConfig} from "./selectors";
 import {getCarConfig} from "./selectors";
 import {getCarStatus} from "./selectors";
 import {getVanStatus} from "./selectors";
+import {getCombinedStatus} from "./selectors";
 import {status} from "./statusConstants";
 
 describe('Van selectors', () => {
@@ -118,5 +119,32 @@ it('should return a status of WARNING when the weight is above the warning thres
 it('should return a status of OVER when the weight is above the GVM', () => {
   expect(getCarStatus(storeError).status).toEqual(status.OVER);
 });
+
+});
+
+describe('Combined selectors', () => {
+
+  const store = {
+    configs: {
+        carConfig: {
+            tare: 3000,
+            gvm: 3500,
+            gcm: 7000
+        },
+        vanConfig: {
+          tare: 2000,
+          atm: 3000,
+          tbm: 180
+        }
+    }
+};
+
+  it('should add the tbm to the car gvm', () => {
+    expect(getCombinedStatus(store).totalCarWeight).toEqual(3180);
+  });
+
+  it('should add the car weight and trailer weight to calculate the combined mass', () => {
+    expect(getCombinedStatus(store).totalCombinedWeight).toEqual(5000);
+  });
 
 });

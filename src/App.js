@@ -11,6 +11,7 @@ import { getVanConfig } from "./redux/selectors";
 import { getCarConfig } from "./redux/selectors";
 import CarStatus from './indicatorcomponents/CarStatus';
 import VanStatus from './indicatorcomponents/VanStatus';
+import CombinedStatus from './indicatorcomponents/CombinedStatus';
 
 
 
@@ -23,7 +24,7 @@ const getCarConfigPane = () => {
 }
 
 const getStatusPane = () => {
-  return (<div><CarStatus></CarStatus><VanStatus></VanStatus></div>);
+  return (<div><CarStatus></CarStatus><VanStatus></VanStatus><CombinedStatus></CombinedStatus></div>);
 }
 
 const App = ({ vanConfig, carConfig }) => {

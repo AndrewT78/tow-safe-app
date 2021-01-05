@@ -38,4 +38,6 @@ it('shows the status panels when the car and van have been configured', () => {
   expect(carTareDisplay).toBeInTheDocument();
   const vanTareDisplay = screen.getByText(/2150/);
   expect(vanTareDisplay).toBeInTheDocument();
+  const combinedTotalDisplay = screen.getByText(/3150/);
+  expect(combinedTotalDisplay).toBeInTheDocument();
 });

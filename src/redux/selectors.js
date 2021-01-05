@@ -36,3 +36,9 @@ export const getVanStatus = store => {
 
   return { totalWeight, status: vanStatus, remainingPayload };
 }
+
+export const getCombinedStatus = store => {
+  var totalCombinedWeight = getCarStatus(store).totalWeight + getVanStatus(store).totalWeight;
+  var totalCarWeight = getCarStatus(store).totalWeight + getVanConfig(store).tbm;
+  return { totalCombinedWeight,  totalCarWeight};
+}
