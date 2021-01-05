@@ -13,7 +13,8 @@ const CarStatus = ({ carConfig, carStatus }) => {
     return (           
       <Container>   
         <Alert variant={getStatusVariant(carStatus)} data-testid="car-status-box">
-            {`${carStatus.totalWeight} (${carConfig.gvm})`}               
+            <div>{`${carStatus.totalWeight} (${carConfig.gvm})`}</div>
+            <div>{`Remaining Payload: ${carStatus.remainingPayload}`}</div>   
         </Alert>               
       </Container>      
     );

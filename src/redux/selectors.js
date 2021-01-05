@@ -12,6 +12,7 @@ export const getCarConfig = store => {
 export const getCarStatus = store => {
   var carStatus = status.OK;
   var totalWeight = store.configs.carConfig.tare;
+  var remainingPayload = store.configs.carConfig.gvm - totalWeight;
 
   if (totalWeight > store.configs.carConfig.gvm) {
         carStatus = status.OVER;
@@ -19,5 +20,5 @@ export const getCarStatus = store => {
     carStatus = status.WARNING;
   }
 
-  return { totalWeight, status: carStatus };
+  return { totalWeight, status: carStatus, remainingPayload };
 }

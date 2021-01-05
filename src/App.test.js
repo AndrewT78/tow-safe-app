@@ -33,7 +33,7 @@ it('renders the form to configure the car config when no car config exists', () 
 });
 
 it('shows the car status when the car and van have been configured', () => {
-  renderApp(<App />, {initialState : {configs : { vanConfig: { atm: 1234 }, carConfig: { tare: 1000, gvm: 2000 }}}});    
+  renderApp(<App />, {initialState : {configs : { vanConfig: { atm: 1234 }, carConfig: { tare: 1000, gvm: 2200 }}}});    
   const carTareDisplay = screen.getByText(/1000/);
   expect(carTareDisplay).toBeInTheDocument();
 });

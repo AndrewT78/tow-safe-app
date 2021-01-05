@@ -24,6 +24,12 @@ it('shows total weight and gvm', () => {
     expect(totalWeight).toBeInTheDocument();
 });
 
+it('shows the amount of payloadload remaining', () => {
+    renderComponent(<CarStatus />, {initialState : {configs : { carConfig: { gvm: 2000, tare: 1600, gcm: 3000 }}}}); 
+    const payloadRemaining = screen.getByText("Remaining Payload: 400");
+    expect(payloadRemaining).toBeInTheDocument();
+});
+
 it("renders green when weight is below the threshold", () => {
     renderComponent(<CarStatus />, {initialState : {configs : { carConfig: { gvm: 2000, tare: 1780, gcm: 3000 }}}});
     const alertBox = screen.getByTestId("car-status-box");

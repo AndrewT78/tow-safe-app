@@ -26,7 +26,7 @@ describe('Car selectors', () => {
   const store = {
       configs: {
           carConfig: {
-              tare: 1000,
+              tare: 1500,
               gvm: 2000,
               gcm: 3000
           }
@@ -55,11 +55,15 @@ describe('Car selectors', () => {
 
 
 it('should return the car config from the store', () => {
-  expect(getCarConfig(store)).toEqual({ tare: 1000, gvm: 2000, gcm: 3000});
+  expect(getCarConfig(store)).toEqual({ tare: 1500, gvm: 2000, gcm: 3000});
 });
 
 it('should return the totalWeight of the car', () => {
-  expect(getCarStatus(store).totalWeight).toEqual(1000);
+  expect(getCarStatus(store).totalWeight).toEqual(1500);
+});
+
+it('should return the remaining payload of the car', () => {
+  expect(getCarStatus(store).remainingPayload).toEqual(500);
 });
 
 it('should return a status of OK when the weight is less than the warning threshold', () => {
