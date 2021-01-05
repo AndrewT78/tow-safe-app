@@ -40,5 +40,20 @@ export const getVanStatus = store => {
 export const getCombinedStatus = store => {
   var totalCombinedWeight = getCarStatus(store).totalWeight + getVanStatus(store).totalWeight;
   var totalCarWeight = getCarStatus(store).totalWeight + getVanConfig(store).tbm;
-  return { totalCombinedWeight,  totalCarWeight};
+  var combinedStatus = status.OK;
+  var carStatus = status.OK;
+
+  if (totalCombinedWeight > store.configs.carConfig.gcm) {
+    combinedStatus = status.OVER;
+  } else if ((totalCombinedWeight / store.configs.carConfig.gcm >= WARNING_THRESHOLD)) {
+    combinedStatus = status.WARNING;
+  }
+
+  if (totalCarWeight > store.configs.carConfig.gvm) {
+    carStatus = status.OVER;
+  } else if ((totalCarWeight / store.configs.carConfig.gvm >= WARNING_THRESHOLD)) {
+    carStatus = status.WARNING;
+  }
+
+  return { totalCombinedWeight,  totalCarWeight, combinedStatus, carStatus};
 }

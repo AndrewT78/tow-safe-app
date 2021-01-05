@@ -13,7 +13,7 @@ const CombinedStatus = ({ carConfig, combinedStatus, vanConfig }) => {
   
     return (           
       <Container>   
-        <Alert variant={getStatusVariant()} data-testid="combined-status-box">
+        <Alert variant={getStatusVariant(combinedStatus)} data-testid="combined-status-box">
             <Row>
                 <Col md="auto"><FaCaravan size="25"></FaCaravan><FaTruckPickup size="25"></FaTruckPickup></Col>
                 <Col>
@@ -32,9 +32,18 @@ const CombinedStatus = ({ carConfig, combinedStatus, vanConfig }) => {
     );
   }
 
-  const getStatusVariant = () => {
-      return "secondary";                
-  };
+  const getStatusVariant = combinedStatus => {
+    var variant = "success";
+  
+    if (combinedStatus.combinedStatus == status.OVER || combinedStatus.carStatus == status.OVER) {
+      variant = "danger";
+    } else if (combinedStatus.combinedStatus == status.WARNING || combinedStatus.carStatus == status.WARNING) {
+      variant = "warning";
+    }
+
+    return variant; 
+
+};
   
   const mapStateToProps = state => {  
     const carConfig = getCarConfig(state);

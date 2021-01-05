@@ -136,8 +136,128 @@ describe('Combined selectors', () => {
           atm: 3000,
           tbm: 180
         }
+    }    
+  };
+
+  const atGvmThresholdStore = {
+    configs: {
+        carConfig: {
+            tare: 1700,
+            gvm: 2000,
+            gcm: 10000
+        },
+        vanConfig: {
+          tare: 2000,
+          atm: 5000,
+          tbm: 100
+        }
+    }    
+  };
+
+  const aboveGvmThresholdStore = {
+    configs: {
+        carConfig: {
+            tare: 1701,
+            gvm: 2000,
+            gcm: 10000
+        },
+        vanConfig: {
+          tare: 2000,
+          atm: 5000,
+          tbm: 100
+        }
+    }    
+  };
+
+  const atGvmStore = {
+    configs: {
+        carConfig: {
+            tare: 1700,
+            gvm: 2000,
+            gcm: 10000
+        },
+        vanConfig: {
+          tare: 2000,
+          atm: 5000,
+          tbm: 300
+        }
+    }    
+  };
+
+  const overGvmStore = {
+    configs: {
+        carConfig: {
+            tare: 1701,
+            gvm: 2000,
+            gcm: 10000
+        },
+        vanConfig: {
+          tare: 2000,
+          atm: 5000,
+          tbm: 300
+        }
+    }    
+  };
+
+  const atGcmThresholdStore = {
+    configs: {
+        carConfig: {
+            tare: 7000,
+            gvm: 8000,
+            gcm: 10000
+        },
+        vanConfig: {
+          tare: 2000,
+          atm: 7000,
+          tbm: 300
+        }
+    }    
+  };
+
+  const overGcmThresholdStore = {
+    configs: {
+      carConfig: {
+        tare: 7001,
+        gvm: 8000,
+        gcm: 10000
+    },
+    vanConfig: {
+      tare: 2000,
+      atm: 7000,
+      tbm: 300
     }
-};
+    }    
+  };
+
+  const atGcmStore = {
+    configs: {
+      carConfig: {
+        tare: 7000,
+        gvm: 8000,
+        gcm: 10000
+    },
+    vanConfig: {
+      tare: 3000,
+      atm: 7000,
+      tbm: 300
+    }
+    }    
+  };
+
+  const overGcmStore = {
+    configs: {
+      carConfig: {
+        tare: 7001,
+        gvm: 8000,
+        gcm: 10000
+    },
+    vanConfig: {
+      tare: 3000,
+      atm: 7000,
+      tbm: 300
+    }
+    }    
+  };
 
   it('should add the tbm to the car gvm', () => {
     expect(getCombinedStatus(store).totalCarWeight).toEqual(3180);
@@ -147,4 +267,35 @@ describe('Combined selectors', () => {
     expect(getCombinedStatus(store).totalCombinedWeight).toEqual(5000);
   });
 
+  it('should return warning when the combined car weight is over the gvm warning threshold', () => {
+    expect(getCombinedStatus(aboveGvmThresholdStore).carStatus).toEqual(status.WARNING);
+  });
+
+  it('should return warning when the combined car weight is at the gvm warning threshold', () => {
+    expect(getCombinedStatus(atGvmThresholdStore).carStatus).toEqual(status.WARNING);
+  });
+
+  it('should return warning when the combined car weight is equal to the gvm', () => {
+    expect(getCombinedStatus(atGvmStore).carStatus).toEqual(status.WARNING);
+  });
+
+  it('should return over when the combined car weight is over the gvm', () => {
+    expect(getCombinedStatus(overGvmStore).carStatus).toEqual(status.OVER);
+  });
+
+  it('should return warning when the combined weight is at the gcm threshold', () => {
+    expect(getCombinedStatus(atGcmThresholdStore).combinedStatus).toEqual(status.WARNING);
+  });
+
+  it('should return warning when the combined weight is over the gcm threshold', () => {
+    expect(getCombinedStatus(overGcmThresholdStore).combinedStatus).toEqual(status.WARNING);
+  });
+
+  it('should return warning when the combined weight is at the gcm', () => {
+    expect(getCombinedStatus(atGcmStore).combinedStatus).toEqual(status.WARNING);
+  });
+
+  it('should return over when the combined weight is over the gcm', () => {
+    expect(getCombinedStatus(overGcmStore).combinedStatus).toEqual(status.OVER);
+  });    
 });
