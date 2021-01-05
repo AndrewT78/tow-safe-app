@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { getCarConfig } from "./../redux/selectors";
 import { getCarStatus } from "./../redux/selectors";
 
-import {Alert, Container} from "react-bootstrap";
+import {Alert, Container, Row, Col} from "react-bootstrap";
 
 import { FaTruckPickup } from "react-icons/fa";
 import {status} from "./../redux/statusConstants";
@@ -13,8 +13,21 @@ const CarStatus = ({ carConfig, carStatus }) => {
     return (           
       <Container>   
         <Alert variant={getStatusVariant(carStatus)} data-testid="car-status-box">
-            <div>{`${carStatus.totalWeight} (${carConfig.gvm})`}</div>
-            <div>{`Remaining Payload: ${carStatus.remainingPayload}`}</div>   
+            <Row>
+                <Col md="auto"><FaTruckPickup size="50"></FaTruckPickup></Col>
+                <Col>
+                    <Row>
+                        <Col>
+                        {`${carStatus.totalWeight} (${carConfig.gvm})`}
+                        </Col>                       
+                    </Row>
+                    <Row>
+                        <Col>{`Remaining Payload: ${carStatus.remainingPayload}`}</Col>
+                    </Row>
+                </Col>
+            </Row>            
+            
+            
         </Alert>               
       </Container>      
     );
