@@ -22,3 +22,17 @@ export const getCarStatus = store => {
 
   return { totalWeight, status: carStatus, remainingPayload };
 }
+
+export const getVanStatus = store => {
+  var vanStatus = status.OK;
+  var totalWeight = store.configs.vanConfig.tare;
+  var remainingPayload = store.configs.vanConfig.atm - totalWeight;
+
+  if (totalWeight > store.configs.vanConfig.atm) {
+        vanStatus = status.OVER;
+  } else if ((totalWeight / store.configs.vanConfig.atm ) >= WARNING_THRESHOLD) {
+    vanStatus = status.WARNING;
+  }
+
+  return { totalWeight, status: vanStatus, remainingPayload };
+}

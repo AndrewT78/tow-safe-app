@@ -1,23 +1,64 @@
 import {getVanConfig} from "./selectors";
 import {getCarConfig} from "./selectors";
 import {getCarStatus} from "./selectors";
+import {getVanStatus} from "./selectors";
 import {status} from "./statusConstants";
 
-describe('Van config selectors', () => {
+describe('Van selectors', () => {
 
     const store = {
         configs: {
             vanConfig: {
-                tare: 123,
-                atm: 456,
-                tbm: 13
+                tare: 2150,
+                atm: 3300,
+                tbm: 180
             }
         }
     };
+
+    const storeWarning = {
+      configs: {
+          vanConfig: {
+              tare: 1800,
+              atm: 2000,
+              tbm: 180
+          }
+      }
+  };
+
+  const storeError = {
+    configs: {
+        vanConfig: {
+            tare: 2001,
+            atm: 2000,
+            tbm: 180
+        }
+    }
+};
+
+    it('should return the totalWeight of the van', () => {
+      expect(getVanStatus(store).totalWeight).toEqual(2150);
+    });
+    
+    it('should return the remaining payload of the van', () => {
+      expect(getVanStatus(store).remainingPayload).toEqual(1150);
+    });
+    
+    it('should return a status of OK when the weight is less than the warning threshold', () => {
+      expect(getVanStatus(store).status).toEqual(status.OK);
+    });
+    
+    it('should return a status of WARNING when the weight is above the warning threshold', () => {
+      expect(getVanStatus(storeWarning).status).toEqual(status.WARNING);
+    });
+    
+    it('should return a status of OVER when the weight is above the GVM', () => {
+      expect(getVanStatus(storeError).status).toEqual(status.OVER);
+    });
   
 
   it('should return the van config from the store', () => {
-    expect(getVanConfig(store)).toEqual({ atm: 456, tare: 123, tbm: 13});
+    expect(getVanConfig(store)).toEqual({ atm: 3300, tare: 2150, tbm: 180});
   });
 });
 
