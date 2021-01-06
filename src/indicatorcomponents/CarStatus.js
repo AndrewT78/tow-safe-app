@@ -4,8 +4,12 @@ import { getCarStatus } from "./../redux/selectors";
 
 import {Alert, Container, Row, Col} from "react-bootstrap";
 
-import { FaTruckPickup } from "react-icons/fa";
+import { FaTruckPickup, FaSuitcase } from "react-icons/fa";
 import {status} from "./../redux/statusConstants";
+
+import {    
+    Link
+  } from "react-router-dom";
 
 
 const CarStatus = ({ carConfig, carStatus }) => {
@@ -25,6 +29,7 @@ const CarStatus = ({ carConfig, carStatus }) => {
                         <Col>{`${carStatus.remainingPayload} - Remaining Payload`}</Col>
                     </Row>
                 </Col>
+                <Col md="auto"><Link to="/carload" data-testid="car-load-link"><FaSuitcase size="50" data-testid="car-manage-load"></FaSuitcase></Link></Col>
             </Row>            
             
             

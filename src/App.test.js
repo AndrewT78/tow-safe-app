@@ -1,4 +1,4 @@
-import { render as rtlRender, screen } from '@testing-library/react';
+import { render as rtlRender, screen, fireEvent, act } from '@testing-library/react';
 import App from './App';
 import { Provider } from "react-redux";
 import rootReducer from "./redux/reducers";
@@ -40,4 +40,15 @@ it('shows the status panels when the car and van have been configured', () => {
   expect(vanTareDisplay).toBeInTheDocument();
   const combinedTotalDisplay = screen.getByText(/3150/);
   expect(combinedTotalDisplay).toBeInTheDocument();
+});
+
+it('navigates to the car load page when the car load button is clicked', () => {
+  renderApp(<App />, {initialState : {configs : { vanConfig: { tare: 2150, atm: 3300 }, carConfig: { tare: 1000, gvm: 2200 }}}});    
+const loadButton = screen.getByTestId('car-manage-load');
+  act(() => {
+    fireEvent.click(loadButton); 
+  });
+
+  const manageLoadScreen = screen.getByPlaceholderText("Item Name");
+  expect(manageLoadScreen).toBeInTheDocument();
 });

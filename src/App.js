@@ -11,7 +11,15 @@ import { getVanConfig } from "./redux/selectors";
 import { getCarConfig } from "./redux/selectors";
 import CarStatus from './indicatorcomponents/CarStatus';
 import VanStatus from './indicatorcomponents/VanStatus';
+import ManageCarLoad from './configcomponents/ManageCarLoad';
 import CombinedStatus from './indicatorcomponents/CombinedStatus';
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 
 
@@ -31,13 +39,20 @@ const App = ({ vanConfig, carConfig }) => {
   
   return (
    
-    <div>
-    <Container>               
-          {vanConfig && carConfig? getStatusPane() : 
-            vanConfig ? getCarConfigPane() : getVanConfigPane()
-          }
+    <Router>
+    <Container>                         
+          <Switch>
+            <Route path="/carload">
+              <ManageCarLoad></ManageCarLoad>
+            </Route>
+            <Route path="/">
+              {vanConfig && carConfig? getStatusPane() : 
+               vanConfig ? getCarConfigPane() : getVanConfigPane()          }
+            </Route>
+          </Switch>
     </Container>
-    </div>
+    </Router>
+    
   );
 }
 

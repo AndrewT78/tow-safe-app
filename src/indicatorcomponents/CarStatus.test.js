@@ -1,8 +1,11 @@
-import { render as rtlRender, screen } from '@testing-library/react';
+import { render as rtlRender, screen, fireEvent, waitFor } from '@testing-library/react';
 import CarStatus from './CarStatus';
 import { Provider } from "react-redux";
 import rootReducer from "./../redux/reducers";
 import { createStore } from "redux";
+import { MemoryRouter } from 'react-router-dom';
+import { createMemoryHistory } from "history";
+import { act } from 'react-dom/test-utils';
 
 function renderComponent(
   ui,
@@ -13,7 +16,7 @@ function renderComponent(
   } = {}
 ) {
   function Wrapper({ children }) {
-    return <Provider store={store}>{children}</Provider>
+    return <Provider store={store}><MemoryRouter>{children}</MemoryRouter></Provider>
   }
   return rtlRender(ui, { wrapper: Wrapper, ...renderOptions })
 }
@@ -46,6 +49,19 @@ it("renders red when weight is above the gvm", () => {
     renderComponent(<CarStatus />, {initialState : {configs : { carConfig: { gvm: 2000, tare: 2001, gcm: 3000 }}}});
     const alertBox = screen.getByTestId("car-status-box");
     expect(alertBox).toHaveClass("alert-danger");
+});
+
+xit('navigates to the car load page when the load icon is clicked', async () => {
+  const history = createMemoryHistory();
+  history.push = jest.fn();
+
+  renderComponent(<CarStatus />, {initialState : {configs : { carConfig: { gvm: 2000, tare: 2001, gcm: 3000 }}}});
+  const loadButton = screen.getByTestId('car-manage-load');
+  act(() => {
+    fireEvent.click(loadButton); 
+  });
+  await waitFor(() => expect(history.push).toHaveBeenCalled());
+
 });
 
 
