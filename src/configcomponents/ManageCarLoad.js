@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {Form, Button, Col} from "react-bootstrap";
 
 import { connect } from "react-redux";
-import { updateVanConfig } from "../redux/actions";
+import { addCarLoad } from "../redux/actions";
 
 
 class ManageCarLoad extends React.Component {
@@ -30,8 +30,8 @@ class ManageCarLoad extends React.Component {
       }
   
       handleSubmit = () => {
-          //this.props.updateCarConfig(this.state);
-          //this.setState({ gvm: null, gcm: null, tare: null});
+          this.props.addCarLoad(this.state);
+          this.setState({ item: null, weight: null, quantity: 1});
         };
 
   render() {
@@ -59,5 +59,5 @@ class ManageCarLoad extends React.Component {
 
 export default connect(
     null,
-    { updateVanConfig }
+    { addCarLoad }
   )(ManageCarLoad);

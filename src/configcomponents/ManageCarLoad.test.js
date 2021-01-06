@@ -54,5 +54,22 @@ it('disables the add button until all fields are valid', () => {
     expect(addButton).toBeEnabled(); 
 });
 
+it('adds a load item when the add button is pressed', () => {    
+    renderApp(<ManageCarLoad/>);  
+    const itemInput = screen.getByPlaceholderText("Item Name");
+    fireEvent.change(itemInput, { target: { value: 'Engel' } });
+
+    const weightInput = screen.getByPlaceholderText("kg");
+    fireEvent.change(weightInput, { target: { value: '25' } }); 
+
+    const quantityInput = screen.getByPlaceholderText("Quantity");
+    fireEvent.change(quantityInput, { target: { value: '2' } }); 
+
+    const addButton = screen.getByText('Add');
+    fireEvent.click(addButton);    
+
+    expect(myStore.getState().loads.carLoad).toEqual([{ item: 'Engel', quantity: 2, weight: 25}]);
+});
+
 
 
