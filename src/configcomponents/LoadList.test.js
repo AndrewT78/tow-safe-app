@@ -12,10 +12,10 @@ describe('Load List', () => {
 
   it('renders a list of the load items', () => {
     render(<LoadList load={load}/>);
-    screen.getByText('Engel');   
-    screen.getByText('2');
-    screen.getByText('25');
-    screen.getByText('Case');   
+    screen.getByText(/Engel/);   
+    screen.getByText(/2/);
+    screen.getByText(/25/);
+    screen.getByText(/Case/);   
 
   });
 });

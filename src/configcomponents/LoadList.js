@@ -8,13 +8,21 @@ class LoadList extends React.Component {
       }
 
 
-    render() {
-      return (
+      getLoadItemRows () {
+        return (
           this.props.load.map((prop, key) => {
             return <LoadItem key={key} item={prop}></LoadItem>;
           })
       );
-    }
+      };
+
+
+    render() {    
+      return (<div style={{marginTop:'20px'}}> 
+        {this.getLoadItemRows()}
+      </div>);
+      
+    }    
 }
 
 export default LoadList;

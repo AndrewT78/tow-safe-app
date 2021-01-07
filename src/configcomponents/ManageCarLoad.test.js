@@ -44,10 +44,10 @@ it('renders a form for Item, weight and quantity', () => {
 it('renders a list of the load items', () => {
     renderApp(<ManageCarLoad />, {initialState : {loads : { carLoad: [{ item: "Engel", quantity: 1, weight: 20},
     { item: "Cases", quantity: 4, weight: 18} ]}}});  
-    screen.getByText("Engel");
-    screen.getByText("1");
-    screen.getByText("20");
-    screen.getByText("Cases");
+    screen.getByText(/Engel/);
+    screen.getAllByText(/1/);
+    screen.getByText(/20/);
+    screen.getByText(/Cases/);
 });
 
 it('adds a load item when the add button is pressed', () => {    

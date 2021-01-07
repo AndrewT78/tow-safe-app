@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import {Form, Button, Col} from "react-bootstrap";
+import {Row} from "react-bootstrap";
 
 import { connect } from "react-redux";
 import { addCarLoad } from "../redux/actions";
@@ -21,9 +21,9 @@ class ManageCarLoad extends React.Component {
 
   render() {
       return (
-          <div>
-        <AddLoad handleLoad={this.handleAddNewLoad}></AddLoad>      
-        <LoadList load={this.props.carLoad}></LoadList>  
+          <div>            
+            <AddLoad handleLoad={this.handleAddNewLoad}></AddLoad>
+            <LoadList load={this.props.carLoad}></LoadList>
         </div>
       );
   }

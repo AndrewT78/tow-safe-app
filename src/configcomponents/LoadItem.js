@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Alert, Row, Col } from "react-bootstrap";
 
 class LoadItem extends React.Component {
     constructor(props) {
@@ -8,11 +9,14 @@ class LoadItem extends React.Component {
 
       render() {
           return (
-              <div>
-          <div>{this.props.item.item}</div>
-          <div>{this.props.item.quantity}</div>
-          <div>{this.props.item.weight}</div>
-          </div>
+              <Alert variant="secondary">
+                <Row>
+                  <Col>{this.props.item.item}</Col>                                    
+                </Row>
+                <Row>
+                  <Col xs={'auto'}>{this.props.item.quantity * this.props.item.weight} kgs ({this.props.item.quantity}x{this.props.item.weight} kg)</Col>
+                </Row>
+              </Alert>          
           );
       }
 }

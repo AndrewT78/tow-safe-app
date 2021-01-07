@@ -9,8 +9,8 @@ describe('Load Item', () => {
 
   it('renders the load item', () => {
     render(<LoadItem item={load}/>);
-    screen.getByText('Engel');
-    screen.getByText('2');
-    screen.getByText('25');    
+    screen.getByText(/Engel/);
+    screen.getByText(/2/);
+    screen.getByText(/25/);        
   });
 });
