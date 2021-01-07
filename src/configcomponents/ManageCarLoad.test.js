@@ -33,27 +33,6 @@ it('renders a form for Item, weight and quantity', () => {
   expect(quantityInput).toBeInTheDocument();
 });
 
-it('defaults the quantity to 1', () => {
-    renderApp(<ManageCarLoad />);         
-    const quantityInput = screen.getByPlaceholderText("Quantity");
-    expect(quantityInput.value).toBe("1");
-  });
-
-it('disables the add button until all fields are valid', () => {    
-    renderApp(<ManageCarLoad/>);  
-
-    const addButton = screen.getByText('Add');
-    expect(addButton).toBeDisabled();
- 
-    const itemInput = screen.getByPlaceholderText("Item Name");
-    fireEvent.change(itemInput, { target: { value: 'Engel' } });
-    expect(addButton).toBeDisabled();
-
-    const weightInput = screen.getByPlaceholderText("kg");
-    fireEvent.change(weightInput, { target: { value: '25' } });  
-    expect(addButton).toBeEnabled(); 
-});
-
 it('adds a load item when the add button is pressed', () => {    
     renderApp(<ManageCarLoad/>);  
     const itemInput = screen.getByPlaceholderText("Item Name");
