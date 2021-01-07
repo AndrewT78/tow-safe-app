@@ -3,6 +3,7 @@ import {getCarConfig} from "./selectors";
 import {getCarStatus} from "./selectors";
 import {getVanStatus} from "./selectors";
 import {getCombinedStatus} from "./selectors";
+import {getCarLoad} from "./selectors";
 import {status} from "./statusConstants";
 
 describe('Van selectors', () => {
@@ -72,6 +73,12 @@ describe('Car selectors', () => {
               gvm: 2000,
               gcm: 3000
           }
+      },
+      loads: {
+        carLoad: [
+          { item: "Engel", quantity: 1, weight: 20},
+          { item: "Cases", quantity: 4, weight: 18},
+        ]
       }
   };
 
@@ -119,6 +126,14 @@ it('should return a status of WARNING when the weight is above the warning thres
 it('should return a status of OVER when the weight is above the GVM', () => {
   expect(getCarStatus(storeError).status).toEqual(status.OVER);
 });
+
+it('should return load items for a car', () => {
+  expect(getCarLoad(store)).toEqual([
+    { item: "Engel", quantity: 1, weight: 20},
+    { item: "Cases", quantity: 4, weight: 18},
+  ]);
+});
+
 
 });
 
@@ -297,5 +312,7 @@ describe('Combined selectors', () => {
 
   it('should return over when the combined weight is over the gcm', () => {
     expect(getCombinedStatus(overGcmStore).combinedStatus).toEqual(status.OVER);
-  });    
+  });   
+  
+  
 });

@@ -2,7 +2,6 @@ import { render as rtlRender, screen, fireEvent } from '@testing-library/react';
 import { Provider } from "react-redux";
 import rootReducer from "./../redux/reducers";
 import { createStore } from "redux";
-import VanConfig from "./VanConfig";
 import ManageCarLoad from './ManageCarLoad';
 
 const myStore = createStore(rootReducer, {});
@@ -11,7 +10,7 @@ function renderApp(
   ui,
   {
     initialState,
-    store = myStore,
+    store = createStore(rootReducer, initialState),
     ...renderOptions
   } = {}
 ) {
@@ -21,20 +20,38 @@ function renderApp(
   return rtlRender(ui, { wrapper: Wrapper, ...renderOptions })
 }
 
+function renderAppWithMyStore(    
+    ui,
+    {
+      initialState,
+      store = myStore,
+      ...renderOptions
+    } = {}
+  ) {
+    function Wrapper({ children }) {
+      return <Provider store={store}>{children}</Provider>
+    }
+    return rtlRender(ui, { wrapper: Wrapper, ...renderOptions })
+  }
+
 it('renders a form for Item, weight and quantity', () => {
   renderApp(<ManageCarLoad />);  
-  const itemInput = screen.getByPlaceholderText("Item Name");
-  expect(itemInput).toBeInTheDocument();
-  
-  const weightInput = screen.getByPlaceholderText("kg");
-  expect(weightInput).toBeInTheDocument();
-  
-  const quantityInput = screen.getByPlaceholderText("Quantity");
-  expect(quantityInput).toBeInTheDocument();
+  screen.getByPlaceholderText("Item Name");
+  screen.getByPlaceholderText("kg");
+  screen.getByPlaceholderText("Quantity");  
+});
+
+it('renders a list of the load items', () => {
+    renderApp(<ManageCarLoad />, {initialState : {loads : { carLoad: [{ item: "Engel", quantity: 1, weight: 20},
+    { item: "Cases", quantity: 4, weight: 18} ]}}});  
+    screen.getByText("Engel");
+    screen.getByText("1");
+    screen.getByText("20");
+    screen.getByText("Cases");
 });
 
 it('adds a load item when the add button is pressed', () => {    
-    renderApp(<ManageCarLoad/>);  
+    renderAppWithMyStore(<ManageCarLoad/>);  
     const itemInput = screen.getByPlaceholderText("Item Name");
     fireEvent.change(itemInput, { target: { value: 'Engel' } });
 

@@ -9,6 +9,10 @@ export const getCarConfig = store => {
   return store.configs.carConfig;
 }
 
+export const getCarLoad = store => {
+  return store.loads.carLoad;
+}
+
 export const getCarStatus = store => {
   var carStatus = status.OK;
   var totalWeight = store.configs.carConfig.tare;
