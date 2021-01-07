@@ -4,8 +4,12 @@ import { getVanStatus } from "./../redux/selectors";
 
 import {Alert, Container, Row, Col} from "react-bootstrap";
 
-import { FaCaravan } from "react-icons/fa";
+import { FaCaravan, FaSuitcase } from "react-icons/fa";
 import {status} from "./../redux/statusConstants";
+
+import {    
+    Link
+  } from "react-router-dom";
 
 
 const VanStatus = ({ vanConfig, vanStatus }) => {
@@ -14,7 +18,7 @@ const VanStatus = ({ vanConfig, vanStatus }) => {
       <Container>   
         <Alert variant={getStatusVariant(vanStatus)} data-testid="van-status-box">
             <Row>
-                <Col md="auto"><FaCaravan size="50"></FaCaravan></Col>
+                <Col xs="auto"><FaCaravan size="50"></FaCaravan></Col>
                 <Col>
                     <Row>
                         <Col>
@@ -25,6 +29,7 @@ const VanStatus = ({ vanConfig, vanStatus }) => {
                         <Col>{`${vanStatus.remainingPayload} - Remaining Payload`}</Col>
                     </Row>
                 </Col>
+                <Col xs={"auto"}><Link to="/vanload" data-testid="van-load-link" style={{ color: "inherit"}}><FaSuitcase size="50" data-testid="van-manage-load"></FaSuitcase></Link></Col>
             </Row>            
             
             

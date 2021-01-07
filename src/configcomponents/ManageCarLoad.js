@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
-import {Row} from "react-bootstrap";
+import {Button} from "react-bootstrap";
+import {    
+  Link
+} from "react-router-dom";
 
 import { connect } from "react-redux";
 import { addCarLoad } from "../redux/actions";
@@ -21,7 +24,8 @@ class ManageCarLoad extends React.Component {
 
   render() {
       return (
-          <div>            
+          <div>          
+            <div><Link to="/" data-testid="car-load-back" style={{ color: "inherit"}}><Button>Back</Button></Link></div>  
             <AddLoad handleLoad={this.handleAddNewLoad}></AddLoad>
             <LoadList load={this.props.carLoad}></LoadList>
         </div>

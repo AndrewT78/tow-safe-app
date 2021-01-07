@@ -3,8 +3,12 @@ import { Provider } from "react-redux";
 import rootReducer from "./../redux/reducers";
 import { createStore } from "redux";
 import ManageCarLoad from './ManageCarLoad';
+import { Router } from 'react-router-dom';
+import { createMemoryHistory } from "history";
 
 const myStore = createStore(rootReducer, {});
+const history = createMemoryHistory();
+const historySpy = jest.spyOn(history, "push");
 
 function renderApp(    
   ui,
@@ -15,7 +19,7 @@ function renderApp(
   } = {}
 ) {
   function Wrapper({ children }) {
-    return <Provider store={store}>{children}</Provider>
+    return <Provider store={store}><Router history={history}>{children}</Router></Provider>
   }
   return rtlRender(ui, { wrapper: Wrapper, ...renderOptions })
 }
@@ -29,7 +33,7 @@ function renderAppWithMyStore(
     } = {}
   ) {
     function Wrapper({ children }) {
-      return <Provider store={store}>{children}</Provider>
+      return <Provider store={store}><Router history={history}>{children}</Router></Provider>
     }
     return rtlRender(ui, { wrapper: Wrapper, ...renderOptions })
   }
@@ -65,6 +69,13 @@ it('adds a load item when the add button is pressed', () => {
     fireEvent.click(addButton);    
 
     expect(myStore.getState().loads.carLoad).toEqual([{ item: 'Engel', quantity: 2, weight: 25}]);
+});
+
+it('navigates back to the main page when back is clicked', () => {
+  renderApp(<ManageCarLoad />);    
+  const backButton = screen.getByText('Back');
+  fireEvent.click(backButton);  
+  expect(historySpy).toHaveBeenCalledWith("/");
 });
 
 

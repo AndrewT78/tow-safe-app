@@ -18,7 +18,7 @@ const CarStatus = ({ carConfig, carStatus }) => {
       <Container>   
         <Alert variant={getStatusVariant(carStatus)} data-testid="car-status-box">
             <Row>
-                <Col md="auto"><FaTruckPickup size="50"></FaTruckPickup></Col>
+                <Col xs={"auto"}><FaTruckPickup size="50"></FaTruckPickup></Col>
                 <Col>
                     <Row>
                         <Col>
@@ -29,7 +29,7 @@ const CarStatus = ({ carConfig, carStatus }) => {
                         <Col>{`${carStatus.remainingPayload} - Remaining Payload`}</Col>
                     </Row>
                 </Col>
-                <Col md="auto"><Link to="/carload" data-testid="car-load-link"><FaSuitcase size="50" data-testid="car-manage-load"></FaSuitcase></Link></Col>
+                <Col xs={"auto"}><Link to="/carload" data-testid="car-load-link" style={{ color: "inherit"}}><FaSuitcase size="50" data-testid="car-manage-load"></FaSuitcase></Link></Col>
             </Row>            
             
             

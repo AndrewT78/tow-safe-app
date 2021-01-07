@@ -3,6 +3,8 @@ import VanStatus from './VanStatus';
 import { Provider } from "react-redux";
 import rootReducer from "../redux/reducers";
 import { createStore } from "redux";
+import { MemoryRouter } from 'react-router-dom';
+import { createMemoryHistory } from "history";
 
 function renderComponent(
   ui,
@@ -13,7 +15,7 @@ function renderComponent(
   } = {}
 ) {
   function Wrapper({ children }) {
-    return <Provider store={store}>{children}</Provider>
+    return <Provider store={store}><MemoryRouter>{children}</MemoryRouter></Provider>
   }
   return rtlRender(ui, { wrapper: Wrapper, ...renderOptions })
 }

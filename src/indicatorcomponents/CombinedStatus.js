@@ -15,7 +15,7 @@ const CombinedStatus = ({ carConfig, combinedStatus, vanConfig }) => {
       <Container>   
         <Alert variant={getStatusVariant(combinedStatus)} data-testid="combined-status-box">
             <Row>
-                <Col md="auto"><FaCaravan size="25"></FaCaravan><FaTruckPickup size="25"></FaTruckPickup></Col>
+                <Col xs="auto"><FaCaravan size="25"></FaCaravan><FaTruckPickup size="25"></FaTruckPickup></Col>
                 <Col>
                     <Row>
                         <Col>
