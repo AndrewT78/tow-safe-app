@@ -85,21 +85,32 @@ describe('Car selectors', () => {
   const storeWarning = {
     configs: {
       carConfig: {
-          tare: 900,
+          tare: 800,
           gvm: 1000,
           gcm: 3000
       }
-  }
+    },
+    loads: {
+      carLoad: [
+        { item: 'Heavy Item', weight: 100, quantity: 1}
+      ]
+    }
   }
 
   const storeError = {
     configs: {
       carConfig: {
-          tare: 1001,
+          tare: 1000,
           gvm: 1000,
           gcm: 3000
       }
-  }
+    },
+    loads: {
+      carLoad: [
+        { item: 'light Item', weight: 1, quantity: 1}
+      ]
+    } 
+
   }
 
 
@@ -107,12 +118,12 @@ it('should return the car config from the store', () => {
   expect(getCarConfig(store)).toEqual({ tare: 1500, gvm: 2000, gcm: 3000});
 });
 
-it('should return the totalWeight of the car', () => {
-  expect(getCarStatus(store).totalWeight).toEqual(1500);
+it('should combine the tare and load to get the total car weight', () => {
+  expect(getCarStatus(store).totalWeight).toEqual(1592);
 });
 
 it('should return the remaining payload of the car', () => {
-  expect(getCarStatus(store).remainingPayload).toEqual(500);
+  expect(getCarStatus(store).remainingPayload).toEqual(408);
 });
 
 it('should return a status of OK when the weight is less than the warning threshold', () => {
@@ -151,7 +162,10 @@ describe('Combined selectors', () => {
           atm: 3000,
           tbm: 180
         }
-    }    
+    },
+    loads: {
+      carLoad: []
+    }     
   };
 
   const atGvmThresholdStore = {
@@ -166,7 +180,10 @@ describe('Combined selectors', () => {
           atm: 5000,
           tbm: 100
         }
-    }    
+    },
+    loads: {
+      carLoad: []
+    }     
   };
 
   const aboveGvmThresholdStore = {
@@ -181,7 +198,10 @@ describe('Combined selectors', () => {
           atm: 5000,
           tbm: 100
         }
-    }    
+    },
+    loads: {
+      carLoad: []
+    }     
   };
 
   const atGvmStore = {
@@ -196,7 +216,10 @@ describe('Combined selectors', () => {
           atm: 5000,
           tbm: 300
         }
-    }    
+    },
+    loads: {
+      carLoad: []
+    }     
   };
 
   const overGvmStore = {
@@ -211,7 +234,10 @@ describe('Combined selectors', () => {
           atm: 5000,
           tbm: 300
         }
-    }    
+    },
+    loads: {
+      carLoad: []
+    }     
   };
 
   const atGcmThresholdStore = {
@@ -226,7 +252,10 @@ describe('Combined selectors', () => {
           atm: 7000,
           tbm: 300
         }
-    }    
+    },
+    loads: {
+      carLoad: []
+    }     
   };
 
   const overGcmThresholdStore = {
@@ -241,7 +270,10 @@ describe('Combined selectors', () => {
       atm: 7000,
       tbm: 300
     }
-    }    
+    },
+    loads: {
+      carLoad: []
+    }     
   };
 
   const atGcmStore = {
@@ -256,7 +288,10 @@ describe('Combined selectors', () => {
       atm: 7000,
       tbm: 300
     }
-    }    
+    },
+    loads: {
+      carLoad: []
+    }     
   };
 
   const overGcmStore = {
@@ -271,7 +306,10 @@ describe('Combined selectors', () => {
       atm: 7000,
       tbm: 300
     }
-    }    
+    },
+    loads: {
+      carLoad: []
+    }     
   };
 
   it('should add the tbm to the car gvm', () => {
