@@ -68,7 +68,7 @@ it('adds a load item when the add button is pressed', () => {
     const addButton = screen.getByText('Add');
     fireEvent.click(addButton);    
 
-    expect(myStore.getState().loads.vanLoad).toEqual([{ item: 'Sheets', quantity: 8, weight: 2}]);
+    expect(myStore.getState().loads.vanLoad).toEqual(expect.arrayContaining([expect.objectContaining({ item: 'Sheets', quantity: 8, weight: 2})]));
 });
 
 it('navigates back to the main page when back is clicked', () => {

@@ -43,4 +43,5 @@ describe('Van Config Actions', () => {
       }
       expect(actions.addVanLoad(load)).toEqual(expectedAction)
     })
+    
   })

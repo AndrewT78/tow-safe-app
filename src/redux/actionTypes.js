@@ -2,3 +2,5 @@ export const UPDATE_VAN_CONFIG = "UPDATE_VAN_CONFIG";
 export const UPDATE_CAR_CONFIG = "UPDATE_CAR_CONFIG";
 export const ADD_CAR_LOAD = "ADD_CAR_LOAD";
 export const ADD_VAN_LOAD = "ADD_VAN_LOAD";
+export const DELETE_CAR_LOAD = "DELETE_CAR_LOAD";
+export const DELETE_VAN_LOAD = "DELETE_VAN_LOAD";
