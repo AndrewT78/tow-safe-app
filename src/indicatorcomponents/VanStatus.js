@@ -29,7 +29,7 @@ const VanStatus = ({ vanConfig, vanStatus }) => {
                         <Col>{`${vanStatus.remainingPayload} - Remaining Payload`}</Col>
                     </Row>
                 </Col>
-                <Col xs={"auto"}><Link to="/vanload" data-testid="van-load-link" style={{ color: "inherit"}}><FaSuitcase size="50" data-testid="van-manage-load"></FaSuitcase></Link></Col>
+                <Col xs={"auto"}><Link to="/vanload" data-testid="van-load-link" style={{ color: "inherit"}}><FaSuitcase size="25" data-testid="van-manage-load"></FaSuitcase></Link></Col>
             </Row>            
             
             

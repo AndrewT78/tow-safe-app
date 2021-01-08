@@ -25,7 +25,7 @@ class ManageCarLoad extends React.Component {
   render() {
       return (
           <div>          
-            <div><Link to="/" data-testid="car-load-back" style={{ color: "inherit"}}><Button>Back</Button></Link></div>  
+            <div style={{marginBottom: '20px'}}><Link to="/" data-testid="car-load-back" style={{ color: "inherit"}}><Button>Back</Button></Link></div>  
             <AddLoad handleLoad={this.handleAddNewLoad}></AddLoad>
             <LoadList load={this.props.carLoad}></LoadList>
         </div>

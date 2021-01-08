@@ -29,7 +29,7 @@ const CarStatus = ({ carConfig, carStatus }) => {
                         <Col>{`${carStatus.remainingPayload} - Remaining Payload`}</Col>
                     </Row>
                 </Col>
-                <Col xs={"auto"}><Link to="/carload" data-testid="car-load-link" style={{ color: "inherit"}}><FaSuitcase size="50" data-testid="car-manage-load"></FaSuitcase></Link></Col>
+                <Col xs={"auto"}><Link to="/carload" data-testid="car-load-link" style={{ color: "inherit"}}><FaSuitcase size="25" data-testid="car-manage-load"></FaSuitcase></Link></Col>
             </Row>            
             
             
