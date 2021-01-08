@@ -10,7 +10,6 @@ describe('loads reducer', () => {
       }
     )
   })
-
  
   it('should add a load item to the car', () => {
     expect(
@@ -43,6 +42,15 @@ describe('loads reducer', () => {
 
   });
 
+  it('should delete a car load item', () => {
+     expect(
+      reducer({carLoad: [{item: "Engel", quantity: 1, weight: 25, id: 'Engel1'}, {item: "Beer", quantity: 24, weight: 1, id:"Beer1"}]}, {
+        type: types.DELETE_CAR_LOAD,
+        id: "Engel1"
+      })
+    ).toEqual({carLoad: [{item: 'Beer', quantity: 24, weight: 1, id: "Beer1"}]});
+  })
+
   it('should add a load item to the van', () => {
     expect(
       reducer({vanLoad: []}, {
@@ -72,4 +80,13 @@ describe('loads reducer', () => {
     )
     )
   });
+
+  it('should delete a van load item', () => {
+    expect(
+     reducer({vanLoad: [{item: "Sheets", quantity: 8, weight: 1, id: 'Sheets1'}, {item: "Food", quantity: 40, weight: 1, id:"Food1"}]}, {
+       type: types.DELETE_VAN_LOAD,
+       id: "Food1"
+     })
+   ).toEqual({vanLoad: [{item: 'Sheets', quantity: 8, weight: 1, id: "Sheets1"}]});
+ })
 });

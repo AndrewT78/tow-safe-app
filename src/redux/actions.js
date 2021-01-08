@@ -1,7 +1,9 @@
 import { UPDATE_VAN_CONFIG } from "./actionTypes";
 import { UPDATE_CAR_CONFIG } from "./actionTypes";
 import { ADD_CAR_LOAD } from "./actionTypes";
+import { DELETE_CAR_LOAD } from "./actionTypes";
 import { ADD_VAN_LOAD } from "./actionTypes";
+import { DELETE_VAN_LOAD } from "./actionTypes";
 
 
 export const updateVanConfig = config => ({
@@ -19,7 +21,17 @@ export const addCarLoad = load => ({
   load
 });
 
+export const deleteCarLoad = id => ({
+  type: DELETE_CAR_LOAD,  
+  id
+});
+
 export const addVanLoad = load => ({
   type: ADD_VAN_LOAD,  
   load
+});
+
+export const deleteVanLoad = id => ({
+  type: DELETE_VAN_LOAD,  
+  id
 });

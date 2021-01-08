@@ -32,6 +32,15 @@ describe('Van Config Actions', () => {
       }
       expect(actions.addCarLoad(load)).toEqual(expectedAction)
     })
+
+    it('should create an action to delete a car load item', () => {
+      const id = 'ID1234';
+      const expectedAction = {
+        type: types.DELETE_CAR_LOAD,
+        id
+      }
+      expect(actions.deleteCarLoad(id)).toEqual(expectedAction)
+    })
   })
 
   describe('Van Load Actions', () => {
@@ -42,6 +51,15 @@ describe('Van Config Actions', () => {
         load
       }
       expect(actions.addVanLoad(load)).toEqual(expectedAction)
+    })
+
+    it('should create an action to delete a van load item', () => {
+      const id = 'ID1234';
+      const expectedAction = {
+        type: types.DELETE_VAN_LOAD,
+        id
+      }
+      expect(actions.deleteVanLoad(id)).toEqual(expectedAction)
     })
     
   })
