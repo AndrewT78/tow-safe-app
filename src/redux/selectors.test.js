@@ -15,35 +15,53 @@ describe('Van selectors', () => {
                 atm: 3300,
                 tbm: 180
             }
+        },
+        loads: {
+          vanLoad: [
+            { item: "Food", quantity: 5, weight: 20},
+            { item: "Cases", quantity: 4, weight: 10},
+          ]
         }
     };
 
     const storeWarning = {
       configs: {
           vanConfig: {
-              tare: 1800,
+              tare: 1660,
               atm: 2000,
               tbm: 180
           }
+      },
+      loads: {
+        vanLoad: [
+          { item: "Food", quantity: 5, weight: 20},
+          { item: "Cases", quantity: 4, weight: 10},
+        ]
       }
   };
 
   const storeError = {
     configs: {
         vanConfig: {
-            tare: 2001,
+            tare: 1861,
             atm: 2000,
             tbm: 180
         }
+    },
+    loads: {
+      vanLoad: [
+        { item: "Food", quantity: 5, weight: 20},
+        { item: "Cases", quantity: 4, weight: 10},
+      ]
     }
 };
 
-    it('should return the totalWeight of the van', () => {
-      expect(getVanStatus(store).totalWeight).toEqual(2150);
+    it('should return the totalWeight of the van including the tare and load', () => {
+      expect(getVanStatus(store).totalWeight).toEqual(2290);
     });
     
     it('should return the remaining payload of the van', () => {
-      expect(getVanStatus(store).remainingPayload).toEqual(1150);
+      expect(getVanStatus(store).remainingPayload).toEqual(1010);
     });
     
     it('should return a status of OK when the weight is less than the warning threshold', () => {
@@ -164,7 +182,8 @@ describe('Combined selectors', () => {
         }
     },
     loads: {
-      carLoad: []
+      carLoad: [],
+      vanLoad: []
     }     
   };
 
@@ -182,7 +201,8 @@ describe('Combined selectors', () => {
         }
     },
     loads: {
-      carLoad: []
+      carLoad: [],
+      vanLoad: []
     }     
   };
 
@@ -200,7 +220,8 @@ describe('Combined selectors', () => {
         }
     },
     loads: {
-      carLoad: []
+      carLoad: [],
+      vanLoad: []
     }     
   };
 
@@ -218,7 +239,8 @@ describe('Combined selectors', () => {
         }
     },
     loads: {
-      carLoad: []
+      carLoad: [],
+      vanLoad: []
     }     
   };
 
@@ -236,7 +258,8 @@ describe('Combined selectors', () => {
         }
     },
     loads: {
-      carLoad: []
+      carLoad: [],
+      vanLoad: []
     }     
   };
 
@@ -254,7 +277,8 @@ describe('Combined selectors', () => {
         }
     },
     loads: {
-      carLoad: []
+      carLoad: [],
+      vanLoad: []
     }     
   };
 
@@ -272,7 +296,8 @@ describe('Combined selectors', () => {
     }
     },
     loads: {
-      carLoad: []
+      carLoad: [],
+      vanLoad: []
     }     
   };
 
@@ -290,7 +315,8 @@ describe('Combined selectors', () => {
     }
     },
     loads: {
-      carLoad: []
+      carLoad: [],
+      vanLoad: []
     }     
   };
 
@@ -308,7 +334,8 @@ describe('Combined selectors', () => {
     }
     },
     loads: {
-      carLoad: []
+      carLoad: [],
+      vanLoad: []
     }     
   };
 

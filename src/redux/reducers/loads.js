@@ -1,7 +1,8 @@
 import { ADD_CAR_LOAD } from "../actionTypes";
 
 const initialState = {
-    carLoad: []
+    carLoad: [],
+    vanLoad: []
 };
 
 export default function(state = initialState, action) {

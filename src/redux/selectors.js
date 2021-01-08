@@ -13,11 +13,11 @@ export const getCarLoad = store => {
   return store.loads.carLoad;
 }
 
-const getCarLoadWeight = store => {
+const getLoadWeight = load => {
   var weight = 0;
   
-  store.loads.carLoad.forEach(load => {
-    weight += load.weight * load.quantity;
+  load.forEach(l => {
+    weight += l.weight * l.quantity;
   });
 
   return weight;
@@ -25,7 +25,7 @@ const getCarLoadWeight = store => {
 
 export const getCarStatus = store => {
   var carStatus = status.OK;
-  var totalWeight = store.configs.carConfig.tare + getCarLoadWeight(store);
+  var totalWeight = store.configs.carConfig.tare + getLoadWeight(store.loads.carLoad);
   var remainingPayload = store.configs.carConfig.gvm - totalWeight;
 
   if (totalWeight > store.configs.carConfig.gvm) {
@@ -39,7 +39,7 @@ export const getCarStatus = store => {
 
 export const getVanStatus = store => {
   var vanStatus = status.OK;
-  var totalWeight = store.configs.vanConfig.tare;
+  var totalWeight = store.configs.vanConfig.tare + getLoadWeight(store.loads.vanLoad);
   var remainingPayload = store.configs.vanConfig.atm - totalWeight;
 
   if (totalWeight > store.configs.vanConfig.atm) {
