@@ -38,4 +38,32 @@ describe('loads reducer', () => {
     )
 
   });
+
+  it('should add a load item to the van', () => {
+    expect(
+      reducer({vanLoad: []}, {
+        type: types.ADD_VAN_LOAD,
+        load: { item: 'Sheets', quantity: 8, weight: 2 }
+      })
+    ).toEqual(
+      {
+        vanLoad: [{ item: 'Sheets', quantity: 8, weight: 2 }]
+      }
+    )
+
+  });
+
+  it('should prepend a second load to the van', () => {
+    expect(
+      reducer({vanLoad: [{item: "Sheets", quantity: 8, weight: 2}]}, {
+        type: types.ADD_VAN_LOAD,
+        load: { item: 'Books', quantity: 5, weight: 1 }
+      })
+    ).toEqual(
+      {
+        vanLoad: [{ item: 'Books', quantity: 5, weight: 1 }, {item: "Sheets", quantity: 8, weight: 2}]
+      }
+    )
+
+  });
 });

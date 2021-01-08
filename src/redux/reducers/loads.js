@@ -1,4 +1,5 @@
 import { ADD_CAR_LOAD } from "../actionTypes";
+import { ADD_VAN_LOAD } from "../actionTypes";
 
 const initialState = {
     carLoad: [],
@@ -14,6 +15,13 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 carLoad : [action.load].concat(state.carLoad)
+            };        
+        }        
+        case ADD_VAN_LOAD: {            
+            
+            return {
+                ...state,
+                vanLoad : [action.load].concat(state.vanLoad)
             };        
         }        
         default:

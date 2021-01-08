@@ -12,6 +12,7 @@ import { getCarConfig } from "./redux/selectors";
 import CarStatus from './indicatorcomponents/CarStatus';
 import VanStatus from './indicatorcomponents/VanStatus';
 import ManageCarLoad from './configcomponents/ManageCarLoad';
+import ManageVanLoad from './configcomponents/ManageVanLoad';
 import CombinedStatus from './indicatorcomponents/CombinedStatus';
 
 import {
@@ -44,6 +45,9 @@ const App = ({ vanConfig, carConfig }) => {
           <Switch>
             <Route path="/carload">
               <ManageCarLoad></ManageCarLoad>
+            </Route>
+            <Route path="/vanload">
+              <ManageVanLoad></ManageVanLoad>
             </Route>
             <Route path="/">
               {vanConfig && carConfig? getStatusPane() : 

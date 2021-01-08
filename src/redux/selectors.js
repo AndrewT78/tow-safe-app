@@ -13,6 +13,10 @@ export const getCarLoad = store => {
   return store.loads.carLoad;
 }
 
+export const getVanLoad = store => {
+  return store.loads.vanLoad;
+}
+
 const getLoadWeight = load => {
   var weight = 0;
   

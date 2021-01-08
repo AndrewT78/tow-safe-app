@@ -1,10 +1,15 @@
-import { render as rtlRender, screen } from '@testing-library/react';
+import { render as rtlRender, screen, act, fireEvent } from '@testing-library/react';
 import VanStatus from './VanStatus';
 import { Provider } from "react-redux";
 import rootReducer from "../redux/reducers";
 import { createStore } from "redux";
-import { MemoryRouter } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import { createMemoryHistory } from "history";
+
+
+const history = createMemoryHistory();
+const historySpy = jest.spyOn(history, "push");
+
 
 function renderComponent(
   ui,
@@ -15,7 +20,7 @@ function renderComponent(
   } = {}
 ) {
   function Wrapper({ children }) {
-    return <Provider store={store}><MemoryRouter>{children}</MemoryRouter></Provider>
+    return <Provider store={store}><Router history={history}>{children}</Router></Provider>
   }
   return rtlRender(ui, { wrapper: Wrapper, ...renderOptions })
 }
@@ -48,6 +53,16 @@ it("renders red when weight is above the atm", () => {
     renderComponent(<VanStatus />, {initialState : {configs : { vanConfig: { atm: 2000, tare: 2001, tbm: 180 }, vanLoad: []}}});
     const alertBox = screen.getByTestId("van-status-box");
     expect(alertBox).toHaveClass("alert-danger");
+});
+
+it('navigates to the van load page when the load icon is clicked', async () => {
+  renderComponent(<VanStatus />, {initialState : {configs : { vanConfig: { atm: 3000, tare: 2001, tbm: 180 }}}});
+  const loadButton = screen.getByTestId('van-manage-load');
+  act(() => {
+    fireEvent.click(loadButton); 
+  });
+  expect(historySpy).toHaveBeenCalledWith("/vanload");
+
 });
 
 

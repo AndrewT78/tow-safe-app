@@ -33,3 +33,14 @@ describe('Van Config Actions', () => {
       expect(actions.addCarLoad(load)).toEqual(expectedAction)
     })
   })
+
+  describe('Van Load Actions', () => {
+    it('should create an action to add a van load item', () => {
+      const load = { item: 'Sheets', quantity: 10, weight: 8}
+      const expectedAction = {
+        type: types.ADD_VAN_LOAD,
+        load
+      }
+      expect(actions.addVanLoad(load)).toEqual(expectedAction)
+    })
+  })
