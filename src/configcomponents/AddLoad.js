@@ -16,7 +16,7 @@ class AddLoad extends React.Component {
       };
 
       updateWeight = input => {      
-        this.setState({ weight: parseInt(input)});
+        this.setState({ weight: parseFloat(input)});
       };
   
       updateQuantity = input => {      
