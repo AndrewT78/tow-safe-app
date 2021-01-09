@@ -6,25 +6,18 @@ import ManageCarLoad from './ManageCarLoad';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from "history";
 
-const myStore = createStore(rootReducer, {});
+var myStore;
+const initialState = { loads : { carLoad: [{ item: "Engel", quantity: 1, weight: 20, id: "Engel1"},
+{ item: "Cases", quantity: 4, weight: 18, id: "Cases1"} ]}};
 const history = createMemoryHistory();
 const historySpy = jest.spyOn(history, "push");
 
-function renderApp(    
-  ui,
-  {
-    initialState,
-    store = createStore(rootReducer, initialState),
-    ...renderOptions
-  } = {}
-) {
-  function Wrapper({ children }) {
-    return <Provider store={store}><Router history={history}>{children}</Router></Provider>
-  }
-  return rtlRender(ui, { wrapper: Wrapper, ...renderOptions })
-}
+beforeEach(() => {
+  myStore = createStore(rootReducer, initialState);
+});
 
-function renderAppWithMyStore(    
+
+function renderApp(    
     ui,
     {
       initialState,
@@ -46,8 +39,7 @@ it('renders a form for Item, weight and quantity', () => {
 });
 
 it('renders a list of the load items', () => {
-    renderApp(<ManageCarLoad />, {initialState : {loads : { carLoad: [{ item: "Engel", quantity: 1, weight: 20},
-    { item: "Cases", quantity: 4, weight: 18} ]}}});  
+    renderApp(<ManageCarLoad/>);
     screen.getByText(/Engel/);
     screen.getAllByText(/1/);
     screen.getByText(/20/);
@@ -55,12 +47,12 @@ it('renders a list of the load items', () => {
 });
 
 it('adds a load item when the add button is pressed', () => {    
-    renderAppWithMyStore(<ManageCarLoad/>);  
+    renderApp(<ManageCarLoad/>);  
     const itemInput = screen.getByPlaceholderText("Item Name");
-    fireEvent.change(itemInput, { target: { value: 'Engel' } });
+    fireEvent.change(itemInput, { target: { value: 'New Item' } });
 
     const weightInput = screen.getByPlaceholderText("kg");
-    fireEvent.change(weightInput, { target: { value: '25' } }); 
+    fireEvent.change(weightInput, { target: { value: '100' } }); 
 
     const quantityInput = screen.getByPlaceholderText("Quantity");
     fireEvent.change(quantityInput, { target: { value: '2' } }); 
@@ -68,7 +60,17 @@ it('adds a load item when the add button is pressed', () => {
     const addButton = screen.getByText('Add');
     fireEvent.click(addButton);    
 
-    expect(myStore.getState().loads.carLoad).toEqual(expect.arrayContaining([expect.objectContaining({ item: 'Engel', quantity: 2, weight: 25})]));
+    expect(myStore.getState().loads.carLoad).toEqual(expect.arrayContaining([expect.objectContaining({ item: 'New Item', quantity: 2, weight: 100})]));
+});
+
+it('deletes a load item when the delete button is pressed', () => {    
+  renderApp(<ManageCarLoad/>);  
+  screen.getByText(/Engel/);
+  const deleteButton = screen.getByTestId('delete-load-Engel1');
+  fireEvent.click(deleteButton);    
+
+  expect(myStore.getState().loads.carLoad).toEqual([{ item: "Cases", quantity: 4, weight: 18, id: "Cases1"}]);
+  expect(screen.queryByText(/Engel/i)).toBeNull();
 });
 
 it('navigates back to the main page when back is clicked', () => {

@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 
 import { connect } from "react-redux";
-import { addCarLoad } from "../redux/actions";
+import { addCarLoad, deleteCarLoad } from "../redux/actions";
 import AddLoad from './AddLoad';
 import LoadList from "./LoadList";
 import { getCarLoad } from "../redux/selectors";
@@ -20,6 +20,10 @@ class ManageCarLoad extends React.Component {
   
       handleAddNewLoad = (load) => {
           this.props.addCarLoad(load);          
+        };       
+        
+        handleDeleteLoad = (id) => {          
+          this.props.deleteCarLoad(id);
         };
 
   render() {
@@ -27,7 +31,7 @@ class ManageCarLoad extends React.Component {
           <div>          
             <div style={{marginBottom: '20px'}}><Link to="/" data-testid="car-load-back" style={{ color: "inherit"}}><Button>Back</Button></Link></div>  
             <AddLoad handleLoad={this.handleAddNewLoad}></AddLoad>
-            <LoadList load={this.props.carLoad}></LoadList>
+            <LoadList load={this.props.carLoad} handleDelete={this.handleDeleteLoad}></LoadList>
         </div>
       );
   }
@@ -41,5 +45,5 @@ const mapStateToProps = state => {
 
 export default connect(
     mapStateToProps,
-    { addCarLoad }
+    { addCarLoad, deleteCarLoad }
   )(ManageCarLoad);

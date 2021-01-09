@@ -11,7 +11,7 @@ class LoadList extends React.Component {
       getLoadItemRows () {
         return (
           this.props.load.map((prop, key) => {
-            return <LoadItem key={key} item={prop}></LoadItem>;
+            return <LoadItem key={key} item={prop} handleDelete={this.props.handleDelete}></LoadItem>;
           })
       );
       };

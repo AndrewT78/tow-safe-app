@@ -17,12 +17,13 @@ function guid() {
 }
 
 function removeLoadItem(loadArray, id) {       
-            var indexToRemove = loadArray.findIndex(l => l.id === id);
-            if (indexToRemove >= 0) {
-                loadArray.splice(indexToRemove, 1);
-            }
+    
+    var index = loadArray.findIndex(l => l.id === id);
 
-            return loadArray;
+    return [
+        ...loadArray.slice(0, index),
+        ...loadArray.slice(index+1, loadArray.length)
+    ];    
 }
 
 export default function(state = initialState, action) {
