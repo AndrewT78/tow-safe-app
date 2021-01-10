@@ -53,8 +53,8 @@ it("renders the car green when the weight is below the gvm", () => {
   expect(alertBox).toHaveClass("alert-success");
 });
 
-it("renders the car orange when the weight is above the gmv threshold", () => {
-  testData.configs.carConfig.tare = 2701;
+it("renders the car orange when the weight is above the gvm threshold", () => {
+  testData.configs.carConfig.tare = 2851;
   renderComponent(<SummaryStatus />, {
     initialState: testData,
   });
@@ -80,7 +80,7 @@ it("renders the van green when the weight is below the atm", () => {
 });
 
 it("renders the van orange when the weight is above the gmv threshold", () => {
-  testData.configs.vanConfig.tare = 2701;
+  testData.configs.vanConfig.tare = 2851;
   renderComponent(<SummaryStatus />, {
     initialState: testData,
   });
@@ -106,7 +106,10 @@ it("renders the combined green when the weight is below the gcm, and the car com
 });
 
 it("renders the combined orange when the combined is above the gcm threshold", () => {
-  testData.configs.carConfig.gcm = 4001;
+  testData.configs.carConfig.gcm = 10000;
+  testData.configs.carConfig.gvm = 10000;
+  testData.configs.carConfig.tare = 5000;
+  testData.configs.vanConfig.tare = 4501;
 
   renderComponent(<SummaryStatus />, {
     initialState: testData,
