@@ -35,9 +35,9 @@ const CombinedStatus = ({ carConfig, combinedStatus, vanConfig }) => {
   const getStatusVariant = combinedStatus => {
     var variant = "success";
   
-    if (combinedStatus.combinedStatus == status.OVER || combinedStatus.carStatus == status.OVER) {
+    if (combinedStatus.combinedStatus === status.OVER || combinedStatus.carStatus === status.OVER) {
       variant = "danger";
-    } else if (combinedStatus.combinedStatus == status.WARNING || combinedStatus.carStatus == status.WARNING) {
+    } else if (combinedStatus.combinedStatus === status.WARNING || combinedStatus.carStatus === status.WARNING) {
       variant = "warning";
     }
 

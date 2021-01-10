@@ -1,8 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import { Col, Alert, Row } from 'react-bootstrap';
+import { Alert } from 'react-bootstrap';
 import { connect } from "react-redux";
 
 import VanConfig from "./configcomponents/VanConfig"
@@ -18,8 +16,7 @@ import CombinedStatus from './indicatorcomponents/CombinedStatus';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route  
 } from "react-router-dom";
 
 

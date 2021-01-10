@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import {Button} from "react-bootstrap";
 import {    
@@ -12,11 +12,7 @@ import LoadList from "./LoadList";
 import { getCarLoad } from "../redux/selectors";
 
 
-class ManageCarLoad extends React.Component {
-
-    constructor(props) {      
-        super(props);        
-      }       
+class ManageCarLoad extends React.Component {  
   
       handleAddNewLoad = (load) => {
           this.props.addCarLoad(load);          

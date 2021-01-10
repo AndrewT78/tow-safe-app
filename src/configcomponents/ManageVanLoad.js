@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import {Button} from "react-bootstrap";
 import {    
@@ -14,10 +14,7 @@ import { getVanLoad } from "../redux/selectors";
 
 class ManageVanLoad extends React.Component {
 
-    constructor(props) {      
-        super(props);        
-      }       
-  
+     
       handleAddNewLoad = (load) => {
           this.props.addVanLoad(load);          
         };
