@@ -8,6 +8,7 @@ import { addCarLoad, deleteCarLoad } from "../redux/actions";
 import AddLoad from "./AddLoad";
 import LoadList from "./LoadList";
 import { getCarLoad } from "../redux/selectors";
+import SummaryStatus from "../indicatorcomponents/SummaryStatus";
 
 class ManageCarLoad extends React.Component {
   handleAddNewLoad = (load) => {
@@ -21,7 +22,8 @@ class ManageCarLoad extends React.Component {
   render() {
     return (
       <div>
-        <div style={{ marginBottom: "20px" }}>
+        <SummaryStatus></SummaryStatus>
+        <div style={{ marginBottom: "20px", marginTop: "20px" }}>
           <Link to="/" data-testid="car-load-back" style={{ color: "inherit" }}>
             <Button>Back</Button>
           </Link>

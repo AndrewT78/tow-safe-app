@@ -8,11 +8,16 @@ import { createMemoryHistory } from "history";
 
 var myStore;
 const initialState = {
+  configs: {
+    vanConfig: { atm: 3000, tare: 2000, tbm: 200 },
+    carConfig: { tare: 2000, gcm: 7000, gvm: 3000 },
+  },
   loads: {
     vanLoad: [
       { item: "Sheets", quantity: 8, weight: 3, id: "Sheets1" },
       { item: "Cases", quantity: 4, weight: 18, id: "Cases1" },
     ],
+    carLoad: [],
   },
 };
 const history = createMemoryHistory();
