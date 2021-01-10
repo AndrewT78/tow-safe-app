@@ -5,90 +5,79 @@ import {
   getVanStatus,
 } from "./../redux/selectors";
 
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Alert } from "react-bootstrap";
 
 import { FaCaravan, FaTruckPickup } from "react-icons/fa";
 import { status } from "./../redux/statusConstants";
 
-const ok = {
-  color: "#155724",
-};
-
-const warning = {
-  color: "#856404",
-};
-
-const over = {
-  color: "#721c24",
-};
-
-const getStyle = (item) => {
-  var style;
+const getSummaryStatusVariant = (item) => {
+  var variant;
   switch (item.status) {
     case status.OK:
-      style = ok;
+      variant = "success";
       break;
     case status.WARNING:
-      style = warning;
+      variant = "warning";
       break;
     case status.OVER:
-      style = over;
+      variant = "danger";
       break;
     default:
-      style = over;
+      variant = "secondary";
       break;
   }
 
-  return style;
+  return variant;
 };
 
-const getStyleCombined = (combinedStatus) => {
-  var style = ok;
+const getSummaryStatusVariantCombined = (combined) => {
+  var variant = "success";
 
   if (
-    combinedStatus.combinedStatus === status.OVER ||
-    combinedStatus.carStatus === status.OVER
+    combined.combinedStatus === status.OVER ||
+    combined.carStatus === status.OVER
   ) {
-    style = over;
+    variant = "danger";
   } else if (
-    combinedStatus.combinedStatus === status.WARNING ||
-    combinedStatus.carStatus === status.WARNING
+    combined.combinedStatus === status.WARNING ||
+    combined.carStatus === status.WARNING
   ) {
-    style = warning;
+    variant = "warning";
   }
-
-  return style;
+  return variant;
 };
 
 const SummaryStatus = ({ combinedStatus, carStatus, vanStatus }) => {
   return (
     <Container>
       <Row>
-        <Col>
-          <FaTruckPickup
-            size="40"
-            style={getStyle(carStatus)}
+        <Col xs="auto">
+          <Alert
+            variant={getSummaryStatusVariant(carStatus)}
             data-testid="car-status"
-          ></FaTruckPickup>
+          >
+            <FaTruckPickup size="40"></FaTruckPickup>
+          </Alert>
         </Col>
-        <Col>
-          <FaCaravan
-            size="40"
-            style={getStyle(vanStatus)}
+        <Col xs="auto">
+          <Alert
+            variant={getSummaryStatusVariant(vanStatus)}
             data-testid="van-status"
-          ></FaCaravan>
+          >
+            <FaCaravan size="40"></FaCaravan>
+          </Alert>
         </Col>
-        <Col>
-          <FaCaravan
-            size="40"
-            style={getStyleCombined(combinedStatus)}
-            data-testid="combined-status-van"
-          ></FaCaravan>
-          <FaTruckPickup
-            size="40"
-            style={getStyleCombined(combinedStatus)}
-            data-testid="combined-status-car"
-          ></FaTruckPickup>
+        <Col xs="auto">
+          <Alert
+            variant={getSummaryStatusVariantCombined(combinedStatus)}
+            data-testid="combined-status"
+          >
+            <FaCaravan size="40" data-testid="combined-status-van"></FaCaravan>
+            <FaTruckPickup
+              size="40"
+              data-testid="combined-status-car"
+            ></FaTruckPickup>
+          </Alert>
         </Col>
       </Row>
     </Container>

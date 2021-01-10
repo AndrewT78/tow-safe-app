@@ -49,8 +49,8 @@ it("renders the car green when the weight is below the gvm", () => {
   renderComponent(<SummaryStatus />, {
     initialState: testData,
   });
-  var icon = screen.getByTestId("car-status");
-  expect(icon).toHaveStyle("color: #155724");
+  const alertBox = screen.getByTestId("car-status");
+  expect(alertBox).toHaveClass("alert-success");
 });
 
 it("renders the car orange when the weight is above the gmv threshold", () => {
@@ -58,8 +58,8 @@ it("renders the car orange when the weight is above the gmv threshold", () => {
   renderComponent(<SummaryStatus />, {
     initialState: testData,
   });
-  var icon = screen.getByTestId("car-status");
-  expect(icon).toHaveStyle("color: #856404");
+  const alertBox = screen.getByTestId("car-status");
+  expect(alertBox).toHaveClass("alert-warning");
 });
 
 it("renders the car red when the weight is above the gvm", () => {
@@ -67,16 +67,16 @@ it("renders the car red when the weight is above the gvm", () => {
   renderComponent(<SummaryStatus />, {
     initialState: testData,
   });
-  var icon = screen.getByTestId("car-status");
-  expect(icon).toHaveStyle("color: #721c24");
+  const alertBox = screen.getByTestId("car-status");
+  expect(alertBox).toHaveClass("alert-danger");
 });
 
 it("renders the van green when the weight is below the atm", () => {
   renderComponent(<SummaryStatus />, {
     initialState: testData,
   });
-  var icon = screen.getByTestId("van-status");
-  expect(icon).toHaveStyle("color: #155724");
+  const alertBox = screen.getByTestId("van-status");
+  expect(alertBox).toHaveClass("alert-success");
 });
 
 it("renders the van orange when the weight is above the gmv threshold", () => {
@@ -84,8 +84,8 @@ it("renders the van orange when the weight is above the gmv threshold", () => {
   renderComponent(<SummaryStatus />, {
     initialState: testData,
   });
-  var icon = screen.getByTestId("van-status");
-  expect(icon).toHaveStyle("color: #856404");
+  const alertBox = screen.getByTestId("van-status");
+  expect(alertBox).toHaveClass("alert-warning");
 });
 
 it("renders the van red when the weight is above the gvm", () => {
@@ -93,19 +93,16 @@ it("renders the van red when the weight is above the gvm", () => {
   renderComponent(<SummaryStatus />, {
     initialState: testData,
   });
-  var icon = screen.getByTestId("van-status");
-  expect(icon).toHaveStyle("color: #721c24");
+  const alertBox = screen.getByTestId("van-status");
+  expect(alertBox).toHaveClass("alert-danger");
 });
 
 it("renders the combined green when the weight is below the gcm, and the car combined is below the gvm", () => {
   renderComponent(<SummaryStatus />, {
     initialState: testData,
   });
-  var icon = screen.getByTestId("combined-status-van");
-  expect(icon).toHaveStyle("color: #155724");
-
-  icon = screen.getByTestId("combined-status-car");
-  expect(icon).toHaveStyle("color: #155724");
+  const alertBox = screen.getByTestId("combined-status");
+  expect(alertBox).toHaveClass("alert-success");
 });
 
 it("renders the combined orange when the combined is above the gcm threshold", () => {
@@ -114,11 +111,8 @@ it("renders the combined orange when the combined is above the gcm threshold", (
   renderComponent(<SummaryStatus />, {
     initialState: testData,
   });
-  var icon = screen.getByTestId("combined-status-van");
-  expect(icon).toHaveStyle("color: #856404");
-
-  icon = screen.getByTestId("combined-status-car");
-  expect(icon).toHaveStyle("color: #856404");
+  const alertBox = screen.getByTestId("combined-status");
+  expect(alertBox).toHaveClass("alert-warning");
 });
 
 it("renders the combined orange when the gcm is ok but the car and tbm exceed gvm threshold", () => {
@@ -127,24 +121,18 @@ it("renders the combined orange when the gcm is ok but the car and tbm exceed gv
   renderComponent(<SummaryStatus />, {
     initialState: testData,
   });
-  var icon = screen.getByTestId("combined-status-van");
-  expect(icon).toHaveStyle("color: #856404");
-
-  icon = screen.getByTestId("combined-status-car");
-  expect(icon).toHaveStyle("color: #856404");
+  const alertBox = screen.getByTestId("combined-status");
+  expect(alertBox).toHaveClass("alert-warning");
 });
 
-it("renders the combined orange when the gcm is ok but the car and tbm exceed gvm", () => {
+it("renders the combined red when the gcm is ok but the car and tbm exceed gvm", () => {
   testData.configs.vanConfig.tbm = 1100;
 
   renderComponent(<SummaryStatus />, {
     initialState: testData,
   });
-  var icon = screen.getByTestId("combined-status-van");
-  expect(icon).toHaveStyle("color: #721c24");
-
-  icon = screen.getByTestId("combined-status-car");
-  expect(icon).toHaveStyle("color: #721c24");
+  const alertBox = screen.getByTestId("combined-status");
+  expect(alertBox).toHaveClass("alert-danger");
 });
 
 it("renders the combined red when the combined is above the gcm", () => {
@@ -153,9 +141,6 @@ it("renders the combined red when the combined is above the gcm", () => {
   renderComponent(<SummaryStatus />, {
     initialState: testData,
   });
-  var icon = screen.getByTestId("combined-status-van");
-  expect(icon).toHaveStyle("color: #721c24");
-
-  icon = screen.getByTestId("combined-status-car");
-  expect(icon).toHaveStyle("color: #721c24");
+  const alertBox = screen.getByTestId("combined-status");
+  expect(alertBox).toHaveClass("alert-danger");
 });
