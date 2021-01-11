@@ -7,23 +7,30 @@ import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 
 var myStore;
-const initialState = {
-  configs: {
-    vanConfig: { atm: 3000, tare: 2000, tbm: 200 },
-    carConfig: { tare: 2000, gcm: 7000, gvm: 3000 },
-  },
-  loads: {
-    vanLoad: [
-      { item: "Sheets", quantity: 8, weight: 3, id: "Sheets1", enabled: true },
-      { item: "Cases", quantity: 4, weight: 18, id: "Cases1", enabled: true },
-    ],
-    carLoad: [],
-  },
-};
+var initialState;
 const history = createMemoryHistory();
 const historySpy = jest.spyOn(history, "push");
 
 beforeEach(() => {
+  initialState = {
+    configs: {
+      vanConfig: { atm: 3000, tare: 2000, tbm: 200 },
+      carConfig: { tare: 2000, gcm: 7000, gvm: 3000 },
+    },
+    loads: {
+      vanLoad: [
+        {
+          item: "Sheets",
+          quantity: 8,
+          weight: 3,
+          id: "Sheets1",
+          enabled: true,
+        },
+        { item: "Cases", quantity: 4, weight: 18, id: "Cases1", enabled: true },
+      ],
+      carLoad: [],
+    },
+  };
   myStore = createStore(rootReducer, initialState);
 });
 
@@ -101,6 +108,26 @@ it("toggles a load item when the toggle button is pressed", () => {
   expect(myStore.getState().loads.vanLoad).toEqual([
     { item: "Sheets", quantity: 8, weight: 3, id: "Sheets1", enabled: false },
     { item: "Cases", quantity: 4, weight: 18, id: "Cases1", enabled: true },
+  ]);
+});
+
+it("moves a load item when the move button is pressed", () => {
+  renderApp(<ManageVanLoad />);
+  const moveButton = screen.getByTestId("move-load-Sheets1");
+  fireEvent.click(moveButton);
+
+  expect(myStore.getState().loads.vanLoad).toEqual([
+    { item: "Cases", quantity: 4, weight: 18, id: "Cases1", enabled: true },
+  ]);
+
+  expect(myStore.getState().loads.carLoad).toEqual([
+    {
+      item: "Sheets",
+      quantity: 8,
+      weight: 3,
+      id: "Sheets1",
+      enabled: true,
+    },
   ]);
 });
 

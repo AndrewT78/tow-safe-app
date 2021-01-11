@@ -1,7 +1,12 @@
 import React from "react";
 import { useState } from "react";
 import { Alert, Row, Col, Modal, Button } from "react-bootstrap";
-import { FaToggleOn, FaToggleOff, FaTrash } from "react-icons/fa";
+import {
+  FaToggleOn,
+  FaToggleOff,
+  FaTrash,
+  FaAngleDoubleLeft,
+} from "react-icons/fa";
 
 const LoadItem = (props) => {
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
@@ -38,6 +43,15 @@ const LoadItem = (props) => {
                 data-testid={`disabled-toggle-load-${props.item.id}`}
               ></FaToggleOff>
             )}
+          </Col>
+          <Col xs={"auto"}>
+            <FaAngleDoubleLeft
+              onClick={() => {
+                props.handleMove(props.item.id);
+              }}
+              size="25"
+              data-testid={`move-load-${props.item.id}`}
+            ></FaAngleDoubleLeft>
           </Col>
           <Col xs={"auto"}>
             <FaTrash

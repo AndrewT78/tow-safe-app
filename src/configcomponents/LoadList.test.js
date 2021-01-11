@@ -9,6 +9,7 @@ describe("Load List", () => {
 
   const mockDelete = jest.fn();
   const mockToggle = jest.fn();
+  const mockMove = jest.fn();
 
   it("renders a list of the load items", () => {
     render(<LoadList load={load} handleDelete={mockDelete} />);
@@ -44,5 +45,21 @@ describe("Load List", () => {
 
     expect(mockToggle).toHaveBeenCalledTimes(1);
     expect(mockToggle).toHaveBeenCalledWith("1");
+  });
+
+  it("moves an item when move is pressed", () => {
+    render(
+      <LoadList
+        load={load}
+        handleDelete={mockDelete}
+        handleToggle={mockToggle}
+        handleMove={mockMove}
+      />
+    );
+    const moveButton = screen.getByTestId("move-load-1");
+    fireEvent.click(moveButton);
+
+    expect(mockMove).toHaveBeenCalledTimes(1);
+    expect(mockMove).toHaveBeenCalledWith("1");
   });
 });

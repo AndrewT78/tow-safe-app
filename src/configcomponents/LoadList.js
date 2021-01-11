@@ -15,6 +15,7 @@ class LoadList extends React.Component {
           item={prop}
           handleDelete={this.props.handleDelete}
           handleToggle={this.props.handleToggle}
+          handleMove={this.props.handleMove}
         ></LoadItem>
       );
     });
