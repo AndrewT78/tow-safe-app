@@ -1,28 +1,28 @@
-import React from 'react';
+import React from "react";
 import LoadItem from "./LoadItem";
 
 class LoadList extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-      }
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
-
-      getLoadItemRows () {
-        return (
-          this.props.load.map((prop, key) => {
-            return <LoadItem key={key} item={prop} handleDelete={this.props.handleDelete}></LoadItem>;
-          })
+  getLoadItemRows() {
+    return this.props.load.map((prop, key) => {
+      return (
+        <LoadItem
+          key={key}
+          item={prop}
+          handleDelete={this.props.handleDelete}
+          handleToggle={this.props.handleToggle}
+        ></LoadItem>
       );
-      };
+    });
+  }
 
-
-    render() {    
-      return (<div style={{marginTop:'20px'}}> 
-        {this.getLoadItemRows()}
-      </div>);
-      
-    }    
+  render() {
+    return <div style={{ marginTop: "20px" }}>{this.getLoadItemRows()}</div>;
+  }
 }
 
 export default LoadList;

@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
-import { addVanLoad, deleteVanLoad } from "../redux/actions";
+import { addVanLoad, deleteVanLoad, toggleVanLoad } from "../redux/actions";
 import AddLoad from "./AddLoad";
 import LoadList from "./LoadList";
 import { getVanLoad } from "../redux/selectors";
@@ -17,6 +17,10 @@ class ManageVanLoad extends React.Component {
 
   handleDeleteLoad = (id) => {
     this.props.deleteVanLoad(id);
+  };
+
+  handleToggleLoad = (id) => {
+    this.props.toggleVanLoad(id);
   };
 
   render() {
@@ -33,6 +37,7 @@ class ManageVanLoad extends React.Component {
         <LoadList
           load={this.props.vanLoad}
           handleDelete={this.handleDeleteLoad}
+          handleToggle={this.handleToggleLoad}
         ></LoadList>
       </div>
     );
@@ -44,6 +49,8 @@ const mapStateToProps = (state) => {
   return { vanLoad };
 };
 
-export default connect(mapStateToProps, { addVanLoad, deleteVanLoad })(
-  ManageVanLoad
-);
+export default connect(mapStateToProps, {
+  addVanLoad,
+  deleteVanLoad,
+  toggleVanLoad,
+})(ManageVanLoad);

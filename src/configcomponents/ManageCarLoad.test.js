@@ -14,8 +14,8 @@ const initialState = {
   },
   loads: {
     carLoad: [
-      { item: "Engel", quantity: 1, weight: 20, id: "Engel1" },
-      { item: "Cases", quantity: 4, weight: 18, id: "Cases1" },
+      { item: "Engel", quantity: 1, weight: 20, id: "Engel1", enabled: true },
+      { item: "Cases", quantity: 4, weight: 18, id: "Cases1", enabled: true },
     ],
     vanLoad: [],
   },
@@ -84,9 +84,20 @@ it("deletes a load item when the delete button is pressed", () => {
   fireEvent.click(deleteButton);
 
   expect(myStore.getState().loads.carLoad).toEqual([
-    { item: "Cases", quantity: 4, weight: 18, id: "Cases1" },
+    { item: "Cases", quantity: 4, weight: 18, id: "Cases1", enabled: true },
   ]);
   expect(screen.queryByText(/Engel/i)).toBeNull();
+});
+
+it("toggles a load item when the toggle button is pressed", () => {
+  renderApp(<ManageCarLoad />);
+  const toggleButton = screen.getByTestId("enabled-toggle-load-Engel1");
+  fireEvent.click(toggleButton);
+
+  expect(myStore.getState().loads.carLoad).toEqual([
+    { item: "Engel", quantity: 1, weight: 20, id: "Engel1", enabled: false },
+    { item: "Cases", quantity: 4, weight: 18, id: "Cases1", enabled: true },
+  ]);
 });
 
 it("navigates back to the main page when back is clicked", () => {

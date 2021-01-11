@@ -18,6 +18,7 @@ describe("Load Item", () => {
   };
 
   const mockDelete = jest.fn();
+  const mockToggle = jest.fn();
 
   it("renders the load item", () => {
     render(<LoadItem item={load} handleDelete={mockDelete} />);
@@ -43,5 +44,20 @@ describe("Load Item", () => {
     fireEvent.click(deleteButton);
 
     expect(mockDelete).toHaveBeenCalledWith("Engel1");
+  });
+
+  it("toggles the item when the toggle button is pressed", () => {
+    render(
+      <LoadItem
+        item={load}
+        handleDelete={mockDelete}
+        handleToggle={mockToggle}
+      />
+    );
+
+    const toggleButton = screen.getByTestId("enabled-toggle-load-Engel1");
+    fireEvent.click(toggleButton);
+
+    expect(mockToggle).toHaveBeenCalledWith("Engel1");
   });
 });

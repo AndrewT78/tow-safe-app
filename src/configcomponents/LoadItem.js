@@ -22,13 +22,17 @@ class LoadItem extends React.Component {
           <Col xs={"auto"}>
             {this.props.item.enabled ? (
               <FaToggleOn
-                onClick={() => {}}
+                onClick={() => {
+                  this.props.handleToggle(this.props.item.id);
+                }}
                 size="25"
                 data-testid={`enabled-toggle-load-${this.props.item.id}`}
               ></FaToggleOn>
             ) : (
               <FaToggleOff
-                onClick={() => {}}
+                onClick={() => {
+                  this.props.handleToggle(this.props.item.id);
+                }}
                 size="25"
                 data-testid={`disabled-toggle-load-${this.props.item.id}`}
               ></FaToggleOff>
