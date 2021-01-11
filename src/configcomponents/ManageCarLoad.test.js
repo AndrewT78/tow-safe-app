@@ -83,6 +83,10 @@ it("deletes a load item when the delete button is pressed", () => {
   const deleteButton = screen.getByTestId("delete-load-Engel1");
   fireEvent.click(deleteButton);
 
+  // confirm on the dialog
+  const confirmButton = screen.getByTestId("confirm-delete-button");
+  fireEvent.click(confirmButton);
+
   expect(myStore.getState().loads.carLoad).toEqual([
     { item: "Cases", quantity: 4, weight: 18, id: "Cases1", enabled: true },
   ]);

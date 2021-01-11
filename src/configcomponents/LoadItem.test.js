@@ -37,13 +37,39 @@ describe("Load Item", () => {
     const enabledToggle = screen.getByTestId("disabled-toggle-load-Engel1");
   });
 
-  it("deletes the item when the delete button is pressed", () => {
+  it("shows the delete confirmation when the delete button is pressed", () => {
     render(<LoadItem item={load} handleDelete={mockDelete} />);
 
     const deleteButton = screen.getByTestId("delete-load-Engel1");
     fireEvent.click(deleteButton);
 
+    screen.getByText(/Are you sure you want to delete/);
+  });
+
+  it("deletes the item when the confirm delete button is pressed", () => {
+    render(<LoadItem item={load} handleDelete={mockDelete} />);
+
+    const deleteButton = screen.getByTestId("delete-load-Engel1");
+    fireEvent.click(deleteButton);
+
+    // confirm on the dialog
+    const confirmButton = screen.getByTestId("confirm-delete-button");
+    fireEvent.click(confirmButton);
+
     expect(mockDelete).toHaveBeenCalledWith("Engel1");
+  });
+
+  it("does not delete the item when the cancel delete button is pressed", () => {
+    render(<LoadItem item={load} handleDelete={mockDelete} />);
+
+    const deleteButton = screen.getByTestId("delete-load-Engel1");
+    fireEvent.click(deleteButton);
+
+    // confirm on the dialog
+    const cancelButton = screen.getByTestId("cancel-delete-button");
+    fireEvent.click(cancelButton);
+
+    expect(mockDelete).not.toHaveBeenCalled();
   });
 
   it("toggles the item when the toggle button is pressed", () => {

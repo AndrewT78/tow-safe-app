@@ -23,6 +23,10 @@ describe("Load List", () => {
     const deleteButton = screen.getByTestId("delete-load-1");
     fireEvent.click(deleteButton);
 
+    // confirm on the dialog
+    const confirmButton = screen.getByTestId("confirm-delete-button");
+    fireEvent.click(confirmButton);
+
     expect(mockDelete).toHaveBeenCalledTimes(1);
     expect(mockDelete).toHaveBeenCalledWith("1");
   });

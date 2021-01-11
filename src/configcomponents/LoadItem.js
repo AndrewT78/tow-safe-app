@@ -1,56 +1,81 @@
 import React from "react";
-import { Alert, Row, Col } from "react-bootstrap";
+import { useState } from "react";
+import { Alert, Row, Col, Modal, Button } from "react-bootstrap";
 import { FaToggleOn, FaToggleOff, FaTrash } from "react-icons/fa";
 
-class LoadItem extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+const LoadItem = (props) => {
+  const [showConfirmDelete, setShowConfirmDelete] = useState(false);
 
-  render() {
-    return (
+  const handleCloseConfirmDelete = () => setShowConfirmDelete(false);
+  const handleShowConfirmDelete = () => setShowConfirmDelete(true);
+
+  return (
+    <>
       <Alert variant="secondary">
         <Row>
-          <Col>{this.props.item.item}</Col>
+          <Col>{props.item.item}</Col>
         </Row>
         <Row>
           <Col>
-            {this.props.item.quantity * this.props.item.weight} kgs (
-            {this.props.item.quantity}x{this.props.item.weight} kg)
+            {props.item.quantity * props.item.weight} kgs ({props.item.quantity}
+            x{props.item.weight} kg)
           </Col>
           <Col xs={"auto"}>
-            {this.props.item.enabled ? (
+            {props.item.enabled ? (
               <FaToggleOn
                 onClick={() => {
-                  this.props.handleToggle(this.props.item.id);
+                  props.handleToggle(props.item.id);
                 }}
                 size="25"
-                data-testid={`enabled-toggle-load-${this.props.item.id}`}
+                data-testid={`enabled-toggle-load-${props.item.id}`}
               ></FaToggleOn>
             ) : (
               <FaToggleOff
                 onClick={() => {
-                  this.props.handleToggle(this.props.item.id);
+                  props.handleToggle(props.item.id);
                 }}
                 size="25"
-                data-testid={`disabled-toggle-load-${this.props.item.id}`}
+                data-testid={`disabled-toggle-load-${props.item.id}`}
               ></FaToggleOff>
             )}
           </Col>
           <Col xs={"auto"}>
             <FaTrash
               onClick={() => {
-                this.props.handleDelete(this.props.item.id);
+                handleShowConfirmDelete();
               }}
               size="25"
-              data-testid={`delete-load-${this.props.item.id}`}
+              data-testid={`delete-load-${props.item.id}`}
             ></FaTrash>
           </Col>
         </Row>
       </Alert>
-    );
-  }
-}
+      <Modal show={showConfirmDelete} onHide={handleCloseConfirmDelete}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Item?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to delete this item?</Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="primary"
+            onClick={handleCloseConfirmDelete}
+            data-testid="cancel-delete-button"
+          >
+            Cancel
+          </Button>
+          <Button
+            data-testid="confirm-delete-button"
+            variant="danger"
+            onClick={() => {
+              props.handleDelete(props.item.id);
+            }}
+          >
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+};
 
 export default LoadItem;
