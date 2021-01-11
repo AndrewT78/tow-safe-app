@@ -1,9 +1,12 @@
-import { getVanConfig } from "./selectors";
-import { getCarConfig } from "./selectors";
-import { getCarStatus } from "./selectors";
-import { getVanStatus } from "./selectors";
-import { getCombinedStatus } from "./selectors";
-import { getCarLoad } from "./selectors";
+import {
+  getVanConfig,
+  getCarConfig,
+  getCarStatus,
+  getVanStatus,
+  getCombinedStatus,
+  getCarLoad,
+  getVanLoad,
+} from "./selectors";
 import { status } from "./statusConstants";
 
 describe("Van selectors", () => {
@@ -17,8 +20,25 @@ describe("Van selectors", () => {
     },
     loads: {
       vanLoad: [
-        { item: "Food", quantity: 5, weight: 20 },
-        { item: "Cases", quantity: 4, weight: 10 },
+        { item: "Food", quantity: 5, weight: 20, enabled: true },
+        { item: "Cases", quantity: 4, weight: 10, enabled: true },
+      ],
+    },
+  };
+
+  const storeWithDisabled = {
+    configs: {
+      vanConfig: {
+        tare: 2150,
+        atm: 3300,
+        tbm: 180,
+      },
+    },
+    loads: {
+      vanLoad: [
+        { item: "Food", quantity: 5, weight: 20, enabled: true },
+        { item: "Cases", quantity: 4, weight: 10, enabled: true },
+        { item: "Heavy Stuff", quantity: 1, weight: 1000, enabled: false },
       ],
     },
   };
@@ -33,8 +53,8 @@ describe("Van selectors", () => {
     },
     loads: {
       vanLoad: [
-        { item: "Food", quantity: 5, weight: 20 },
-        { item: "Cases", quantity: 4, weight: 10 },
+        { item: "Food", quantity: 5, weight: 20, enabled: true },
+        { item: "Cases", quantity: 4, weight: 10, enabled: true },
       ],
     },
   };
@@ -49,14 +69,18 @@ describe("Van selectors", () => {
     },
     loads: {
       vanLoad: [
-        { item: "Food", quantity: 5, weight: 20 },
-        { item: "Cases", quantity: 4, weight: 10 },
+        { item: "Food", quantity: 5, weight: 20, enabled: true },
+        { item: "Cases", quantity: 4, weight: 10, enabled: true },
       ],
     },
   };
 
   it("should return the totalWeight of the van including the tare and load", () => {
     expect(getVanStatus(store).totalWeight).toEqual(2290);
+  });
+
+  it("should not include the disabled items when calculating weight", () => {
+    expect(getVanStatus(storeWithDisabled).totalWeight).toEqual(2290);
   });
 
   it("should return the remaining payload of the van", () => {
@@ -78,6 +102,13 @@ describe("Van selectors", () => {
   it("should return the van config from the store", () => {
     expect(getVanConfig(store)).toEqual({ atm: 3300, tare: 2150, tbm: 180 });
   });
+
+  it("should return load items for a van", () => {
+    expect(getVanLoad(store)).toEqual([
+      { item: "Food", quantity: 5, weight: 20, enabled: true },
+      { item: "Cases", quantity: 4, weight: 10, enabled: true },
+    ]);
+  });
 });
 
 describe("Car selectors", () => {
@@ -91,8 +122,25 @@ describe("Car selectors", () => {
     },
     loads: {
       carLoad: [
-        { item: "Engel", quantity: 1, weight: 20 },
-        { item: "Cases", quantity: 4, weight: 18 },
+        { item: "Engel", quantity: 1, weight: 20, enabled: true },
+        { item: "Cases", quantity: 4, weight: 18, enabled: true },
+      ],
+    },
+  };
+
+  const storeWithDisabled = {
+    configs: {
+      carConfig: {
+        tare: 1000,
+        gvm: 2000,
+        gcm: 3000,
+      },
+    },
+    loads: {
+      carLoad: [
+        { item: "Engel", quantity: 1, weight: 20, enabled: true },
+        { item: "Cases", quantity: 4, weight: 20, enabled: true },
+        { item: "HeavyStuff", quantity: 1, weight: 1000, enabled: false },
       ],
     },
   };
@@ -106,7 +154,9 @@ describe("Car selectors", () => {
       },
     },
     loads: {
-      carLoad: [{ item: "Heavy Item", weight: 100, quantity: 1 }],
+      carLoad: [
+        { item: "Heavy Item", weight: 100, quantity: 1, enabled: true },
+      ],
     },
   };
 
@@ -119,7 +169,7 @@ describe("Car selectors", () => {
       },
     },
     loads: {
-      carLoad: [{ item: "light Item", weight: 1, quantity: 1 }],
+      carLoad: [{ item: "light Item", weight: 1, quantity: 1, enabled: true }],
     },
   };
 
@@ -129,6 +179,10 @@ describe("Car selectors", () => {
 
   it("should combine the tare and load to get the total car weight", () => {
     expect(getCarStatus(store).totalWeight).toEqual(1592);
+  });
+
+  it("should only include enabled load items in the total car weight", () => {
+    expect(getCarStatus(storeWithDisabled).totalWeight).toEqual(1100);
   });
 
   it("should return the remaining payload of the car", () => {
@@ -149,8 +203,8 @@ describe("Car selectors", () => {
 
   it("should return load items for a car", () => {
     expect(getCarLoad(store)).toEqual([
-      { item: "Engel", quantity: 1, weight: 20 },
-      { item: "Cases", quantity: 4, weight: 18 },
+      { item: "Engel", quantity: 1, weight: 20, enabled: true },
+      { item: "Cases", quantity: 4, weight: 18, enabled: true },
     ]);
   });
 });
