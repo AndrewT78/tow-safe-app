@@ -352,4 +352,119 @@ describe("loads reducer", () => {
       ],
     });
   });
+
+  it("should move a van load item to the car", () => {
+    expect(
+      reducer(
+        {
+          vanLoad: [
+            {
+              item: "Sheets",
+              quantity: 8,
+              weight: 1,
+              id: "Sheets1",
+              enabled: true,
+            },
+            {
+              item: "Food",
+              quantity: 40,
+              weight: 1,
+              id: "Food1",
+              enabled: true,
+            },
+          ],
+          carLoad: [
+            {
+              item: "Engel",
+              quantity: 1,
+              weight: 10,
+              id: "Engel1",
+              enabled: true,
+            },
+          ],
+        },
+        {
+          type: types.MOVE_LOAD_TO_CAR,
+          id: "Food1",
+        }
+      )
+    ).toEqual({
+      vanLoad: [
+        {
+          item: "Sheets",
+          quantity: 8,
+          weight: 1,
+          id: "Sheets1",
+          enabled: true,
+        },
+      ],
+      carLoad: [
+        { item: "Food", quantity: 40, weight: 1, id: "Food1", enabled: true },
+        {
+          item: "Engel",
+          quantity: 1,
+          weight: 10,
+          id: "Engel1",
+          enabled: true,
+        },
+      ],
+    });
+  });
+
+  it("should move a car load item to the van", () => {
+    expect(
+      reducer(
+        {
+          vanLoad: [
+            {
+              item: "Sheets",
+              quantity: 8,
+              weight: 1,
+              id: "Sheets1",
+              enabled: true,
+            },
+            {
+              item: "Food",
+              quantity: 40,
+              weight: 1,
+              id: "Food1",
+              enabled: true,
+            },
+          ],
+          carLoad: [
+            {
+              item: "Engel",
+              quantity: 1,
+              weight: 10,
+              id: "Engel1",
+              enabled: true,
+            },
+          ],
+        },
+        {
+          type: types.MOVE_LOAD_TO_VAN,
+          id: "Engel1",
+        }
+      )
+    ).toEqual({
+      vanLoad: [
+        {
+          item: "Engel",
+          quantity: 1,
+          weight: 10,
+          id: "Engel1",
+          enabled: true,
+        },
+        {
+          item: "Sheets",
+          quantity: 8,
+          weight: 1,
+          id: "Sheets1",
+          enabled: true,
+        },
+        { item: "Food", quantity: 40, weight: 1, id: "Food1", enabled: true },
+      ],
+      carLoad: [],
+    });
+  });
 });

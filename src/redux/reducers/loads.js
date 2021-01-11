@@ -5,6 +5,8 @@ import {
   DELETE_VAN_LOAD,
   TOGGLE_VAN_LOAD,
   TOGGLE_CAR_LOAD,
+  MOVE_LOAD_TO_VAN,
+  MOVE_LOAD_TO_CAR,
 } from "../actionTypes";
 
 const initialState = {
@@ -83,6 +85,26 @@ export default function (state = initialState, action) {
       return {
         ...state,
         vanLoad: toggleLoadItem(state.vanLoad, action.id),
+      };
+    }
+    case MOVE_LOAD_TO_CAR: {
+      var index = state.vanLoad.findIndex((l) => l.id === action.id);
+      var item = state.vanLoad[index];
+
+      return {
+        ...state,
+        carLoad: [item].concat(state.carLoad),
+        vanLoad: removeLoadItem(state.vanLoad, action.id),
+      };
+    }
+    case MOVE_LOAD_TO_VAN: {
+      var index = state.carLoad.findIndex((l) => l.id === action.id);
+      var item = state.carLoad[index];
+
+      return {
+        ...state,
+        carLoad: removeLoadItem(state.carLoad, action.id),
+        vanLoad: [item].concat(state.vanLoad),
       };
     }
     default:

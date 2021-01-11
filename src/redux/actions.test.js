@@ -50,6 +50,15 @@ describe("Car Load Actions", () => {
     };
     expect(actions.toggleCarLoad(id)).toEqual(expectedAction);
   });
+
+  it("should create an action to move a car load item to the van", () => {
+    const id = "ID1234";
+    const expectedAction = {
+      type: types.MOVE_LOAD_TO_VAN,
+      id,
+    };
+    expect(actions.moveLoadToVan(id)).toEqual(expectedAction);
+  });
 });
 
 describe("Van Load Actions", () => {
@@ -78,5 +87,14 @@ describe("Van Load Actions", () => {
       id,
     };
     expect(actions.toggleVanLoad(id)).toEqual(expectedAction);
+  });
+
+  it("should create an action to move a van load item to the car", () => {
+    const id = "ID1234";
+    const expectedAction = {
+      type: types.MOVE_LOAD_TO_CAR,
+      id,
+    };
+    expect(actions.moveLoadToCar(id)).toEqual(expectedAction);
   });
 });

@@ -7,6 +7,8 @@ import {
   ADD_CAR_LOAD,
   UPDATE_CAR_CONFIG,
   UPDATE_VAN_CONFIG,
+  MOVE_LOAD_TO_VAN,
+  MOVE_LOAD_TO_CAR,
 } from "./actionTypes";
 
 export const updateVanConfig = (config) => ({
@@ -46,5 +48,15 @@ export const toggleVanLoad = (id) => ({
 
 export const toggleCarLoad = (id) => ({
   type: TOGGLE_CAR_LOAD,
+  id,
+});
+
+export const moveLoadToCar = (id) => ({
+  type: MOVE_LOAD_TO_CAR,
+  id,
+});
+
+export const moveLoadToVan = (id) => ({
+  type: MOVE_LOAD_TO_VAN,
   id,
 });

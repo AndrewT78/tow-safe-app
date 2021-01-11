@@ -6,3 +6,5 @@ export const DELETE_CAR_LOAD = "DELETE_CAR_LOAD";
 export const DELETE_VAN_LOAD = "DELETE_VAN_LOAD";
 export const TOGGLE_CAR_LOAD = "TOGGLE_CAR_LOAD";
 export const TOGGLE_VAN_LOAD = "TOGGLE_VAN_LOAD";
+export const MOVE_LOAD_TO_VAN = "MOVE_LOAD_TO_VAN";
+export const MOVE_LOAD_TO_CAR = "MOVE_LOAD_TO_CAR";
