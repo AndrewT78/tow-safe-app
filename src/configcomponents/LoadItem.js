@@ -68,6 +68,7 @@ const LoadItem = (props) => {
             variant="danger"
             onClick={() => {
               props.handleDelete(props.item.id);
+              handleCloseConfirmDelete();
             }}
           >
             Delete
