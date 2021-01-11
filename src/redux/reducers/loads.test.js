@@ -93,6 +93,98 @@ describe("loads reducer", () => {
     });
   });
 
+  it("should toggle a car load item off", () => {
+    expect(
+      reducer(
+        {
+          carLoad: [
+            {
+              item: "Engel",
+              quantity: 1,
+              weight: 25,
+              id: "Engel1",
+              enabled: true,
+            },
+            {
+              item: "Beer",
+              quantity: 24,
+              weight: 1,
+              id: "Beer1",
+              enabled: true,
+            },
+          ],
+        },
+        {
+          type: types.TOGGLE_CAR_LOAD,
+          id: "Engel1",
+        }
+      )
+    ).toEqual({
+      carLoad: [
+        {
+          item: "Engel",
+          quantity: 1,
+          weight: 25,
+          id: "Engel1",
+          enabled: false,
+        },
+        {
+          item: "Beer",
+          quantity: 24,
+          weight: 1,
+          id: "Beer1",
+          enabled: true,
+        },
+      ],
+    });
+  });
+
+  it("should toggle a car load item on", () => {
+    expect(
+      reducer(
+        {
+          carLoad: [
+            {
+              item: "Engel",
+              quantity: 1,
+              weight: 25,
+              id: "Engel1",
+              enabled: false,
+            },
+            {
+              item: "Beer",
+              quantity: 24,
+              weight: 1,
+              id: "Beer1",
+              enabled: false,
+            },
+          ],
+        },
+        {
+          type: types.TOGGLE_CAR_LOAD,
+          id: "Beer1",
+        }
+      )
+    ).toEqual({
+      carLoad: [
+        {
+          item: "Engel",
+          quantity: 1,
+          weight: 25,
+          id: "Engel1",
+          enabled: false,
+        },
+        {
+          item: "Beer",
+          quantity: 24,
+          weight: 1,
+          id: "Beer1",
+          enabled: true,
+        },
+      ],
+    });
+  });
+
   it("should add a load item to the van", () => {
     expect(
       reducer(
@@ -178,6 +270,86 @@ describe("loads reducer", () => {
       )
     ).toEqual({
       vanLoad: [{ item: "Sheets", quantity: 8, weight: 1, id: "Sheets1" }],
+    });
+  });
+
+  it("should toggle on a van load item", () => {
+    expect(
+      reducer(
+        {
+          vanLoad: [
+            {
+              item: "Sheets",
+              quantity: 8,
+              weight: 1,
+              id: "Sheets1",
+              enabled: false,
+            },
+            {
+              item: "Food",
+              quantity: 40,
+              weight: 1,
+              id: "Food1",
+              enabled: false,
+            },
+          ],
+        },
+        {
+          type: types.TOGGLE_VAN_LOAD,
+          id: "Food1",
+        }
+      )
+    ).toEqual({
+      vanLoad: [
+        {
+          item: "Sheets",
+          quantity: 8,
+          weight: 1,
+          id: "Sheets1",
+          enabled: false,
+        },
+        { item: "Food", quantity: 40, weight: 1, id: "Food1", enabled: true },
+      ],
+    });
+  });
+
+  it("should toggle off a van load item", () => {
+    expect(
+      reducer(
+        {
+          vanLoad: [
+            {
+              item: "Sheets",
+              quantity: 8,
+              weight: 1,
+              id: "Sheets1",
+              enabled: true,
+            },
+            {
+              item: "Food",
+              quantity: 40,
+              weight: 1,
+              id: "Food1",
+              enabled: true,
+            },
+          ],
+        },
+        {
+          type: types.TOGGLE_VAN_LOAD,
+          id: "Food1",
+        }
+      )
+    ).toEqual({
+      vanLoad: [
+        {
+          item: "Sheets",
+          quantity: 8,
+          weight: 1,
+          id: "Sheets1",
+          enabled: true,
+        },
+        { item: "Food", quantity: 40, weight: 1, id: "Food1", enabled: false },
+      ],
     });
   });
 });

@@ -1,7 +1,11 @@
-import { ADD_CAR_LOAD } from "../actionTypes";
-import { ADD_VAN_LOAD } from "../actionTypes";
-import { DELETE_CAR_LOAD } from "../actionTypes";
-import { DELETE_VAN_LOAD } from "../actionTypes";
+import {
+  ADD_CAR_LOAD,
+  ADD_VAN_LOAD,
+  DELETE_CAR_LOAD,
+  DELETE_VAN_LOAD,
+  TOGGLE_VAN_LOAD,
+  TOGGLE_CAR_LOAD,
+} from "../actionTypes";
 
 const initialState = {
   carLoad: [],
@@ -23,6 +27,18 @@ function removeLoadItem(loadArray, id) {
     ...loadArray.slice(0, index),
     ...loadArray.slice(index + 1, loadArray.length),
   ];
+}
+
+function toggleLoadItem(loadArray, id) {
+  var index = loadArray.findIndex((l) => l.id === id);
+  var item = loadArray[index];
+  item.enabled = !item.enabled;
+
+  var newArray = loadArray.slice(0, index);
+  newArray.push(item);
+  newArray = newArray.concat(loadArray.slice(index + 1, loadArray.length));
+
+  return newArray;
 }
 
 export default function (state = initialState, action) {
@@ -51,10 +67,22 @@ export default function (state = initialState, action) {
         carLoad: removeLoadItem(state.carLoad, action.id),
       };
     }
+    case TOGGLE_CAR_LOAD: {
+      return {
+        ...state,
+        carLoad: toggleLoadItem(state.carLoad, action.id),
+      };
+    }
     case DELETE_VAN_LOAD: {
       return {
         ...state,
         vanLoad: removeLoadItem(state.vanLoad, action.id),
+      };
+    }
+    case TOGGLE_VAN_LOAD: {
+      return {
+        ...state,
+        vanLoad: toggleLoadItem(state.vanLoad, action.id),
       };
     }
     default:

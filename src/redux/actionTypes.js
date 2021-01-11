@@ -4,3 +4,5 @@ export const ADD_CAR_LOAD = "ADD_CAR_LOAD";
 export const ADD_VAN_LOAD = "ADD_VAN_LOAD";
 export const DELETE_CAR_LOAD = "DELETE_CAR_LOAD";
 export const DELETE_VAN_LOAD = "DELETE_VAN_LOAD";
+export const TOGGLE_CAR_LOAD = "TOGGLE_CAR_LOAD";
+export const TOGGLE_VAN_LOAD = "TOGGLE_VAN_LOAD";
