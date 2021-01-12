@@ -1,6 +1,8 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import LoadItem from "./LoadItem";
 
+import { FaCaravan } from "react-icons/fa";
+
 describe("Load Item", () => {
   const load = {
     item: "Engel",
@@ -26,6 +28,17 @@ describe("Load Item", () => {
     screen.getByText(/Engel/);
     screen.getByText(/2/);
     screen.getByText(/25/);
+  });
+
+  it("renders the load item with the move content", () => {
+    render(
+      <LoadItem
+        item={load}
+        handleDelete={mockDelete}
+        moveIcon={<FaCaravan data-testid="van" size="25"></FaCaravan>}
+      />
+    );
+    screen.getByTestId("van");
   });
 
   it("indicates the load item's enabled state", () => {

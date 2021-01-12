@@ -14,6 +14,7 @@ import AddLoad from "./AddLoad";
 import LoadList from "./LoadList";
 import { getVanLoad } from "../redux/selectors";
 import SummaryStatus from "../indicatorcomponents/SummaryStatus";
+import { FaTruckPickup } from "react-icons/fa";
 
 class ManageVanLoad extends React.Component {
   handleAddNewLoad = (load) => {
@@ -48,6 +49,7 @@ class ManageVanLoad extends React.Component {
           handleDelete={this.handleDeleteLoad}
           handleToggle={this.handleToggleLoad}
           handleMove={this.handleMoveLoad}
+          moveIcon={<FaTruckPickup size="25" />}
         ></LoadList>
       </div>
     );

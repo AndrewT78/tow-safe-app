@@ -50,13 +50,15 @@ const LoadItem = (props) => {
             )}
           </Col>
           <Col xs={"auto"}>
-            <FaAngleDoubleLeft
+            <div
               onClick={() => {
                 handleShowConfirmMove();
               }}
-              size="25"
               data-testid={`move-load-${props.item.id}`}
-            ></FaAngleDoubleLeft>
+            >
+              {props.moveIcon}
+              <FaAngleDoubleLeft size="25"></FaAngleDoubleLeft>
+            </div>
           </Col>
           <Col xs={"auto"}>
             <FaTrash

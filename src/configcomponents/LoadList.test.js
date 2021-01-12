@@ -1,4 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
+import { FaCaravan } from "react-icons/fa";
 import LoadList from "./LoadList";
 
 describe("Load List", () => {
@@ -17,6 +18,18 @@ describe("Load List", () => {
     screen.getByText(/2/);
     screen.getByText(/25/);
     screen.getByText(/Case/);
+  });
+
+  it("renders the specified move icon on the load items", () => {
+    render(
+      <LoadList
+        load={load}
+        handleDelete={mockDelete}
+        moveIcon={<FaCaravan data-testid="van" />}
+      />
+    );
+    const vanMoveIcons = screen.getAllByTestId("van");
+    expect(vanMoveIcons).toHaveLength(2);
   });
 
   it("deletes an item when delete is pressed", () => {

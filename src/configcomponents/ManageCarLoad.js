@@ -14,6 +14,7 @@ import AddLoad from "./AddLoad";
 import LoadList from "./LoadList";
 import { getCarLoad } from "../redux/selectors";
 import SummaryStatus from "../indicatorcomponents/SummaryStatus";
+import { FaCaravan } from "react-icons/fa";
 
 class ManageCarLoad extends React.Component {
   handleAddNewLoad = (load) => {
@@ -48,6 +49,7 @@ class ManageCarLoad extends React.Component {
           handleDelete={this.handleDeleteLoad}
           handleToggle={this.handleToggleLoad}
           handleMove={this.handleMoveLoad}
+          moveIcon={<FaCaravan size="25" />}
         ></LoadList>
       </div>
     );
