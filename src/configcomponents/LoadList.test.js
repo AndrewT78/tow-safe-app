@@ -59,6 +59,9 @@ describe("Load List", () => {
     const moveButton = screen.getByTestId("move-load-1");
     fireEvent.click(moveButton);
 
+    const confirmButton = screen.getByTestId("confirm-move-button");
+    fireEvent.click(confirmButton);
+
     expect(mockMove).toHaveBeenCalledTimes(1);
     expect(mockMove).toHaveBeenCalledWith("1");
   });

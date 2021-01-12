@@ -88,6 +88,15 @@ describe("Load Item", () => {
     expect(mockToggle).toHaveBeenCalledWith("Engel1");
   });
 
+  it("shows the move confirmation when the move button is pressed", () => {
+    render(<LoadItem item={load} handleMove={mockMove} />);
+
+    const moveButton = screen.getByTestId("move-load-Engel1");
+    fireEvent.click(moveButton);
+
+    screen.getByText(/Are you sure you want to move/);
+  });
+
   it("moves the item to the other vehicle when the move button is pressed", () => {
     render(
       <LoadItem
@@ -101,6 +110,30 @@ describe("Load Item", () => {
     const moveButton = screen.getByTestId("move-load-Engel1");
     fireEvent.click(moveButton);
 
+    // confirm on the dialog
+    const confirmButton = screen.getByTestId("confirm-move-button");
+    fireEvent.click(confirmButton);
+
     expect(mockMove).toHaveBeenCalledWith("Engel1");
+  });
+
+  it("does not move the item to the other vehicle when the cancel button is pressed", () => {
+    render(
+      <LoadItem
+        item={load}
+        handleDelete={mockDelete}
+        handleToggle={mockToggle}
+        handleMove={mockMove}
+      />
+    );
+
+    const moveButton = screen.getByTestId("move-load-Engel1");
+    fireEvent.click(moveButton);
+
+    // cancel on the dialog
+    const cancelButton = screen.getByTestId("cancel-move-button");
+    fireEvent.click(cancelButton);
+
+    expect(mockMove).not.toHaveBeenCalled();
   });
 });

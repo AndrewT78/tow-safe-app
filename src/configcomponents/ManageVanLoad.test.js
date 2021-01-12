@@ -116,6 +116,9 @@ it("moves a load item when the move button is pressed", () => {
   const moveButton = screen.getByTestId("move-load-Sheets1");
   fireEvent.click(moveButton);
 
+  const confirmButton = screen.getByTestId("confirm-move-button");
+  fireEvent.click(confirmButton);
+
   expect(myStore.getState().loads.vanLoad).toEqual([
     { item: "Cases", quantity: 4, weight: 18, id: "Cases1", enabled: true },
   ]);

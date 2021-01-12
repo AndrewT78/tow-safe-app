@@ -14,6 +14,11 @@ const LoadItem = (props) => {
   const handleCloseConfirmDelete = () => setShowConfirmDelete(false);
   const handleShowConfirmDelete = () => setShowConfirmDelete(true);
 
+  const [showConfirmMove, setShowConfirmMove] = useState(false);
+
+  const handleCloseConfirmMove = () => setShowConfirmMove(false);
+  const handleShowConfirmMove = () => setShowConfirmMove(true);
+
   return (
     <>
       <Alert variant="secondary">
@@ -47,7 +52,7 @@ const LoadItem = (props) => {
           <Col xs={"auto"}>
             <FaAngleDoubleLeft
               onClick={() => {
-                props.handleMove(props.item.id);
+                handleShowConfirmMove();
               }}
               size="25"
               data-testid={`move-load-${props.item.id}`}
@@ -86,6 +91,31 @@ const LoadItem = (props) => {
             }}
           >
             Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal show={showConfirmMove} onHide={handleCloseConfirmMove}>
+        <Modal.Header closeButton>
+          <Modal.Title>Move Item?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to move this item?</Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="primary"
+            onClick={handleCloseConfirmMove}
+            data-testid="cancel-move-button"
+          >
+            Cancel
+          </Button>
+          <Button
+            data-testid="confirm-move-button"
+            variant="danger"
+            onClick={() => {
+              props.handleMove(props.item.id);
+              handleCloseConfirmMove();
+            }}
+          >
+            Move
           </Button>
         </Modal.Footer>
       </Modal>
