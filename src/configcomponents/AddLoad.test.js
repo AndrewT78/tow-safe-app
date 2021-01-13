@@ -29,10 +29,7 @@ it("disables the add button until all fields are valid", () => {
 
   const itemInput = screen.getByPlaceholderText("Item Name");
   fireEvent.change(itemInput, { target: { value: "Paper" } });
-  expect(addButton).toBeDisabled();
 
-  const weightInput = screen.getByPlaceholderText("kg");
-  fireEvent.change(weightInput, { target: { value: "0.5" } });
   expect(addButton).toBeEnabled();
 });
 
