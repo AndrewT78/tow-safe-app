@@ -34,7 +34,7 @@ class AddLoad extends React.Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Row>
-          <Col xs={4}>
+          <Col>
             <Form.Control
               type="text"
               placeholder="Item Name"
@@ -69,15 +69,19 @@ class AddLoad extends React.Component {
               />
             </InputGroup>
           </Col>
-          <Col>
-            {this.formComplete() ? (
-              <Button type="submit">Add</Button>
-            ) : (
-              <Button type="submit" disabled>
-                Add
-              </Button>
-            )}
-          </Col>
+        </Form.Row>
+        <Form.Row
+          style={{ marginTop: "20px", marginLeft: "0px", marginRight: "0px" }}
+        >
+          {this.formComplete() ? (
+            <Button style={{ width: "100%" }} type="submit">
+              Add
+            </Button>
+          ) : (
+            <Button style={{ width: "100%" }} type="submit" disabled>
+              Add
+            </Button>
+          )}
         </Form.Row>
       </Form>
     );

@@ -49,9 +49,9 @@ const getSummaryStatusVariantCombined = (combined) => {
 
 const SummaryStatus = ({ combinedStatus, carStatus, vanStatus }) => {
   return (
-    <div>
+    <>
       <Row>
-        <Col>
+        <Col xs={3}>
           <Alert
             variant={getSummaryStatusVariant(carStatus)}
             data-testid="car-status"
@@ -59,7 +59,7 @@ const SummaryStatus = ({ combinedStatus, carStatus, vanStatus }) => {
             <FaTruckPickup size="30"></FaTruckPickup>
           </Alert>
         </Col>
-        <Col>
+        <Col xs={3}>
           <Alert
             variant={getSummaryStatusVariant(vanStatus)}
             data-testid="van-status"
@@ -67,7 +67,7 @@ const SummaryStatus = ({ combinedStatus, carStatus, vanStatus }) => {
             <FaCaravan size="30"></FaCaravan>
           </Alert>
         </Col>
-        <Col>
+        <Col xs={6}>
           <Alert
             variant={getSummaryStatusVariantCombined(combinedStatus)}
             data-testid="combined-status"
@@ -80,7 +80,7 @@ const SummaryStatus = ({ combinedStatus, carStatus, vanStatus }) => {
           </Alert>
         </Col>
       </Row>
-    </div>
+    </>
   );
 };
 
