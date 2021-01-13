@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Form, Button, Col } from "react-bootstrap";
+import { Form, Button, Col, InputGroup } from "react-bootstrap";
 
 class AddLoad extends React.Component {
   constructor(props) {
@@ -34,7 +34,7 @@ class AddLoad extends React.Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Row>
-          <Col xs={5}>
+          <Col xs={4}>
             <Form.Control
               type="text"
               placeholder="Item Name"
@@ -43,21 +43,31 @@ class AddLoad extends React.Component {
               autoFocus={true}
             />
           </Col>
-          <Col xs={2}>
-            <Form.Control
-              type="number"
-              placeholder="kg"
-              value={this.state.weight}
-              onChange={(e) => this.updateWeight(e.target.value)}
-            />
+          <Col xs={3}>
+            <InputGroup>
+              <Form.Control
+                type="number"
+                placeholder="kg"
+                value={this.state.weight}
+                onChange={(e) => this.updateWeight(e.target.value)}
+              />
+              <InputGroup.Append>
+                <InputGroup.Text>kgs</InputGroup.Text>
+              </InputGroup.Append>
+            </InputGroup>
           </Col>
-          <Col xs={2}>
-            <Form.Control
-              type="number"
-              placeholder="Quantity"
-              value={this.state.quantity}
-              onChange={(e) => this.updateQuantity(e.target.value)}
-            />
+          <Col xs={3}>
+            <InputGroup>
+              <InputGroup.Prepend>
+                <InputGroup.Text>x</InputGroup.Text>
+              </InputGroup.Prepend>
+              <Form.Control
+                type="number"
+                placeholder="Quantity"
+                value={this.state.quantity}
+                onChange={(e) => this.updateQuantity(e.target.value)}
+              />
+            </InputGroup>
           </Col>
           <Col>
             {this.formComplete() ? (
