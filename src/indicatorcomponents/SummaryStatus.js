@@ -56,7 +56,7 @@ const SummaryStatus = ({ combinedStatus, carStatus, vanStatus }) => {
             variant={getSummaryStatusVariant(carStatus)}
             data-testid="car-status"
           >
-            <FaTruckPickup size="40"></FaTruckPickup>
+            <FaTruckPickup size="30"></FaTruckPickup>
           </Alert>
         </Col>
         <Col>
@@ -64,7 +64,7 @@ const SummaryStatus = ({ combinedStatus, carStatus, vanStatus }) => {
             variant={getSummaryStatusVariant(vanStatus)}
             data-testid="van-status"
           >
-            <FaCaravan size="40"></FaCaravan>
+            <FaCaravan size="30"></FaCaravan>
           </Alert>
         </Col>
         <Col>
@@ -72,9 +72,9 @@ const SummaryStatus = ({ combinedStatus, carStatus, vanStatus }) => {
             variant={getSummaryStatusVariantCombined(combinedStatus)}
             data-testid="combined-status"
           >
-            <FaCaravan size="40" data-testid="combined-status-van"></FaCaravan>
+            <FaCaravan size="30" data-testid="combined-status-van"></FaCaravan>
             <FaTruckPickup
-              size="40"
+              size="30"
               data-testid="combined-status-car"
             ></FaTruckPickup>
           </Alert>
