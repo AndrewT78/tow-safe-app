@@ -37,7 +37,7 @@ class ManageCarLoad extends React.Component {
     return (
       <div>
         <SummaryStatus></SummaryStatus>
-        <div style={{ marginBottom: "20px", marginTop: "20px" }}>
+        <div style={{ marginBottom: "10px", marginTop: "0px" }}>
           <Link to="/" data-testid="car-load-back" style={{ color: "inherit" }}>
             <Button>Back</Button>
           </Link>

@@ -43,7 +43,7 @@ class AddLoad extends React.Component {
               autoFocus={true}
             />
           </Col>
-          <Col xs={3}>
+          <Col xs={4}>
             <InputGroup>
               <Form.Control
                 type="number"
@@ -52,7 +52,7 @@ class AddLoad extends React.Component {
                 onChange={(e) => this.updateWeight(e.target.value)}
               />
               <InputGroup.Append>
-                <InputGroup.Text>kgs</InputGroup.Text>
+                <InputGroup.Text>kg</InputGroup.Text>
               </InputGroup.Append>
             </InputGroup>
           </Col>
