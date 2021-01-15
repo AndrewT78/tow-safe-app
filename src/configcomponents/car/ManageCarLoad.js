@@ -9,11 +9,11 @@ import {
   deleteCarLoad,
   toggleCarLoad,
   moveLoadToVan,
-} from "../redux/actions";
-import AddLoad from "./AddLoad";
-import LoadList from "./LoadList";
-import { getCarLoad } from "../redux/selectors";
-import SummaryStatus from "../indicatorcomponents/SummaryStatus";
+} from "../../redux/actions";
+import AddLoad from "./../AddLoad";
+import LoadList from "./../LoadList";
+import { getCarLoad } from "../../redux/selectors";
+import SummaryStatus from "../../indicatorcomponents/SummaryStatus";
 import { FaCaravan } from "react-icons/fa";
 
 class ManageCarLoad extends React.Component {

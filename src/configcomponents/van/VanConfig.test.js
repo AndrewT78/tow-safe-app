@@ -1,6 +1,6 @@
 import { render as rtlRender, screen, fireEvent } from "@testing-library/react";
 import { Provider } from "react-redux";
-import rootReducer from "./../redux/reducers";
+import rootReducer from "../../redux/reducers";
 import { createStore } from "redux";
 import VanConfig from "./VanConfig";
 

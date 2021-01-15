@@ -3,49 +3,49 @@ import React from "react";
 import { Form, Button } from "react-bootstrap";
 
 import { connect } from "react-redux";
-import { updateCarConfig } from "../redux/actions";
+import { updateVanConfig } from "../../redux/actions";
 
-class CarConfig extends React.Component {
+class VanConfig extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
-  updateGVM = (input) => {
-    this.setState({ gvm: parseInt(input) });
+  updateATM = (input) => {
+    this.setState({ atm: parseInt(input) });
   };
 
   updateTare = (input) => {
     this.setState({ tare: parseInt(input) });
   };
 
-  updateGCM = (input) => {
-    this.setState({ gcm: parseInt(input) });
+  updateTBM = (input) => {
+    this.setState({ tbm: parseInt(input) });
   };
 
   formComplete = () => {
-    return this.state.gvm > 0 && this.state.gcm > 0 && this.state.tare > 0;
+    return this.state.atm > 0 && this.state.tbm > 0 && this.state.tare > 0;
   };
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.updateCarConfig(this.state);
-    this.setState({ gvm: null, gcm: null, tare: null });
+    this.props.updateVanConfig(this.state);
+    this.setState({ atm: null, tbm: null, tare: null });
   };
 
   render() {
     return (
       <Form onSubmit={this.handleSubmit}>
-        <Form.Group controlId="carConfigForm.atm">
+        <Form.Group controlId="vanConfigForm.atm">
           <Form.Control
             type="number"
-            placeholder="GVM"
-            name="gvm"
-            onChange={(e) => this.updateGVM(e.target.value)}
+            placeholder="ATM"
+            name="atm"
+            onChange={(e) => this.updateATM(e.target.value)}
             autoFocus={true}
           />
         </Form.Group>
-        <Form.Group controlId="carConfigForm.tare">
+        <Form.Group controlId="vanConfigForm.tare">
           <Form.Control
             type="number"
             placeholder="Tare"
@@ -53,12 +53,12 @@ class CarConfig extends React.Component {
             onChange={(e) => this.updateTare(e.target.value)}
           />
         </Form.Group>
-        <Form.Group controlId="carConfigForm.gcm">
+        <Form.Group controlId="vanConfigForm.tbm">
           <Form.Control
             type="number"
-            placeholder="GCM"
-            name="gcm"
-            onChange={(e) => this.updateGCM(e.target.value)}
+            placeholder="TBM"
+            name="tbm"
+            onChange={(e) => this.updateTBM(e.target.value)}
           />
         </Form.Group>
         {this.formComplete() ? (
@@ -73,4 +73,4 @@ class CarConfig extends React.Component {
   }
 }
 
-export default connect(null, { updateCarConfig })(CarConfig);
+export default connect(null, { updateVanConfig })(VanConfig);
