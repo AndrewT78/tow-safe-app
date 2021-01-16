@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, InputGroup } from "react-bootstrap";
 
 import { connect } from "react-redux";
 import { updateCarConfig } from "../../redux/actions";
@@ -52,29 +52,44 @@ class CarConfig extends React.Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Group controlId="carConfigForm.atm">
-          <Form.Control
-            type="number"
-            placeholder="GVM"
-            value={this.state.gvm}
-            onChange={(e) => this.updateGVM(e.target.value)}
-            autoFocus={true}
-          />
+          <InputGroup>
+            <InputGroup.Prepend>
+              <InputGroup.Text>GVM</InputGroup.Text>
+            </InputGroup.Prepend>
+            <Form.Control
+              type="number"
+              placeholder="GVM"
+              value={this.state.gvm}
+              onChange={(e) => this.updateGVM(e.target.value)}
+              autoFocus={true}
+            />
+          </InputGroup>
         </Form.Group>
         <Form.Group controlId="carConfigForm.tare">
-          <Form.Control
-            type="number"
-            placeholder="Tare"
-            value={this.state.tare}
-            onChange={(e) => this.updateTare(e.target.value)}
-          />
+          <InputGroup>
+            <InputGroup.Prepend>
+              <InputGroup.Text>Tare</InputGroup.Text>
+            </InputGroup.Prepend>
+            <Form.Control
+              type="number"
+              placeholder="Tare"
+              value={this.state.tare}
+              onChange={(e) => this.updateTare(e.target.value)}
+            />
+          </InputGroup>
         </Form.Group>
         <Form.Group controlId="carConfigForm.gcm">
-          <Form.Control
-            type="number"
-            placeholder="GCM"
-            value={this.state.gcm}
-            onChange={(e) => this.updateGCM(e.target.value)}
-          />
+          <InputGroup>
+            <InputGroup.Prepend>
+              <InputGroup.Text>GCM</InputGroup.Text>
+            </InputGroup.Prepend>
+            <Form.Control
+              type="number"
+              placeholder="GCM"
+              value={this.state.gcm}
+              onChange={(e) => this.updateGCM(e.target.value)}
+            />
+          </InputGroup>
         </Form.Group>
         {this.formComplete() ? (
           <Button type="submit">Save</Button>
