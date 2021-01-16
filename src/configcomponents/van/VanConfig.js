@@ -4,11 +4,20 @@ import { Form, Button } from "react-bootstrap";
 
 import { connect } from "react-redux";
 import { updateVanConfig } from "../../redux/actions";
+import { getVanConfig } from "../../redux/selectors";
 
 class VanConfig extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    if (props.vanConfig) {
+      this.state = {
+        atm: props.vanConfig.atm,
+        tare: props.vanConfig.tare,
+        tbm: props.vanConfig.tbm,
+      };
+    } else {
+      this.state = {};
+    }
   }
 
   updateATM = (input) => {
@@ -24,13 +33,19 @@ class VanConfig extends React.Component {
   };
 
   formComplete = () => {
-    return this.state.atm > 0 && this.state.tbm > 0 && this.state.tare > 0;
+    return (
+      this.state.atm > 0 &&
+      this.state.tbm > 0 &&
+      this.state.tare > 0 &&
+      (this.state.atm != this.props.vanConfig.atm ||
+        this.state.tare != this.props.vanConfig.tare ||
+        this.state.tbm != this.props.vanConfig.tbm)
+    );
   };
 
   handleSubmit = (event) => {
     event.preventDefault();
     this.props.updateVanConfig(this.state);
-    this.setState({ atm: null, tbm: null, tare: null });
   };
 
   render() {
@@ -40,7 +55,7 @@ class VanConfig extends React.Component {
           <Form.Control
             type="number"
             placeholder="ATM"
-            name="atm"
+            value={this.state.atm}
             onChange={(e) => this.updateATM(e.target.value)}
             autoFocus={true}
           />
@@ -49,7 +64,7 @@ class VanConfig extends React.Component {
           <Form.Control
             type="number"
             placeholder="Tare"
-            name="tare"
+            value={this.state.tare}
             onChange={(e) => this.updateTare(e.target.value)}
           />
         </Form.Group>
@@ -57,15 +72,15 @@ class VanConfig extends React.Component {
           <Form.Control
             type="number"
             placeholder="TBM"
-            name="tbm"
+            value={this.state.tbm}
             onChange={(e) => this.updateTBM(e.target.value)}
           />
         </Form.Group>
         {this.formComplete() ? (
-          <Button type="submit">Next</Button>
+          <Button type="submit">Save</Button>
         ) : (
           <Button type="submit" disabled>
-            Next
+            Save
           </Button>
         )}
       </Form>
@@ -73,4 +88,9 @@ class VanConfig extends React.Component {
   }
 }
 
-export default connect(null, { updateVanConfig })(VanConfig);
+const mapStateToProps = (state) => {
+  const vanConfig = getVanConfig(state);
+  return { vanConfig };
+};
+
+export default connect(mapStateToProps, { updateVanConfig })(VanConfig);

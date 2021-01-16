@@ -58,9 +58,9 @@ const MainPane = ({ vanConfig, carConfig }) => {
         <EditVan></EditVan>
       </Route>
       <Route path="/">
-        {vanConfig && carConfig
+        {vanConfig.tare > 0 && carConfig.tare > 0
           ? getStatusPane()
-          : vanConfig
+          : vanConfig.tare > 0
           ? getCarConfigPane()
           : getVanConfigPane()}
       </Route>
