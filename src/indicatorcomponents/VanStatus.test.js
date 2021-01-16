@@ -94,3 +94,16 @@ it("navigates to the van load page when the load icon is clicked", async () => {
   });
   expect(historySpy).toHaveBeenCalledWith("/vanload");
 });
+
+it("navigates to the van config page when the van icon is clicked", async () => {
+  renderComponent(<VanStatus />, {
+    initialState: {
+      configs: { vanConfig: { atm: 3000, tare: 2001, tbm: 180 } },
+    },
+  });
+  const configButton = screen.getByTestId("van-config");
+  act(() => {
+    fireEvent.click(configButton);
+  });
+  expect(historySpy).toHaveBeenCalledWith("/vanconfig");
+});

@@ -14,7 +14,13 @@ const VanStatus = ({ vanConfig, vanStatus }) => {
     <Alert variant={getStatusVariant(vanStatus)} data-testid="van-status-box">
       <Row>
         <Col xs="auto">
-          <FaCaravan size="50"></FaCaravan>
+          <Link
+            to="/vanconfig"
+            data-testid="van-config-link"
+            style={{ color: "inherit" }}
+          >
+            <FaCaravan size="50" data-testid="van-config"></FaCaravan>
+          </Link>
         </Col>
         <Col>
           <Row>
