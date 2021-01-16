@@ -95,3 +95,16 @@ it("navigates to the car load page when the load icon is clicked", async () => {
   });
   expect(historySpy).toHaveBeenCalledWith("/carload");
 });
+
+it("navigates to the car config page when the car icon is clicked", async () => {
+  renderComponent(<CarStatus />, {
+    initialState: {
+      configs: { carConfig: { gvm: 2000, tare: 2001, gcm: 3000 } },
+    },
+  });
+  const configButton = screen.getByTestId("car-config");
+  act(() => {
+    fireEvent.click(configButton);
+  });
+  expect(historySpy).toHaveBeenCalledWith("/carconfig");
+});

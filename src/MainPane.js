@@ -12,6 +12,7 @@ import ManageCarLoad from "./configcomponents/car/ManageCarLoad";
 import ManageVanLoad from "./configcomponents/van/ManageVanLoad";
 import CombinedStatus from "./indicatorcomponents/CombinedStatus";
 import EditVan from "./configcomponents/van/EditVan";
+import EditCar from "./configcomponents/car/EditCar";
 
 import { Route, Switch } from "react-router-dom";
 
@@ -56,6 +57,9 @@ const MainPane = ({ vanConfig, carConfig }) => {
       </Route>
       <Route path="/vanconfig">
         <EditVan></EditVan>
+      </Route>
+      <Route path="/carconfig">
+        <EditCar></EditCar>
       </Route>
       <Route path="/">
         {vanConfig.tare > 0 && carConfig.tare > 0

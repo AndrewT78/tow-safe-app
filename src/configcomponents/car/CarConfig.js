@@ -4,11 +4,20 @@ import { Form, Button } from "react-bootstrap";
 
 import { connect } from "react-redux";
 import { updateCarConfig } from "../../redux/actions";
+import { getCarConfig } from "../../redux/selectors";
 
 class CarConfig extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    if (props.carConfig) {
+      this.state = {
+        gvm: props.carConfig.gvm,
+        tare: props.carConfig.tare,
+        gcm: props.carConfig.gcm,
+      };
+    } else {
+      this.state = {};
+    }
   }
 
   updateGVM = (input) => {
@@ -24,13 +33,19 @@ class CarConfig extends React.Component {
   };
 
   formComplete = () => {
-    return this.state.gvm > 0 && this.state.gcm > 0 && this.state.tare > 0;
+    return (
+      this.state.gvm > 0 &&
+      this.state.gcm > 0 &&
+      this.state.tare > 0 &&
+      (this.state.gvm != this.props.carConfig.gvm ||
+        this.state.gcm != this.props.carConfig.gcm ||
+        this.state.tare != this.props.carConfig.tare)
+    );
   };
 
   handleSubmit = (event) => {
     event.preventDefault();
     this.props.updateCarConfig(this.state);
-    this.setState({ gvm: null, gcm: null, tare: null });
   };
 
   render() {
@@ -40,7 +55,7 @@ class CarConfig extends React.Component {
           <Form.Control
             type="number"
             placeholder="GVM"
-            name="gvm"
+            value={this.state.gvm}
             onChange={(e) => this.updateGVM(e.target.value)}
             autoFocus={true}
           />
@@ -49,7 +64,7 @@ class CarConfig extends React.Component {
           <Form.Control
             type="number"
             placeholder="Tare"
-            name="tare"
+            value={this.state.tare}
             onChange={(e) => this.updateTare(e.target.value)}
           />
         </Form.Group>
@@ -57,15 +72,15 @@ class CarConfig extends React.Component {
           <Form.Control
             type="number"
             placeholder="GCM"
-            name="gcm"
+            value={this.state.gcm}
             onChange={(e) => this.updateGCM(e.target.value)}
           />
         </Form.Group>
         {this.formComplete() ? (
-          <Button type="submit">Next</Button>
+          <Button type="submit">Save</Button>
         ) : (
           <Button type="submit" disabled>
-            Next
+            Save
           </Button>
         )}
       </Form>
@@ -73,4 +88,9 @@ class CarConfig extends React.Component {
   }
 }
 
-export default connect(null, { updateCarConfig })(CarConfig);
+const mapStateToProps = (state) => {
+  const carConfig = getCarConfig(state);
+  return { carConfig };
+};
+
+export default connect(mapStateToProps, { updateCarConfig })(CarConfig);

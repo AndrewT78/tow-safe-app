@@ -79,6 +79,21 @@ it("shows the van config when the route specifies van config", () => {
   expect(vanATMInput).toBeInTheDocument();
 });
 
+it("shows the car config when the route specifies car config", () => {
+  renderApp(<MainPane />, {
+    initialState: {
+      configs: {
+        vanConfig: { tare: 2150, atm: 3300 },
+        carConfig: { tare: 1000, gvm: 2200 },
+      },
+    },
+    initialRoute: "/carconfig",
+  });
+
+  const carGCMInput = screen.getByPlaceholderText("GCM");
+  expect(carGCMInput).toBeInTheDocument();
+});
+
 it("navigates to the van load page when the route specifies", () => {
   renderApp(<MainPane />, {
     initialState: {

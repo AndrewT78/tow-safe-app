@@ -14,7 +14,13 @@ const CarStatus = ({ carConfig, carStatus }) => {
     <Alert variant={getStatusVariant(carStatus)} data-testid="car-status-box">
       <Row>
         <Col xs={"auto"}>
-          <FaTruckPickup size="50"></FaTruckPickup>
+          <Link
+            to="/carconfig"
+            data-testid="car-config-link"
+            style={{ color: "inherit" }}
+          >
+            <FaTruckPickup size="50" data-testid="car-config"></FaTruckPickup>
+          </Link>
         </Col>
         <Col>
           <Row>
