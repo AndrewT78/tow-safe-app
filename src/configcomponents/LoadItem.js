@@ -19,18 +19,27 @@ const LoadItem = (props) => {
   const handleCloseConfirmMove = () => setShowConfirmMove(false);
   const handleShowConfirmMove = () => setShowConfirmMove(true);
 
+  const getSingleItem = () => {
+    return `${props.item.item} - ${props.item.quantity * props.item.weight}kg`;
+  };
+
+  const getMultipleItem = () => {
+    return `${props.item.item} x ${props.item.quantity} - ${
+      props.item.quantity * props.item.weight
+    }kg`;
+  };
+
   return (
     <>
       <Alert variant="secondary">
         <Row>
-          <Col>{props.item.item}</Col>
-        </Row>
-        <Row>
           <Col>
-            {props.item.quantity * props.item.weight} kgs ({props.item.quantity}
-            x{props.item.weight} kg)
+            {props.item.quantity > 1 ? getMultipleItem() : getSingleItem()}
           </Col>
-          <Col xs={"auto"}>
+        </Row>
+        <Row className="justify-content-md-right">
+          <Col xs="5"></Col>
+          <Col xs={"2"}>
             {props.item.enabled ? (
               <FaToggleOn
                 onClick={() => {
@@ -49,7 +58,7 @@ const LoadItem = (props) => {
               ></FaToggleOff>
             )}
           </Col>
-          <Col xs={"auto"}>
+          <Col xs={"3"}>
             <div
               onClick={() => {
                 handleShowConfirmMove();
@@ -60,7 +69,7 @@ const LoadItem = (props) => {
               <FaAngleDoubleLeft size="25"></FaAngleDoubleLeft>
             </div>
           </Col>
-          <Col xs={"auto"}>
+          <Col xs={"2"}>
             <FaTrash
               onClick={() => {
                 handleShowConfirmDelete();

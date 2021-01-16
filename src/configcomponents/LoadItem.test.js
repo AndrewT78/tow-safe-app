@@ -19,6 +19,22 @@ describe("Load Item", () => {
     enabled: false,
   };
 
+  const singleLoad = {
+    item: "Engel",
+    quantity: 1,
+    weight: 25,
+    id: "Engel1",
+    enabled: true,
+  };
+
+  const multiLoad = {
+    item: "Beers",
+    quantity: 24,
+    weight: 1,
+    id: "Beers1",
+    enabled: true,
+  };
+
   const mockDelete = jest.fn();
   const mockToggle = jest.fn();
   const mockMove = jest.fn();
@@ -27,7 +43,17 @@ describe("Load Item", () => {
     render(<LoadItem item={load} handleDelete={mockDelete} />);
     screen.getByText(/Engel/);
     screen.getByText(/2/);
-    screen.getByText(/25/);
+    screen.getByText(/50/);
+  });
+
+  it("shows the quantity and total weight", () => {
+    render(<LoadItem item={multiLoad} handleDelete={mockDelete} />);
+    screen.getByText("Beers x 24 - 24kg");
+  });
+
+  it("does not show the quantity if single", () => {
+    render(<LoadItem item={singleLoad} handleDelete={mockDelete} />);
+    screen.getByText("Engel - 25kg");
   });
 
   it("renders the load item with the move content", () => {
