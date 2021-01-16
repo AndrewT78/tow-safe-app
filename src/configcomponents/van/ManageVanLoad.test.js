@@ -58,8 +58,6 @@ it("renders a form for Item, weight and quantity", () => {
 it("renders a list of the load items", () => {
   renderApp(<ManageVanLoad />);
   screen.getByText(/Sheets/);
-  screen.getAllByText(/8/);
-  screen.getByText(/3/);
   screen.getByText(/Cases/);
 });
 

@@ -52,8 +52,6 @@ it("renders a form for Item, weight and quantity", () => {
 it("renders a list of the load items", () => {
   renderApp(<ManageCarLoad />);
   screen.getByText(/Engel/);
-  screen.getAllByText(/1/);
-  screen.getByText(/20/);
   screen.getByText(/Cases/);
 });
 
