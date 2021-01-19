@@ -8,3 +8,7 @@ export const TOGGLE_CAR_LOAD = "TOGGLE_CAR_LOAD";
 export const TOGGLE_VAN_LOAD = "TOGGLE_VAN_LOAD";
 export const MOVE_LOAD_TO_VAN = "MOVE_LOAD_TO_VAN";
 export const MOVE_LOAD_TO_CAR = "MOVE_LOAD_TO_CAR";
+export const ADD_CAR_ACC = "ADD_CAR_ACC";
+export const DELETE_CAR_ACC = "DELETE_CAR_ACC";
+export const ADD_VAN_ACC = "ADD_VAN_ACC";
+export const DELETE_VAN_ACC = "DELETE_VAN_ACC";

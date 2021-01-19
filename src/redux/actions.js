@@ -9,6 +9,10 @@ import {
   UPDATE_VAN_CONFIG,
   MOVE_LOAD_TO_VAN,
   MOVE_LOAD_TO_CAR,
+  ADD_CAR_ACC,
+  DELETE_CAR_ACC,
+  ADD_VAN_ACC,
+  DELETE_VAN_ACC,
 } from "./actionTypes";
 
 export const updateVanConfig = (config) => ({
@@ -58,5 +62,25 @@ export const moveLoadToCar = (id) => ({
 
 export const moveLoadToVan = (id) => ({
   type: MOVE_LOAD_TO_VAN,
+  id,
+});
+
+export const addCarAccessory = (acc) => ({
+  type: ADD_CAR_ACC,
+  accessory: acc,
+});
+
+export const deleteCarAccessory = (id) => ({
+  type: DELETE_CAR_ACC,
+  id,
+});
+
+export const addVanAccessory = (acc) => ({
+  type: ADD_VAN_ACC,
+  accessory: acc,
+});
+
+export const deleteVanAccessory = (id) => ({
+  type: DELETE_VAN_ACC,
   id,
 });

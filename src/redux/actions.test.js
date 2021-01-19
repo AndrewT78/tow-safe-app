@@ -98,3 +98,43 @@ describe("Van Load Actions", () => {
     expect(actions.moveLoadToCar(id)).toEqual(expectedAction);
   });
 });
+
+describe("Car Accessory Actions", () => {
+  it("should create an action to add a car accessory item", () => {
+    const acc = { accessory: "Bullbar", weight: 80 };
+    const expectedAction = {
+      type: types.ADD_CAR_ACC,
+      accessory: acc,
+    };
+    expect(actions.addCarAccessory(acc)).toEqual(expectedAction);
+  });
+
+  it("should create an action to delete a car accessory item", () => {
+    const id = "ID1234";
+    const expectedAction = {
+      type: types.DELETE_CAR_ACC,
+      id,
+    };
+    expect(actions.deleteCarAccessory(id)).toEqual(expectedAction);
+  });
+});
+
+describe("Van Accessory Actions", () => {
+  it("should create an action to add a van accessory item", () => {
+    const acc = { accessory: "Gas", weight: 18 };
+    const expectedAction = {
+      type: types.ADD_VAN_ACC,
+      accessory: acc,
+    };
+    expect(actions.addVanAccessory(acc)).toEqual(expectedAction);
+  });
+
+  it("should create an action to delete a van accessory item", () => {
+    const id = "ID1234";
+    const expectedAction = {
+      type: types.DELETE_VAN_ACC,
+      id,
+    };
+    expect(actions.deleteVanAccessory(id)).toEqual(expectedAction);
+  });
+});
