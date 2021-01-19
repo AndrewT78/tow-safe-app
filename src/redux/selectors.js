@@ -13,8 +13,16 @@ export const getCarLoad = (store) => {
   return store.loads.carLoad;
 };
 
+export const getCarAccessories = (store) => {
+  return store.accessories.carAccessories;
+};
+
 export const getVanLoad = (store) => {
   return store.loads.vanLoad;
+};
+
+export const getVanAccessories = (store) => {
+  return store.accessories.vanAccessories;
 };
 
 const getLoadWeight = (load) => {
@@ -29,10 +37,22 @@ const getLoadWeight = (load) => {
   return weight;
 };
 
+const getAccessoriesWeight = (accessories) => {
+  var weight = 0;
+
+  accessories.forEach((a) => {
+    weight += a.weight;
+  });
+
+  return weight;
+};
+
 export const getCarStatus = (store) => {
   var carStatus = status.OK;
   var totalWeight =
-    store.configs.carConfig.tare + getLoadWeight(store.loads.carLoad);
+    store.configs.carConfig.tare +
+    getLoadWeight(store.loads.carLoad) +
+    getAccessoriesWeight(store.accessories.carAccessories);
   var remainingPayload = store.configs.carConfig.gvm - totalWeight;
 
   if (totalWeight > store.configs.carConfig.gvm) {
@@ -47,7 +67,9 @@ export const getCarStatus = (store) => {
 export const getVanStatus = (store) => {
   var vanStatus = status.OK;
   var totalWeight =
-    store.configs.vanConfig.tare + getLoadWeight(store.loads.vanLoad);
+    store.configs.vanConfig.tare +
+    getLoadWeight(store.loads.vanLoad) +
+    getAccessoriesWeight(store.accessories.vanAccessories);
   var remainingPayload = store.configs.vanConfig.atm - totalWeight;
 
   if (totalWeight > store.configs.vanConfig.atm) {

@@ -4,6 +4,7 @@ import VanConfig from "./VanConfig";
 import { getVanConfig } from "../../redux/selectors";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import ManageVanAccessories from "./ManageVanAccessories";
 
 class EditVan extends React.Component {
   constructor(props) {
@@ -23,6 +24,7 @@ class EditVan extends React.Component {
           </Link>
         </div>
         <VanConfig></VanConfig>
+        <ManageVanAccessories></ManageVanAccessories>
       </>
     );
   }

@@ -23,6 +23,13 @@ beforeEach(() => {
       vanLoad: [],
       carLoad: [],
     },
+    accessories: {
+      carAccessories: [
+        { accessory: "Roof Racks", weight: 18, id: "Roofrack1" },
+        { accessory: "Bullbar", weight: 80, id: "Bullbar1" },
+      ],
+      vanAccessories: [],
+    },
   };
   myStore = createStore(rootReducer, initialState);
 });
@@ -48,6 +55,18 @@ it("renders a form for the car config", () => {
 
   const gcmInput = screen.getByPlaceholderText("GCM");
   expect(gcmInput).toBeInTheDocument();
+});
+
+it("renders a form for adding car accessories", () => {
+  renderApp(<EditCar />);
+  screen.getByPlaceholderText("Accessory");
+  screen.getByPlaceholderText("kg");
+});
+
+it("renders the list of car accessories", () => {
+  renderApp(<EditCar />);
+  screen.getByText(/Bullbar/);
+  screen.getByText(/Roof Racks/);
 });
 
 it("can update the car config", () => {

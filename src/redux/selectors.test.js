@@ -6,6 +6,8 @@ import {
   getCombinedStatus,
   getCarLoad,
   getVanLoad,
+  getCarAccessories,
+  getVanAccessories,
 } from "./selectors";
 import { status } from "./statusConstants";
 
@@ -22,6 +24,16 @@ describe("Van selectors", () => {
       vanLoad: [
         { item: "Food", quantity: 5, weight: 20, enabled: true },
         { item: "Cases", quantity: 4, weight: 10, enabled: true },
+      ],
+    },
+    accessories: {
+      vanAccessories: [
+        { accessory: "Gas", weight: 9 },
+        { accessory: "Annex", weight: 26 },
+      ],
+      carAccessories: [
+        { accessory: "Bullbar", weight: 80 },
+        { accessory: "Roofrack", weight: 18 },
       ],
     },
   };
@@ -41,6 +53,10 @@ describe("Van selectors", () => {
         { item: "Heavy Stuff", quantity: 1, weight: 1000, enabled: false },
       ],
     },
+    accessories: {
+      carAccessories: [],
+      vanAccessories: [],
+    },
   };
 
   const storeWarning = {
@@ -56,6 +72,10 @@ describe("Van selectors", () => {
         { item: "Food", quantity: 5, weight: 20, enabled: true },
         { item: "Cases", quantity: 4, weight: 10, enabled: true },
       ],
+    },
+    accessories: {
+      carAccessories: [],
+      vanAccessories: [],
     },
   };
 
@@ -73,10 +93,14 @@ describe("Van selectors", () => {
         { item: "Cases", quantity: 4, weight: 10, enabled: true },
       ],
     },
+    accessories: {
+      carAccessories: [],
+      vanAccessories: [],
+    },
   };
 
-  it("should return the totalWeight of the van including the tare and load", () => {
-    expect(getVanStatus(store).totalWeight).toEqual(2290);
+  it("should return the totalWeight of the van including the tare, load and accessories", () => {
+    expect(getVanStatus(store).totalWeight).toEqual(2325);
   });
 
   it("should not include the disabled items when calculating weight", () => {
@@ -84,7 +108,7 @@ describe("Van selectors", () => {
   });
 
   it("should return the remaining payload of the van", () => {
-    expect(getVanStatus(store).remainingPayload).toEqual(1010);
+    expect(getVanStatus(store).remainingPayload).toEqual(975);
   });
 
   it("should return a status of OK when the weight is less than the warning threshold", () => {
@@ -109,6 +133,13 @@ describe("Van selectors", () => {
       { item: "Cases", quantity: 4, weight: 10, enabled: true },
     ]);
   });
+
+  it("should return accessories for a van", () => {
+    expect(getVanAccessories(store)).toEqual([
+      { accessory: "Gas", weight: 9 },
+      { accessory: "Annex", weight: 26 },
+    ]);
+  });
 });
 
 describe("Car selectors", () => {
@@ -124,6 +155,16 @@ describe("Car selectors", () => {
       carLoad: [
         { item: "Engel", quantity: 1, weight: 20, enabled: true },
         { item: "Cases", quantity: 4, weight: 18, enabled: true },
+      ],
+    },
+    accessories: {
+      vanAccessories: [
+        { accessory: "Gas", weight: 9 },
+        { accessory: "Annex", weight: 26 },
+      ],
+      carAccessories: [
+        { accessory: "Bullbar", weight: 80 },
+        { accessory: "Roofrack", weight: 18 },
       ],
     },
   };
@@ -143,6 +184,10 @@ describe("Car selectors", () => {
         { item: "HeavyStuff", quantity: 1, weight: 1000, enabled: false },
       ],
     },
+    accessories: {
+      carAccessories: [],
+      vanAccessories: [],
+    },
   };
 
   const storeWarning = {
@@ -158,6 +203,10 @@ describe("Car selectors", () => {
         { item: "Heavy Item", weight: 100, quantity: 1, enabled: true },
       ],
     },
+    accessories: {
+      carAccessories: [],
+      vanAccessories: [],
+    },
   };
 
   const storeError = {
@@ -171,14 +220,18 @@ describe("Car selectors", () => {
     loads: {
       carLoad: [{ item: "light Item", weight: 1, quantity: 1, enabled: true }],
     },
+    accessories: {
+      carAccessories: [],
+      vanAccessories: [],
+    },
   };
 
   it("should return the car config from the store", () => {
     expect(getCarConfig(store)).toEqual({ tare: 1500, gvm: 2000, gcm: 3000 });
   });
 
-  it("should combine the tare and load to get the total car weight", () => {
-    expect(getCarStatus(store).totalWeight).toEqual(1592);
+  it("should combine the tare, load and accessories to get the total car weight", () => {
+    expect(getCarStatus(store).totalWeight).toEqual(1690);
   });
 
   it("should only include enabled load items in the total car weight", () => {
@@ -186,7 +239,7 @@ describe("Car selectors", () => {
   });
 
   it("should return the remaining payload of the car", () => {
-    expect(getCarStatus(store).remainingPayload).toEqual(408);
+    expect(getCarStatus(store).remainingPayload).toEqual(310);
   });
 
   it("should return a status of OK when the weight is less than the warning threshold", () => {
@@ -205,6 +258,13 @@ describe("Car selectors", () => {
     expect(getCarLoad(store)).toEqual([
       { item: "Engel", quantity: 1, weight: 20, enabled: true },
       { item: "Cases", quantity: 4, weight: 18, enabled: true },
+    ]);
+  });
+
+  it("should return accessories for a car", () => {
+    expect(getCarAccessories(store)).toEqual([
+      { accessory: "Bullbar", weight: 80 },
+      { accessory: "Roofrack", weight: 18 },
     ]);
   });
 });
@@ -227,6 +287,10 @@ describe("Combined selectors", () => {
       carLoad: [],
       vanLoad: [],
     },
+    accessories: {
+      carAccessories: [],
+      vanAccessories: [],
+    },
   };
 
   const atGvmThresholdStore = {
@@ -245,6 +309,10 @@ describe("Combined selectors", () => {
     loads: {
       carLoad: [],
       vanLoad: [],
+    },
+    accessories: {
+      carAccessories: [],
+      vanAccessories: [],
     },
   };
 
@@ -265,6 +333,10 @@ describe("Combined selectors", () => {
       carLoad: [],
       vanLoad: [],
     },
+    accessories: {
+      carAccessories: [],
+      vanAccessories: [],
+    },
   };
 
   const atGvmStore = {
@@ -283,6 +355,10 @@ describe("Combined selectors", () => {
     loads: {
       carLoad: [],
       vanLoad: [],
+    },
+    accessories: {
+      carAccessories: [],
+      vanAccessories: [],
     },
   };
 
@@ -303,6 +379,10 @@ describe("Combined selectors", () => {
       carLoad: [],
       vanLoad: [],
     },
+    accessories: {
+      carAccessories: [],
+      vanAccessories: [],
+    },
   };
 
   const atGcmThresholdStore = {
@@ -321,6 +401,10 @@ describe("Combined selectors", () => {
     loads: {
       carLoad: [],
       vanLoad: [],
+    },
+    accessories: {
+      carAccessories: [],
+      vanAccessories: [],
     },
   };
 
@@ -341,6 +425,10 @@ describe("Combined selectors", () => {
       carLoad: [],
       vanLoad: [],
     },
+    accessories: {
+      carAccessories: [],
+      vanAccessories: [],
+    },
   };
 
   const atGcmStore = {
@@ -360,6 +448,10 @@ describe("Combined selectors", () => {
       carLoad: [],
       vanLoad: [],
     },
+    accessories: {
+      carAccessories: [],
+      vanAccessories: [],
+    },
   };
 
   const overGcmStore = {
@@ -378,6 +470,10 @@ describe("Combined selectors", () => {
     loads: {
       carLoad: [],
       vanLoad: [],
+    },
+    accessories: {
+      carAccessories: [],
+      vanAccessories: [],
     },
   };
 

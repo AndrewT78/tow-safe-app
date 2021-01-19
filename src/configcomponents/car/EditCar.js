@@ -4,6 +4,7 @@ import CarConfig from "./CarConfig";
 import { getCarConfig } from "../../redux/selectors";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import ManageCarAccessories from "./ManageCarAccessories";
 
 class EditCar extends React.Component {
   constructor(props) {
@@ -23,6 +24,7 @@ class EditCar extends React.Component {
           </Link>
         </div>
         <CarConfig></CarConfig>
+        <ManageCarAccessories></ManageCarAccessories>
       </>
     );
   }

@@ -23,6 +23,13 @@ beforeEach(() => {
       vanLoad: [],
       carLoad: [],
     },
+    accessories: {
+      carAccessories: [],
+      vanAccessories: [
+        { accessory: "Gas", weight: 18, id: "Gas1" },
+        { accessory: "Annex", weight: 30, id: "Annex1" },
+      ],
+    },
   };
   myStore = createStore(rootReducer, initialState);
 });
@@ -48,6 +55,21 @@ it("renders a form for the van config", () => {
 
   const tbmInput = screen.getByPlaceholderText("TBM");
   expect(tbmInput).toBeInTheDocument();
+});
+
+it("renders a form for the van accessories", () => {
+  renderApp(<EditVan />);
+  const accInput = screen.getByPlaceholderText("Accessory");
+  expect(accInput).toBeInTheDocument();
+
+  const kgInput = screen.getByPlaceholderText("kg");
+  expect(kgInput).toBeInTheDocument();
+});
+
+it("renders a list of van accessories", () => {
+  renderApp(<EditVan />);
+  screen.getByText(/Annex/);
+  screen.getByText(/Gas/);
 });
 
 it("can update the van config", () => {
