@@ -13,9 +13,7 @@ const AccessoryItem = (props) => {
       <Alert variant="secondary">
         <Row>
           <Col>{`${props.accessory.accessory} - ${props.accessory.weight}kg`}</Col>
-        </Row>
-        <Row className="justify-content-md-right">
-          <Col xs={"2"}>
+          <Col width={"auto"}>
             <FaTrash
               onClick={() => {
                 handleShowConfirmDelete();

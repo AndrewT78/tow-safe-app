@@ -24,6 +24,7 @@ class EditVan extends React.Component {
           </Link>
         </div>
         <VanConfig></VanConfig>
+        <div style={{ marginBottom: "10px" }}></div>
         <ManageVanAccessories></ManageVanAccessories>
       </>
     );

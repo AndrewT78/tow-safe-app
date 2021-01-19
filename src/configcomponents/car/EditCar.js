@@ -24,6 +24,7 @@ class EditCar extends React.Component {
           </Link>
         </div>
         <CarConfig></CarConfig>
+        <div style={{ marginBottom: "10px" }}></div>
         <ManageCarAccessories></ManageCarAccessories>
       </>
     );
