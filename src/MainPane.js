@@ -14,39 +14,17 @@ import CombinedStatus from "./indicatorcomponents/CombinedStatus";
 import EditVan from "./configcomponents/van/EditVan";
 import EditCar from "./configcomponents/car/EditCar";
 
-import { Route, Switch } from "react-router-dom";
-
-const getVanConfigPane = () => {
-  return (
-    <div>
-      <Alert variant="secondary">
-        Welcome to TowSafe, Let's start by setting up your van details
-      </Alert>
-      <VanConfig></VanConfig>
-    </div>
-  );
-};
-
-const getCarConfigPane = () => {
-  return (
-    <div>
-      <Alert variant="secondary">Now let's setup your tow vehicle</Alert>
-      <CarConfig></CarConfig>
-    </div>
-  );
-};
-
-const getStatusPane = () => {
-  return (
-    <div>
-      <CarStatus></CarStatus>
-      <VanStatus></VanStatus>
-      <CombinedStatus></CombinedStatus>
-    </div>
-  );
-};
+import { Redirect, Route, Switch } from "react-router-dom";
 
 const MainPane = ({ vanConfig, carConfig }) => {
+  const isVanConfigured = () => {
+    return vanConfig.tare > 0;
+  };
+
+  const isCarConfigured = () => {
+    return carConfig.tare > 0;
+  };
+
   return (
     <Switch>
       <Route path="/carload">
@@ -61,12 +39,34 @@ const MainPane = ({ vanConfig, carConfig }) => {
       <Route path="/carconfig">
         <EditCar></EditCar>
       </Route>
+      <Route path="/carsetup">
+        <>
+          <Alert variant="secondary">Now let's setup your tow vehicle</Alert>
+          <CarConfig></CarConfig>
+        </>
+      </Route>
+      <Route path="/vansetup">
+        <>
+          <Alert variant="secondary">
+            Welcome to TowSafe, Let's start by setting up your van details
+          </Alert>
+          <VanConfig></VanConfig>
+        </>
+      </Route>
       <Route path="/">
-        {vanConfig.tare > 0 && carConfig.tare > 0
-          ? getStatusPane()
-          : vanConfig.tare > 0
-          ? getCarConfigPane()
-          : getVanConfigPane()}
+        <>
+          {!isVanConfigured() ? (
+            <Redirect to="/vansetup" />
+          ) : !isCarConfigured() ? (
+            <Redirect to="/carsetup" />
+          ) : (
+            <>
+              <CarStatus></CarStatus>
+              <VanStatus></VanStatus>
+              <CombinedStatus></CombinedStatus>
+            </>
+          )}
+        </>
       </Route>
     </Switch>
   );

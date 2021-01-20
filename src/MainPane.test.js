@@ -28,23 +28,23 @@ function renderApp(
   return rtlRender(ui, { wrapper: Wrapper, ...renderOptions });
 }
 
-it("renders the form to configure the van config when no config exists", () => {
-  renderApp(<MainPane />), { initialState: { vanConfig: {}, carConfig: {} } };
-  const vanATMInput = screen.getByPlaceholderText("ATM");
-  expect(vanATMInput).toBeInTheDocument();
+it("routes to the vansetup page when the van has not been setup", () => {
+  renderApp(<MainPane />, {
+    initialState: { configs: { vanConfig: {}, carConfig: {} } },
+  });
+  screen.getByText(/Let's start by setting up your van details/);
 });
 
-it("renders the form to configure the car config when no car config exists", () => {
+it("routes to the carsetup page when the van has not been setup", () => {
   renderApp(<MainPane />, {
     initialState: {
       configs: {
-        vanConfig: { atm: 1234, tbm: 100, tare: 1000 },
+        vanConfig: { tare: 100, atm: 100, tbm: 50 },
         carConfig: {},
       },
     },
   });
-  const carGVMInput = screen.getByPlaceholderText("GVM");
-  expect(carGVMInput).toBeInTheDocument();
+  screen.getByText(/Now let's setup your tow vehicle/);
 });
 
 it("shows the status panels when the car and van have been configured", () => {
