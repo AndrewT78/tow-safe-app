@@ -1,14 +1,41 @@
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import React from "react";
 
 class AccessoriesAdder extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { index: 0 };
+    this.state = { index: 0, weight: props.accessories[0].weight };
   }
 
+  updateWeight = (input) => {
+    this.setState({ weight: parseFloat(input) });
+  };
+
+  moveNext = () => {
+    if (this.state.index <= this.props.accessories.length - 2) {
+      this.setState({
+        index: ++this.state.index,
+        weight: this.props.accessories[this.state.index].weight,
+      });
+    } else {
+      this.setState({
+        index: ++this.state.index,
+      });
+    }
+  };
+
   getAccessory(index) {
-    return <div>{this.props.accessories[index].name}</div>;
+    return (
+      <div>
+        {this.props.accessories[index].name}
+        <Form.Control
+          type="number"
+          placeholder="kg"
+          value={this.state.weight}
+          onChange={(e) => this.updateWeight(e.target.value)}
+        />
+      </div>
+    );
   }
 
   render() {
@@ -18,13 +45,7 @@ class AccessoriesAdder extends React.Component {
           <>
             {this.getAccessory(this.state.index)}
             {this.state.index < this.props.accessories.length - 1 ? (
-              <Button
-                onClick={() => {
-                  this.setState({ index: ++this.state.index });
-                }}
-              >
-                Next
-              </Button>
+              <Button onClick={this.moveNext}>Next</Button>
             ) : (
               <></>
             )}
@@ -33,9 +54,9 @@ class AccessoriesAdder extends React.Component {
               onClick={() => {
                 this.props.handleAdd({
                   accessory: this.props.accessories[this.state.index].name,
-                  weight: this.props.accessories[this.state.index].weight,
+                  weight: this.state.weight,
                 });
-                this.setState({ index: ++this.state.index });
+                this.moveNext();
               }}
             >
               Add

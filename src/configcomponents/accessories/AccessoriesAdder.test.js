@@ -13,6 +13,8 @@ describe("Accessories Adder", () => {
   it("Shows the first accessory in the specified list", () => {
     render(<AccessoriesAdder accessories={accessoryList}></AccessoriesAdder>);
     screen.getByText(/Bullbar/);
+    var field = screen.getByPlaceholderText("kg");
+    expect(field).toHaveValue(80);
   });
 
   it("moves to the next item when you select 'next'", () => {
@@ -21,6 +23,8 @@ describe("Accessories Adder", () => {
     fireEvent.click(nextButton);
 
     screen.getByText(/Roof Rack/);
+    var field = screen.getByPlaceholderText("kg");
+    expect(field).toHaveValue(20);
   });
 
   it("adds the item to the accessories when you select 'Add'", () => {
@@ -35,6 +39,21 @@ describe("Accessories Adder", () => {
     expect(mockAdd).toHaveBeenCalledWith({ accessory: "Bullbar", weight: 80 });
   });
 
+  it("adds the item with a custom weight to the accessories", () => {
+    render(
+      <AccessoriesAdder
+        accessories={accessoryList}
+        handleAdd={mockAdd}
+      ></AccessoriesAdder>
+    );
+    var field = screen.getByPlaceholderText("kg");
+    fireEvent.change(field, { target: { value: "100" } });
+
+    var addButton = screen.getByText(/Add/);
+    fireEvent.click(addButton);
+    expect(mockAdd).toHaveBeenCalledWith({ accessory: "Bullbar", weight: 100 });
+  });
+
   it("moves to the next item when you select add", () => {
     render(
       <AccessoriesAdder
@@ -45,6 +64,8 @@ describe("Accessories Adder", () => {
     var addButton = screen.getByText(/Add/);
     fireEvent.click(addButton);
     screen.getByText(/Roof Rack/);
+    var field = screen.getByPlaceholderText("kg");
+    expect(field).toHaveValue(20);
   });
 
   it("does not show the next button when showing the final item", () => {
