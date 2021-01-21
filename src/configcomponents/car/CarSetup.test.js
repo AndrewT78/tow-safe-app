@@ -85,7 +85,33 @@ it("shows the accessories setup once the config has been saved", () => {
   const saveButton = screen.getByText("Save");
   fireEvent.click(saveButton);
 
-  screen.getByText("Skip");
+  screen.getByText("Bullbar");
+});
+
+it("adds an accessory to the van", () => {
+  renderApp(<CarSetup />);
+
+  const gvmInput = screen.getByPlaceholderText("GVM");
+  fireEvent.change(gvmInput, { target: { value: "2000" } });
+
+  const tareInput = screen.getByPlaceholderText("Tare");
+  fireEvent.change(tareInput, { target: { value: "1000" } });
+
+  const gcmInput = screen.getByPlaceholderText("GCM");
+  fireEvent.change(gcmInput, { target: { value: "3000" } });
+
+  const saveButton = screen.getByText("Save");
+  fireEvent.click(saveButton);
+
+  screen.getByText("Bullbar");
+  const addButton = screen.getByText("Add");
+  fireEvent.click(addButton);
+
+  expect(myStore.getState().accessories.carAccessories).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({ accessory: "Bullbar", weight: 80 }),
+    ])
+  );
 });
 
 it("hides the config setup once the config is saved", () => {

@@ -91,7 +91,33 @@ it("shows the accessories setup once the config has been saved", () => {
   const saveButton = screen.getByText("Save");
   fireEvent.click(saveButton);
 
-  screen.getByText("Skip");
+  screen.getByText("Gas Bottle(s)");
+});
+
+it("adds an accessory to the van", () => {
+  renderApp(<VanSetup />);
+
+  const atmInput = screen.getByPlaceholderText("ATM");
+  fireEvent.change(atmInput, { target: { value: "2000" } });
+
+  const tareInput = screen.getByPlaceholderText("Tare");
+  fireEvent.change(tareInput, { target: { value: "1000" } });
+
+  const tbmInput = screen.getByPlaceholderText("TBM");
+  fireEvent.change(tbmInput, { target: { value: "150" } });
+
+  const saveButton = screen.getByText("Save");
+  fireEvent.click(saveButton);
+
+  screen.getByText("Gas Bottle(s)");
+  const addButton = screen.getByText("Add");
+  fireEvent.click(addButton);
+
+  expect(myStore.getState().accessories.vanAccessories).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({ accessory: "Gas Bottle(s)", weight: 18 }),
+    ])
+  );
 });
 
 it("hides the config setup once the config is saved", () => {

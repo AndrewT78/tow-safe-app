@@ -4,6 +4,8 @@ import VanConfig from "./VanConfig";
 import { Link } from "react-router-dom";
 import { Button, Alert } from "react-bootstrap";
 import { getVanConfig } from "./../../redux/selectors";
+import AccessoriesAdder from "../accessories/AccessoriesAdder";
+import { addVanAccessory } from "../../redux/actions";
 
 class VanSetup extends React.Component {
   constructor(props) {
@@ -14,6 +16,15 @@ class VanSetup extends React.Component {
     return this.props.vanConfig.tare > 0;
   };
 
+  handleAddNewAccessory = (acc) => {
+    this.props.addVanAccessory(acc);
+  };
+
+  vanAccessories = [
+    { name: "Gas Bottle(s)", weight: 18 },
+    { name: "Annex", weight: 30 },
+  ];
+
   render() {
     return (
       <>
@@ -22,6 +33,10 @@ class VanSetup extends React.Component {
             <Alert variant="secondary">
               Now let's add some accessories to your van
             </Alert>
+            <AccessoriesAdder
+              accessories={this.vanAccessories}
+              handleAdd={this.handleAddNewAccessory}
+            ></AccessoriesAdder>
             <Link
               to="/"
               data-testid="van-config-back"
@@ -48,4 +63,4 @@ const mapStateToProps = (state) => {
   return { vanConfig };
 };
 
-export default connect(mapStateToProps)(VanSetup);
+export default connect(mapStateToProps, { addVanAccessory })(VanSetup);

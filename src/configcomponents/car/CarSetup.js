@@ -4,6 +4,8 @@ import CarConfig from "./CarConfig";
 import { Link } from "react-router-dom";
 import { Button, Alert } from "react-bootstrap";
 import { getCarConfig } from "../../redux/selectors";
+import { addCarAccessory } from "../../redux/actions";
+import AccessoriesAdder from "../accessories/AccessoriesAdder";
 
 class CarSetup extends React.Component {
   constructor(props) {
@@ -14,6 +16,15 @@ class CarSetup extends React.Component {
     return this.props.carConfig.tare > 0;
   };
 
+  handleAddNewAccessory = (acc) => {
+    this.props.addCarAccessory(acc);
+  };
+
+  carAccessories = [
+    { name: "Bullbar", weight: 80 },
+    { name: "Roofrack", weight: 12 },
+  ];
+
   render() {
     return (
       <>
@@ -22,6 +33,10 @@ class CarSetup extends React.Component {
             <Alert variant="secondary">
               Nearly there, let's add some accessories to your vehicle
             </Alert>
+            <AccessoriesAdder
+              accessories={this.carAccessories}
+              handleAdd={this.handleAddNewAccessory}
+            ></AccessoriesAdder>
             <Link
               to="/"
               data-testid="car-config-back"
@@ -46,4 +61,4 @@ const mapStateToProps = (state) => {
   return { carConfig };
 };
 
-export default connect(mapStateToProps)(CarSetup);
+export default connect(mapStateToProps, { addCarAccessory })(CarSetup);
