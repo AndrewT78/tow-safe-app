@@ -1,9 +1,6 @@
 import "./App.css";
-import { Alert } from "react-bootstrap";
 import { connect } from "react-redux";
 
-import VanConfig from "./configcomponents/van/VanConfig";
-import CarConfig from "./configcomponents/car/CarConfig";
 import { getVanConfig } from "./redux/selectors";
 import { getCarConfig } from "./redux/selectors";
 import CarStatus from "./indicatorcomponents/CarStatus";
@@ -15,6 +12,8 @@ import EditVan from "./configcomponents/van/EditVan";
 import EditCar from "./configcomponents/car/EditCar";
 
 import { Redirect, Route, Switch } from "react-router-dom";
+import VanSetup from "./configcomponents/van/VanSetup";
+import CarSetup from "./configcomponents/car/CarSetup";
 
 const MainPane = ({ vanConfig, carConfig }) => {
   const isVanConfigured = () => {
@@ -40,18 +39,10 @@ const MainPane = ({ vanConfig, carConfig }) => {
         <EditCar></EditCar>
       </Route>
       <Route path="/carsetup">
-        <>
-          <Alert variant="secondary">Now let's setup your tow vehicle</Alert>
-          <CarConfig></CarConfig>
-        </>
+        <CarSetup></CarSetup>
       </Route>
       <Route path="/vansetup">
-        <>
-          <Alert variant="secondary">
-            Welcome to TowSafe, Let's start by setting up your van details
-          </Alert>
-          <VanConfig></VanConfig>
-        </>
+        <VanSetup></VanSetup>
       </Route>
       <Route path="/">
         <>
