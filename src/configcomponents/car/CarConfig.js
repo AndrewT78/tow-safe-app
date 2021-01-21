@@ -91,13 +91,9 @@ class CarConfig extends React.Component {
             />
           </InputGroup>
         </Form.Group>
-        {this.formComplete() ? (
-          <Button type="submit">Save</Button>
-        ) : (
-          <Button type="submit" disabled>
-            Save
-          </Button>
-        )}
+        <Button type="submit" disabled={!this.formComplete()}>
+          Save
+        </Button>
       </Form>
     );
   }

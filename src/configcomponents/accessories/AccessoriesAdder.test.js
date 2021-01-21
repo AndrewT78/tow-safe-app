@@ -88,4 +88,18 @@ describe("Accessories Adder", () => {
       "You have completed adding accessories, select 'Done' to continue"
     );
   });
+
+  it("disables the Add button if the weight is empty", () => {
+    render(
+      <AccessoriesAdder
+        accessories={accessoryList}
+        handleAdd={mockAdd}
+      ></AccessoriesAdder>
+    );
+    var field = screen.getByPlaceholderText("kg");
+    fireEvent.change(field, { target: { value: "" } });
+
+    var addButton = screen.getByText(/Add/);
+    expect(addButton).toBeDisabled();
+  });
 });

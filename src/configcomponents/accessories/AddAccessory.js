@@ -53,15 +53,13 @@ class AddAccessory extends React.Component {
             </InputGroup>
           </Col>
           <Col xs={2}>
-            {this.formComplete() ? (
-              <Button style={{ width: "100%" }} type="submit">
-                Add
-              </Button>
-            ) : (
-              <Button style={{ width: "100%" }} type="submit" disabled>
-                Add
-              </Button>
-            )}
+            <Button
+              style={{ width: "100%" }}
+              type="submit"
+              disabled={!this.formComplete()}
+            >
+              Add
+            </Button>
           </Col>
         </Form.Row>
       </Form>

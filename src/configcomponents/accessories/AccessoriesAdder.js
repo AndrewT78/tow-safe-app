@@ -11,6 +11,10 @@ class AccessoriesAdder extends React.Component {
     this.setState({ weight: parseFloat(input) });
   };
 
+  isWeightInvalid = () => {
+    return !this.state.weight > 0;
+  };
+
   moveNext = () => {
     if (this.state.index <= this.props.accessories.length - 2) {
       this.setState({
@@ -47,6 +51,7 @@ class AccessoriesAdder extends React.Component {
           </Col>
           <Col xs={2}>
             <Button
+              disabled={this.isWeightInvalid()}
               onClick={() => {
                 this.props.handleAdd({
                   accessory: this.props.accessories[this.state.index].name,

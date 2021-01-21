@@ -73,15 +73,13 @@ class AddLoad extends React.Component {
         <Form.Row
           style={{ marginTop: "20px", marginLeft: "0px", marginRight: "0px" }}
         >
-          {this.formComplete() ? (
-            <Button style={{ width: "100%" }} type="submit">
-              Add
-            </Button>
-          ) : (
-            <Button style={{ width: "100%" }} type="submit" disabled>
-              Add
-            </Button>
-          )}
+          <Button
+            style={{ width: "100%" }}
+            type="submit"
+            disabled={!this.formComplete()}
+          >
+            Add
+          </Button>
         </Form.Row>
       </Form>
     );
