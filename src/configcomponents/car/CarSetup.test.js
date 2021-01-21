@@ -132,7 +132,7 @@ it("hides the config setup once the config is saved", () => {
   expect(screen.queryByPlaceholderText("GVM")).toBeNull();
 });
 
-it("goes back to the main screen when skip is pressed", () => {
+it("goes back to the main screen when 'Done' is pressed", () => {
   renderApp(<CarSetup />);
   const gvmInput = screen.getByPlaceholderText("GVM");
   fireEvent.change(gvmInput, { target: { value: "2000" } });
@@ -146,7 +146,7 @@ it("goes back to the main screen when skip is pressed", () => {
   const saveButton = screen.getByText("Save");
   fireEvent.click(saveButton);
 
-  const skipButton = screen.getByText("Skip");
+  const skipButton = screen.getByText("Done");
   fireEvent.click(skipButton);
   expect(historySpy).toHaveBeenCalledWith("/");
 });

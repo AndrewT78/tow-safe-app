@@ -42,7 +42,7 @@ class CarSetup extends React.Component {
               data-testid="car-config-back"
               style={{ color: "inherit" }}
             >
-              <Button>Skip</Button>
+              <Button>Done</Button>
             </Link>
           </>
         ) : (

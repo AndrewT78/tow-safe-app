@@ -138,7 +138,7 @@ it("hides the config setup once the config is saved", () => {
   expect(screen.queryByPlaceholderText("ATM")).toBeNull();
 });
 
-it("goes back to the main screen when skip is pressed", () => {
+it("goes back to the main screen when 'Done' is pressed", () => {
   renderApp(<VanSetup />);
   const atmInput = screen.getByPlaceholderText("ATM");
   fireEvent.change(atmInput, { target: { value: "2000" } });
@@ -152,7 +152,7 @@ it("goes back to the main screen when skip is pressed", () => {
   const saveButton = screen.getByText("Save");
   fireEvent.click(saveButton);
 
-  const skipButton = screen.getByText("Skip");
+  const skipButton = screen.getByText("Done");
   fireEvent.click(skipButton);
   expect(historySpy).toHaveBeenCalledWith("/");
 });

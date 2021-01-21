@@ -1,4 +1,4 @@
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Col, InputGroup } from "react-bootstrap";
 import React from "react";
 
 class AccessoriesAdder extends React.Component {
@@ -26,30 +26,23 @@ class AccessoriesAdder extends React.Component {
 
   getAccessory(index) {
     return (
-      <div>
-        {this.props.accessories[index].name}
-        <Form.Control
-          type="number"
-          placeholder="kg"
-          value={this.state.weight}
-          onChange={(e) => this.updateWeight(e.target.value)}
-        />
-      </div>
-    );
-  }
-
-  render() {
-    return (
-      <div style={{ marginTop: "20px" }}>
-        {this.state.index < this.props.accessories.length ? (
-          <>
-            {this.getAccessory(this.state.index)}
-            {this.state.index < this.props.accessories.length - 1 ? (
-              <Button onClick={this.moveNext}>Next</Button>
-            ) : (
-              <></>
-            )}
-
+      <Form>
+        <Form.Row>
+          <Col xs={5}>{this.props.accessories[index].name}</Col>
+          <Col xs={3}>
+            <InputGroup>
+              <Form.Control
+                type="number"
+                placeholder="kg"
+                value={this.state.weight}
+                onChange={(e) => this.updateWeight(e.target.value)}
+              />
+              <InputGroup.Append>
+                <InputGroup.Text>kg</InputGroup.Text>
+              </InputGroup.Append>
+            </InputGroup>
+          </Col>
+          <Col xs={2}>
             <Button
               onClick={() => {
                 this.props.handleAdd({
@@ -61,9 +54,22 @@ class AccessoriesAdder extends React.Component {
             >
               Add
             </Button>
-          </>
+          </Col>
+          <Col xs={2}>
+            <Button onClick={this.moveNext}>Skip</Button>
+          </Col>
+        </Form.Row>
+      </Form>
+    );
+  }
+
+  render() {
+    return (
+      <div style={{ marginTop: "20px" }}>
+        {this.state.index < this.props.accessories.length ? (
+          <>{this.getAccessory(this.state.index)}</>
         ) : (
-          <>You have completed adding accessories, select 'Skip' to continue</>
+          <>You have completed adding accessories, select 'Done' to continue</>
         )}
       </div>
     );

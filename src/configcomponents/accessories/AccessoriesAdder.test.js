@@ -17,9 +17,9 @@ describe("Accessories Adder", () => {
     expect(field).toHaveValue(80);
   });
 
-  it("moves to the next item when you select 'next'", () => {
+  it("moves to the next item when you select 'skip'", () => {
     render(<AccessoriesAdder accessories={accessoryList}></AccessoriesAdder>);
-    var nextButton = screen.getByText(/Next/);
+    var nextButton = screen.getByText(/Skip/);
     fireEvent.click(nextButton);
 
     screen.getByText(/Roof Rack/);
@@ -68,18 +68,6 @@ describe("Accessories Adder", () => {
     expect(field).toHaveValue(20);
   });
 
-  it("does not show the next button when showing the final item", () => {
-    render(<AccessoriesAdder accessories={accessoryList}></AccessoriesAdder>);
-    var nextButton = screen.getByText(/Next/);
-    fireEvent.click(nextButton);
-
-    nextButton = screen.getByText(/Next/);
-    fireEvent.click(nextButton);
-
-    screen.getByText(/Towbar/);
-    expect(screen.queryByText(/Next/i)).toBeNull();
-  });
-
   it("shows a completion message when you add the last accessory", () => {
     render(
       <AccessoriesAdder
@@ -87,17 +75,17 @@ describe("Accessories Adder", () => {
         handleAdd={mockAdd}
       ></AccessoriesAdder>
     );
-    var nextButton = screen.getByText(/Next/);
+    var nextButton = screen.getByText(/Skip/);
     fireEvent.click(nextButton);
 
-    nextButton = screen.getByText(/Next/);
+    nextButton = screen.getByText(/Skip/);
     fireEvent.click(nextButton);
 
     var addButton = screen.getByText(/Add/);
     fireEvent.click(addButton);
 
     screen.getByText(
-      "You have completed adding accessories, select 'Skip' to continue"
+      "You have completed adding accessories, select 'Done' to continue"
     );
   });
 });

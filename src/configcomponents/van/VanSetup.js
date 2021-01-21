@@ -42,7 +42,7 @@ class VanSetup extends React.Component {
               data-testid="van-config-back"
               style={{ color: "inherit" }}
             >
-              <Button>Skip</Button>
+              <Button>Done</Button>
             </Link>
           </>
         ) : (
