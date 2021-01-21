@@ -17,19 +17,26 @@ class VanSetup extends React.Component {
   render() {
     return (
       <>
-        <Alert variant="secondary">
-          Welcome to TowSafe, Let's start by setting up your van details
-        </Alert>
         {this.isVanConfigured() ? (
-          <Link
-            to="/"
-            data-testid="van-config-back"
-            style={{ color: "inherit" }}
-          >
-            <Button>Skip</Button>
-          </Link>
+          <>
+            <Alert variant="secondary">
+              Now let's add some accessories to your van
+            </Alert>
+            <Link
+              to="/"
+              data-testid="van-config-back"
+              style={{ color: "inherit" }}
+            >
+              <Button>Skip</Button>
+            </Link>
+          </>
         ) : (
-          <VanConfig></VanConfig>
+          <>
+            <Alert variant="secondary">
+              Welcome to TowSafe, Let's start by setting up your van details
+            </Alert>
+            <VanConfig></VanConfig>
+          </>
         )}
       </>
     );
