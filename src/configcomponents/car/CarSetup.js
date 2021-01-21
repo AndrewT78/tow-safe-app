@@ -37,13 +37,15 @@ class CarSetup extends React.Component {
               accessories={this.carAccessories}
               handleAdd={this.handleAddNewAccessory}
             ></AccessoriesAdder>
-            <Link
-              to="/"
-              data-testid="car-config-back"
-              style={{ color: "inherit" }}
-            >
-              <Button>Done</Button>
-            </Link>
+            <div style={{ marginTop: "20px" }}>
+              <Link
+                to="/"
+                data-testid="car-config-back"
+                style={{ color: "inherit" }}
+              >
+                <Button>Done</Button>
+              </Link>
+            </div>
           </>
         ) : (
           <>

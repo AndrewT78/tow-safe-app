@@ -28,8 +28,11 @@ class AccessoriesAdder extends React.Component {
     return (
       <Form>
         <Form.Row>
-          <Col xs={5}>{this.props.accessories[index].name}</Col>
-          <Col xs={3}>
+          <Form.Label column xs="4">
+            {this.props.accessories[index].name}
+          </Form.Label>
+
+          <Col xs={4}>
             <InputGroup>
               <Form.Control
                 type="number"

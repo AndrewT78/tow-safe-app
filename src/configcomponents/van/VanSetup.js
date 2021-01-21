@@ -37,13 +37,16 @@ class VanSetup extends React.Component {
               accessories={this.vanAccessories}
               handleAdd={this.handleAddNewAccessory}
             ></AccessoriesAdder>
-            <Link
-              to="/"
-              data-testid="van-config-back"
-              style={{ color: "inherit" }}
-            >
-              <Button>Done</Button>
-            </Link>
+
+            <div style={{ marginTop: "20px" }}>
+              <Link
+                to="/"
+                data-testid="van-config-back"
+                style={{ color: "inherit" }}
+              >
+                <Button>Done</Button>
+              </Link>
+            </div>
           </>
         ) : (
           <>
