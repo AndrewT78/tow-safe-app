@@ -91,7 +91,8 @@ it("shows the accessories setup once the config has been saved", () => {
   const saveButton = screen.getByText("Save");
   fireEvent.click(saveButton);
 
-  screen.getByText("Gas Bottle(s)");
+  var accessoryNameFields = screen.getAllByPlaceholderText("Accessory");
+  expect(accessoryNameFields[0].value).toBe("Gas Bottle(s)");
 });
 
 it("adds an accessory to the van", () => {
@@ -109,8 +110,7 @@ it("adds an accessory to the van", () => {
   const saveButton = screen.getByText("Save");
   fireEvent.click(saveButton);
 
-  screen.getByText("Gas Bottle(s)");
-  const addButton = screen.getByText("Add");
+  const addButton = screen.getAllByText("Add")[0];
   fireEvent.click(addButton);
 
   expect(myStore.getState().accessories.vanAccessories).toEqual(

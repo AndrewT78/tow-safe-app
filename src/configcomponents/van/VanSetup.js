@@ -21,8 +21,8 @@ class VanSetup extends React.Component {
   };
 
   vanAccessories = [
-    { name: "Gas Bottle(s)", weight: 18 },
-    { name: "Annex", weight: 30 },
+    { accessory: "Gas Bottle(s)", weight: 18 },
+    { accessory: "Annex", weight: 30 },
   ];
 
   render() {
@@ -54,7 +54,7 @@ class VanSetup extends React.Component {
         ) : (
           <>
             <Alert variant="info">
-              Welcome to TowSafe, Let's start by setting up your van details
+              Welcome to TowSafe - Let's start by setting up your van details
               <hr />
               You can find the details below on your van compliance plate, or as
               provided by the manufacturer

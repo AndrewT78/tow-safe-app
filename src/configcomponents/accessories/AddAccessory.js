@@ -5,7 +5,15 @@ import { Form, Button, Col, InputGroup } from "react-bootstrap";
 class AddAccessory extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { accessory: "", weight: 1.0 };
+
+    if (props.accessory) {
+      this.state = {
+        accessory: props.accessory.accessory,
+        weight: props.accessory.weight,
+      };
+    } else {
+      this.state = { accessory: "", weight: 1.0 };
+    }
   }
 
   updateAccessory = (input) => {

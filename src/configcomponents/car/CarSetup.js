@@ -21,10 +21,10 @@ class CarSetup extends React.Component {
   };
 
   carAccessories = [
-    { name: "Bullbar", weight: 80 },
-    { name: "Roofrack", weight: 12 },
-    { name: "Towbar", weight: 20 },
-    { name: "Snorkel", weight: 5 },
+    { accessory: "Bullbar", weight: 80 },
+    { accessory: "Roofrack", weight: 12 },
+    { accessory: "Towbar", weight: 20 },
+    { accessory: "Snorkel", weight: 5 },
   ];
 
   render() {
