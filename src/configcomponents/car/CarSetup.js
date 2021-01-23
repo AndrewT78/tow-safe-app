@@ -23,6 +23,8 @@ class CarSetup extends React.Component {
   carAccessories = [
     { name: "Bullbar", weight: 80 },
     { name: "Roofrack", weight: 12 },
+    { name: "Towbar", weight: 20 },
+    { name: "Snorkel", weight: 5 },
   ];
 
   render() {
@@ -30,8 +32,11 @@ class CarSetup extends React.Component {
       <>
         {this.isCarConfigured() ? (
           <>
-            <Alert variant="secondary">
+            <Alert variant="info">
               Nearly there, let's add some accessories to your vehicle
+              <hr />
+              You can add your own accessories or edit these later by clicking
+              on the car icon on the main screen
             </Alert>
             <AccessoriesAdder
               accessories={this.carAccessories}
@@ -49,7 +54,12 @@ class CarSetup extends React.Component {
           </>
         ) : (
           <>
-            <Alert variant="secondary">Now let's setup your tow vehicle</Alert>
+            <Alert variant="info">
+              Now let's setup your tow vehicle
+              <hr />
+              You can find the details below on your car's compliance plate or
+              consult your handbook or manufacturer's specifications
+            </Alert>
             <CarConfig></CarConfig>
           </>
         )}

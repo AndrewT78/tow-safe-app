@@ -30,8 +30,11 @@ class VanSetup extends React.Component {
       <>
         {this.isVanConfigured() ? (
           <>
-            <Alert variant="secondary">
+            <Alert variant="info">
               Now let's add some accessories to your van
+              <hr />
+              You can add your own accessories or edit these later by clicking
+              on the caravan icon on the main screen
             </Alert>
             <AccessoriesAdder
               accessories={this.vanAccessories}
@@ -50,8 +53,11 @@ class VanSetup extends React.Component {
           </>
         ) : (
           <>
-            <Alert variant="secondary">
+            <Alert variant="info">
               Welcome to TowSafe, Let's start by setting up your van details
+              <hr />
+              You can find the details below on your van compliance plate, or as
+              provided by the manufacturer
             </Alert>
             <VanConfig></VanConfig>
           </>
