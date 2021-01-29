@@ -5,7 +5,15 @@ import { Form, Button, Col, InputGroup } from "react-bootstrap";
 class AddLoad extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { quantity: 1, item: "", weight: 1.0 };
+    if (props.load) {
+      this.state = {
+        quantity: props.load.quantity,
+        item: props.load.item,
+        weight: props.load.weight,
+      };
+    } else {
+      this.state = { quantity: 1, item: "", weight: 1.0 };
+    }
   }
 
   updateItem = (input) => {
