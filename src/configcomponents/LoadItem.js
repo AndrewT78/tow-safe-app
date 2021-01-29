@@ -31,7 +31,7 @@ const LoadItem = (props) => {
 
   return (
     <>
-      <Alert variant="secondary">
+      <Alert variant={props.item.enabled ? "secondary" : "light"}>
         <Row>
           <Col>
             {props.item.quantity > 1 ? getMultipleItem() : getSingleItem()}
