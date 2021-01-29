@@ -89,7 +89,7 @@ it("shows the accessories setup once the config has been saved", () => {
   expect(accessoryNameFields[0].value).toBe("Bullbar");
 });
 
-it("adds an accessory to the van", () => {
+it("adds an accessory to the car", () => {
   renderApp(<CarSetup />);
 
   const gvmInput = screen.getByPlaceholderText("GVM");
@@ -114,6 +114,58 @@ it("adds an accessory to the van", () => {
   );
 });
 
+it("shows the load setup when the user moves to load", () => {
+  renderApp(<CarSetup />);
+
+  const gvmInput = screen.getByPlaceholderText("GVM");
+  fireEvent.change(gvmInput, { target: { value: "2000" } });
+
+  const tareInput = screen.getByPlaceholderText("Tare");
+  fireEvent.change(tareInput, { target: { value: "1000" } });
+
+  const gcmInput = screen.getByPlaceholderText("GCM");
+  fireEvent.change(gcmInput, { target: { value: "3000" } });
+
+  const saveButton = screen.getByText("Save");
+  fireEvent.click(saveButton);
+
+  const addButton = screen.getAllByText("Add")[0];
+  fireEvent.click(addButton);
+
+  const loadButton = screen.getByText("Next: Load");
+  fireEvent.click(loadButton);
+
+  var accessoryNameFields = screen.getAllByPlaceholderText("Item Name");
+  expect(accessoryNameFields[0].value).toBe("Adult Pass");
+});
+
+it("adds load to the car", () => {
+  renderApp(<CarSetup />);
+
+  const gvmInput = screen.getByPlaceholderText("GVM");
+  fireEvent.change(gvmInput, { target: { value: "2000" } });
+
+  const tareInput = screen.getByPlaceholderText("Tare");
+  fireEvent.change(tareInput, { target: { value: "1000" } });
+
+  const gcmInput = screen.getByPlaceholderText("GCM");
+  fireEvent.change(gcmInput, { target: { value: "3000" } });
+
+  const saveButton = screen.getByText("Save");
+  fireEvent.click(saveButton);
+
+  const loadButton = screen.getByText("Next: Load");
+  fireEvent.click(loadButton);
+
+  const addButton = screen.getAllByText("Add")[0];
+  fireEvent.click(addButton);
+
+  expect(myStore.getState().loads.carLoad).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({ item: "Adult Pass", weight: 75, quantity: 2 }),
+    ])
+  );
+});
 it("hides the config setup once the config is saved", () => {
   renderApp(<CarSetup />);
 
