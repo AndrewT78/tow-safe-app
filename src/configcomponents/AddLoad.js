@@ -49,6 +49,7 @@ class AddLoad extends React.Component {
               onChange={(e) => this.updateItem(e.target.value)}
               value={this.state.item}
               autoFocus={true}
+              onFocus={(e) => e.target.select()}
             />
           </Col>
           <Col xs={3}>
@@ -58,6 +59,7 @@ class AddLoad extends React.Component {
                 placeholder="kg"
                 value={this.state.weight}
                 onChange={(e) => this.updateWeight(e.target.value)}
+                onFocus={(e) => e.target.select()}
               />
               <InputGroup.Append>
                 <InputGroup.Text>kg</InputGroup.Text>
@@ -74,6 +76,7 @@ class AddLoad extends React.Component {
                 placeholder="Quantity"
                 value={this.state.quantity}
                 onChange={(e) => this.updateQuantity(e.target.value)}
+                onFocus={(e) => e.target.select()}
               />
             </InputGroup>
           </Col>

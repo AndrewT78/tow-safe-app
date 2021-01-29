@@ -45,6 +45,7 @@ class AddAccessory extends React.Component {
               onChange={(e) => this.updateAccessory(e.target.value)}
               value={this.state.accessory}
               autoFocus={true}
+              onFocus={(e) => e.target.select()}
             />
           </Col>
           <Col xs={4}>
@@ -54,6 +55,7 @@ class AddAccessory extends React.Component {
                 placeholder="kg"
                 value={this.state.weight}
                 onChange={(e) => this.updateWeight(e.target.value)}
+                onFocus={(e) => e.target.select()}
               />
               <InputGroup.Append>
                 <InputGroup.Text>kg</InputGroup.Text>
