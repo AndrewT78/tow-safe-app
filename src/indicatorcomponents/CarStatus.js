@@ -5,6 +5,7 @@ import { getCarStatus } from "./../redux/selectors";
 import { Alert, Container, Row, Col } from "react-bootstrap";
 
 import { FaTruckPickup, FaSuitcase } from "react-icons/fa";
+import { BsInfoCircle } from "react-icons/bs";
 import { status } from "./../redux/statusConstants";
 
 import { Link } from "react-router-dom";
@@ -25,11 +26,23 @@ const CarStatus = ({ carConfig, carStatus }) => {
         <Col>
           <Row>
             <Col>
-              {`${carStatus.totalWeight} (${carConfig.gvm}) - Total Weight (GVM)`}
+              <Alert.Heading>
+                {`${carStatus.totalWeight} (${carConfig.gvm})`}{" "}
+              </Alert.Heading>
             </Col>
           </Row>
           <Row>
-            <Col>{`${carStatus.remainingPayload} - Remaining Payload`}</Col>
+            <Col>
+              <Link
+                to="/cardetail"
+                data-testid="car-detail-status-link"
+                style={{ color: "inherit" }}
+              >
+                <span style={{ fontSize: 10 }}>
+                  <BsInfoCircle></BsInfoCircle> Click to see more information
+                </span>
+              </Link>
+            </Col>
           </Row>
         </Col>
         <Col xs={"auto"}>

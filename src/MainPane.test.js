@@ -121,3 +121,17 @@ it("navigates to the car load page when the route specifies", () => {
 
   screen.getByText("Manage your car payload");
 });
+
+it("navigates to the car detail page when the route specifies", () => {
+  renderApp(<MainPane />, {
+    initialState: {
+      configs: {
+        vanConfig: { tare: 2150, atm: 3300 },
+        carConfig: { tare: 1000, gvm: 2200 },
+      },
+    },
+    initialRoute: "/cardetail",
+  });
+
+  screen.getByTestId("car-detail-status-box");
+});

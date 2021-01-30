@@ -39,18 +39,8 @@ it("shows total weight and gvm", () => {
       configs: { carConfig: { gvm: 2000, tare: 1000, gcm: 3000 } },
     },
   });
-  const totalWeight = screen.getByText("1000 (2000) - Total Weight (GVM)");
+  const totalWeight = screen.getByText("1000 (2000)");
   expect(totalWeight).toBeInTheDocument();
-});
-
-it("shows the amount of payloadload remaining", () => {
-  renderComponent(<CarStatus />, {
-    initialState: {
-      configs: { carConfig: { gvm: 2000, tare: 1600, gcm: 3000 } },
-    },
-  });
-  const payloadRemaining = screen.getByText("400 - Remaining Payload");
-  expect(payloadRemaining).toBeInTheDocument();
 });
 
 it("renders green when weight is below the threshold", () => {
@@ -107,4 +97,17 @@ it("navigates to the car config page when the car icon is clicked", async () => 
     fireEvent.click(configButton);
   });
   expect(historySpy).toHaveBeenCalledWith("/carconfig");
+});
+
+it("navigates to the car detail info button is clicked", async () => {
+  renderComponent(<CarStatus />, {
+    initialState: {
+      configs: { carConfig: { gvm: 2000, tare: 2001, gcm: 3000 } },
+    },
+  });
+  const alertArea = screen.getByTestId("car-detail-status-link");
+  act(() => {
+    fireEvent.click(alertArea);
+  });
+  expect(historySpy).toHaveBeenCalledWith("/cardetail");
 });

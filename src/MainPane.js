@@ -14,6 +14,7 @@ import EditCar from "./configcomponents/car/EditCar";
 import { Redirect, Route, Switch } from "react-router-dom";
 import VanSetup from "./configcomponents/van/VanSetup";
 import CarSetup from "./configcomponents/car/CarSetup";
+import CarDetailStatus from "./indicatorcomponents/car/CarDetailStatus";
 
 const MainPane = ({ vanConfig, carConfig }) => {
   const isVanConfigured = () => {
@@ -43,6 +44,9 @@ const MainPane = ({ vanConfig, carConfig }) => {
       </Route>
       <Route path="/vansetup">
         <VanSetup></VanSetup>
+      </Route>
+      <Route path="/cardetail">
+        <CarDetailStatus></CarDetailStatus>
       </Route>
       <Route path="/">
         <>

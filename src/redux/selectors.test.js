@@ -242,6 +242,14 @@ describe("Car selectors", () => {
     expect(getCarStatus(store).remainingPayload).toEqual(310);
   });
 
+  it("should return the total load weight in the car", () => {
+    expect(getCarStatus(storeWithDisabled).loadWeight).toEqual(100);
+  });
+
+  it("should return the total accessory weight in the car", () => {
+    expect(getCarStatus(store).accessoryWeight).toEqual(98);
+  });
+
   it("should return a status of OK when the weight is less than the warning threshold", () => {
     expect(getCarStatus(store).status).toEqual(status.OK);
   });
