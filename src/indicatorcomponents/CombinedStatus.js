@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { getCarConfig } from "./../redux/selectors";
+import { getCarConfig, getVanStatus } from "./../redux/selectors";
 import { getVanConfig } from "./../redux/selectors";
 import { getCombinedStatus } from "./../redux/selectors";
 
@@ -8,10 +8,15 @@ import { Alert, Container, Row, Col } from "react-bootstrap";
 import { FaCaravan, FaTruckPickup } from "react-icons/fa";
 import { status } from "./../redux/statusConstants";
 
-const CombinedStatus = ({ carConfig, combinedStatus, vanConfig }) => {
+const CombinedStatus = ({
+  carConfig,
+  combinedStatus,
+  vanConfig,
+  vanStatus,
+}) => {
   return (
     <Alert
-      variant={getStatusVariant(combinedStatus)}
+      variant={getStatusVariant(combinedStatus, vanStatus)}
       data-testid="combined-status-box"
     >
       <Row>
@@ -34,21 +39,22 @@ const CombinedStatus = ({ carConfig, combinedStatus, vanConfig }) => {
   );
 };
 
-const getStatusVariant = (combinedStatus) => {
+const getStatusVariant = (combined, vanStatus) => {
   var variant = "success";
 
   if (
-    combinedStatus.combinedStatus === status.OVER ||
-    combinedStatus.carStatus === status.OVER
+    combined.combinedStatus === status.OVER ||
+    combined.carStatus === status.OVER ||
+    vanStatus.status === status.OVER
   ) {
     variant = "danger";
   } else if (
-    combinedStatus.combinedStatus === status.WARNING ||
-    combinedStatus.carStatus === status.WARNING
+    combined.combinedStatus === status.WARNING ||
+    combined.carStatus === status.WARNING ||
+    vanStatus.tbmStatus === status.WARNING
   ) {
     variant = "warning";
   }
-
   return variant;
 };
 
@@ -56,7 +62,8 @@ const mapStateToProps = (state) => {
   const carConfig = getCarConfig(state);
   const combinedStatus = getCombinedStatus(state);
   const vanConfig = getVanConfig(state);
-  return { carConfig, combinedStatus, vanConfig };
+  const vanStatus = getVanStatus(state);
+  return { carConfig, combinedStatus, vanConfig, vanStatus };
 };
 
 export default connect(mapStateToProps)(CombinedStatus);

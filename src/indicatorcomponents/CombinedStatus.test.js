@@ -44,7 +44,7 @@ it("renders green when combined weight and car combined weight are below the gcm
     initialState: {
       configs: {
         carConfig: { gvm: 3000, tare: 2000, gcm: 7000 },
-        vanConfig: { atm: 3000, tare: 2000, tbm: 100 },
+        vanConfig: { atm: 3000, tare: 2000, tbm: 200 },
       },
     },
   });
@@ -95,6 +95,28 @@ it("renders warning when car combined weight is above the gvm threshold", () => 
   expect(alertBox).toHaveClass("alert-warning");
 });
 
+it("renders warning when tbm is outside of threshold", () => {
+  renderComponent(<CombinedStatus />, {
+    initialState: {
+      configs: {
+        carConfig: {
+          tare: 1700,
+          gvm: 2000,
+          gcm: 10000,
+        },
+        vanConfig: {
+          tare: 2000,
+          atm: 5000,
+          tbm: 159,
+        },
+      },
+    },
+  });
+
+  const alertBox = screen.getByTestId("combined-status-box");
+  expect(alertBox).toHaveClass("alert-warning");
+});
+
 it("renders over when combined weight is above the gcm", () => {
   renderComponent(<CombinedStatus />, {
     initialState: {
@@ -134,6 +156,27 @@ it("renders over when car combined weight is above the gvm", () => {
     },
   });
 
+  const alertBox = screen.getByTestId("combined-status-box");
+  expect(alertBox).toHaveClass("alert-danger");
+});
+
+it("renders over when combined weight fine, car is fine but van is over ATM", () => {
+  renderComponent(<CombinedStatus />, {
+    initialState: {
+      configs: {
+        carConfig: {
+          tare: 7001,
+          gvm: 8000,
+          gcm: 10000,
+        },
+        vanConfig: {
+          tare: 3000,
+          atm: 2000,
+          tbm: 250,
+        },
+      },
+    },
+  });
   const alertBox = screen.getByTestId("combined-status-box");
   expect(alertBox).toHaveClass("alert-danger");
 });

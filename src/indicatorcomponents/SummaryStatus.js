@@ -10,7 +10,7 @@ import { Container, Row, Col, Alert } from "react-bootstrap";
 import { FaCaravan, FaTruckPickup } from "react-icons/fa";
 import { status } from "./../redux/statusConstants";
 
-const getSummaryStatusVariant = (item) => {
+const getSummaryStatusVariantCar = (item) => {
   var variant;
   switch (item.status) {
     case status.OK:
@@ -30,17 +30,34 @@ const getSummaryStatusVariant = (item) => {
   return variant;
 };
 
-const getSummaryStatusVariantCombined = (combined) => {
+const getSummaryStatusVariantVan = (vanStatus) => {
+  var variant = "success";
+
+  if (vanStatus.status === status.OVER) {
+    variant = "danger";
+  } else if (
+    vanStatus.status === status.WARNING ||
+    vanStatus.tbmStatus == status.WARNING
+  ) {
+    variant = "warning";
+  }
+
+  return variant;
+};
+
+const getSummaryStatusVariantCombined = (combined, vanStatus) => {
   var variant = "success";
 
   if (
     combined.combinedStatus === status.OVER ||
-    combined.carStatus === status.OVER
+    combined.carStatus === status.OVER ||
+    vanStatus.status === status.OVER
   ) {
     variant = "danger";
   } else if (
     combined.combinedStatus === status.WARNING ||
-    combined.carStatus === status.WARNING
+    combined.carStatus === status.WARNING ||
+    vanStatus.tbmStatus === status.WARNING
   ) {
     variant = "warning";
   }
@@ -53,7 +70,7 @@ const SummaryStatus = ({ combinedStatus, carStatus, vanStatus }) => {
       <Row>
         <Col xs={3}>
           <Alert
-            variant={getSummaryStatusVariant(carStatus)}
+            variant={getSummaryStatusVariantCar(carStatus)}
             data-testid="car-status"
           >
             <FaTruckPickup size="30"></FaTruckPickup>
@@ -61,7 +78,7 @@ const SummaryStatus = ({ combinedStatus, carStatus, vanStatus }) => {
         </Col>
         <Col xs={3}>
           <Alert
-            variant={getSummaryStatusVariant(vanStatus)}
+            variant={getSummaryStatusVariantVan(vanStatus)}
             data-testid="van-status"
           >
             <FaCaravan size="30"></FaCaravan>
@@ -69,7 +86,7 @@ const SummaryStatus = ({ combinedStatus, carStatus, vanStatus }) => {
         </Col>
         <Col xs={6}>
           <Alert
-            variant={getSummaryStatusVariantCombined(combinedStatus)}
+            variant={getSummaryStatusVariantCombined(combinedStatus, vanStatus)}
             data-testid="combined-status"
           >
             <FaCaravan size="30" data-testid="combined-status-van"></FaCaravan>
@@ -82,24 +99,6 @@ const SummaryStatus = ({ combinedStatus, carStatus, vanStatus }) => {
       </Row>
     </>
   );
-};
-
-const getStatusVariant = (combinedStatus) => {
-  var variant = "success";
-
-  if (
-    combinedStatus.combinedStatus === status.OVER ||
-    combinedStatus.carStatus === status.OVER
-  ) {
-    variant = "danger";
-  } else if (
-    combinedStatus.combinedStatus === status.WARNING ||
-    combinedStatus.carStatus === status.WARNING
-  ) {
-    variant = "warning";
-  }
-
-  return variant;
 };
 
 const mapStateToProps = (state) => {

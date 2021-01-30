@@ -79,7 +79,7 @@ it("renders the van green when the weight is below the atm", () => {
   expect(alertBox).toHaveClass("alert-success");
 });
 
-it("renders the van orange when the weight is above the gmv threshold", () => {
+it("renders the van orange when the weight is above the gvm threshold", () => {
   testData.configs.vanConfig.tare = 2851;
   renderComponent(<SummaryStatus />, {
     initialState: testData,
@@ -88,8 +88,27 @@ it("renders the van orange when the weight is above the gmv threshold", () => {
   expect(alertBox).toHaveClass("alert-warning");
 });
 
-it("renders the van red when the weight is above the gvm", () => {
+it("renders the van orange when the tbm is above the recommendation", () => {
+  testData.configs.vanConfig.tbm = 261;
+  renderComponent(<SummaryStatus />, {
+    initialState: testData,
+  });
+  const alertBox = screen.getByTestId("van-status");
+  expect(alertBox).toHaveClass("alert-warning");
+});
+
+it("renders the van orange when the tbm is below the recommendation", () => {
+  testData.configs.vanConfig.tbm = 159;
+  renderComponent(<SummaryStatus />, {
+    initialState: testData,
+  });
+  const alertBox = screen.getByTestId("van-status");
+  expect(alertBox).toHaveClass("alert-warning");
+});
+
+it("renders the van red when the weight is above the gvm, even if the tbm is in warning", () => {
   testData.configs.vanConfig.tare = 3001;
+  testData.configs.vanConfig.tbm = 150;
   renderComponent(<SummaryStatus />, {
     initialState: testData,
   });
@@ -109,6 +128,7 @@ it("renders the combined orange when the combined is above the gcm threshold", (
   testData.configs.carConfig.gcm = 10000;
   testData.configs.carConfig.gvm = 10000;
   testData.configs.carConfig.tare = 5000;
+  testData.configs.vanConfig.atm = 10000;
   testData.configs.vanConfig.tare = 4501;
 
   renderComponent(<SummaryStatus />, {
@@ -120,6 +140,36 @@ it("renders the combined orange when the combined is above the gcm threshold", (
 
 it("renders the combined orange when the gcm is ok but the car and tbm exceed gvm threshold", () => {
   testData.configs.vanConfig.tbm = 900;
+
+  renderComponent(<SummaryStatus />, {
+    initialState: testData,
+  });
+  const alertBox = screen.getByTestId("combined-status");
+  expect(alertBox).toHaveClass("alert-warning");
+});
+
+it("renders the combined red when the gvm and gcm are ok but the van is over ATM", () => {
+  testData.configs.vanConfig.tare = 5000;
+
+  renderComponent(<SummaryStatus />, {
+    initialState: testData,
+  });
+  const alertBox = screen.getByTestId("combined-status");
+  expect(alertBox).toHaveClass("alert-danger");
+});
+
+it("renders the combined orange when the tbm is under the recommendation", () => {
+  testData.configs.vanConfig.tbm = 159;
+
+  renderComponent(<SummaryStatus />, {
+    initialState: testData,
+  });
+  const alertBox = screen.getByTestId("combined-status");
+  expect(alertBox).toHaveClass("alert-warning");
+});
+
+it("renders the combined orange when the tbm is over the recommendation", () => {
+  testData.configs.vanConfig.tbm = 261;
 
   renderComponent(<SummaryStatus />, {
     initialState: testData,
