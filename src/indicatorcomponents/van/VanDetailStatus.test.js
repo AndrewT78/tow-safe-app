@@ -107,6 +107,52 @@ it("shows the total weight makeup (tare, accessories and load", () => {
   screen.getByText("Allowed ATM: 3000kg");
 });
 
+it("shows the warning about TBM being outside the range", () => {
+  renderComponent(<VanDetailStatus />, {
+    initialState: {
+      configs: { vanConfig: { atm: 3000, tare: 2000, tbm: 159 } },
+      loads: {
+        vanLoad: [
+          { item: "Something", weight: 100, quantity: 1, enabled: true },
+          { item: "Something Else", weight: 30, quantity: 2, enabled: true },
+        ],
+      },
+      accessories: {
+        vanAccessories: [
+          { accessory: "Gas", weight: 10 },
+          { accessory: "Annex", weight: 30 },
+        ],
+      },
+    },
+  });
+
+  screen.getByText(
+    "Your Tow Ball Mass is outside of recommendations, its is recommended to keep your TBM approx 10% of your overall van weight. TowSafe App will display this warning when you are outside of the 8-12% range"
+  );
+});
+
+it("does not show the warning about TBM being outside the rangem if its within range", () => {
+  renderComponent(<VanDetailStatus />, {
+    initialState: {
+      configs: { vanConfig: { atm: 3000, tare: 2000, tbm: 200 } },
+      loads: {
+        vanLoad: [
+          { item: "Something", weight: 100, quantity: 1, enabled: true },
+          { item: "Something Else", weight: 30, quantity: 2, enabled: true },
+        ],
+      },
+      accessories: {
+        vanAccessories: [
+          { accessory: "Gas", weight: 10 },
+          { accessory: "Annex", weight: 30 },
+        ],
+      },
+    },
+  });
+
+  expect(screen.queryByText(/Your Tow Ball Mass is outside/i)).toBeNull();
+});
+
 it("renders green when weight is below the threshold and the TBM is within Range", () => {
   renderComponent(<VanDetailStatus />, {
     initialState: {

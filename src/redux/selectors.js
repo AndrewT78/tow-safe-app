@@ -86,7 +86,7 @@ export const getVanStatus = (store) => {
   var tbmStatus = status.OK;
   if (store.configs.vanConfig.tbm / totalWeight < 0.08) {
     tbmStatus = status.WARNING;
-  } else if (store.configs.vanConfig.tbm / totalWeight > 0.13) {
+  } else if (store.configs.vanConfig.tbm / totalWeight > 0.12) {
     tbmStatus = status.WARNING;
   }
 

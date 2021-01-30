@@ -55,6 +55,16 @@ const VanDetailStatus = ({ vanConfig, vanStatus }) => {
             )}
           </Col>
         </Row>
+        {vanStatus.tbmStatus === status.WARNING ? (
+          <>
+            <hr />
+            Your Tow Ball Mass is outside of recommendations, its is recommended
+            to keep your TBM approx 10% of your overall van weight. TowSafe App
+            will display this warning when you are outside of the 8-12% range
+          </>
+        ) : (
+          <></>
+        )}
       </Alert>
     </>
   );
