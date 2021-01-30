@@ -72,10 +72,9 @@ export const getCarStatus = (store) => {
 
 export const getVanStatus = (store) => {
   var vanStatus = status.OK;
-  var totalWeight =
-    store.configs.vanConfig.tare +
-    getLoadWeight(store.loads.vanLoad) +
-    getAccessoriesWeight(store.accessories.vanAccessories);
+  var loadWeight = getLoadWeight(store.loads.vanLoad);
+  var accessoryWeight = getAccessoriesWeight(store.accessories.vanAccessories);
+  var totalWeight = store.configs.vanConfig.tare + loadWeight + accessoryWeight;
   var remainingPayload = store.configs.vanConfig.atm - totalWeight;
 
   if (totalWeight > store.configs.vanConfig.atm) {
@@ -84,7 +83,21 @@ export const getVanStatus = (store) => {
     vanStatus = status.WARNING;
   }
 
-  return { totalWeight, status: vanStatus, remainingPayload };
+  var tbmStatus = status.OK;
+  if (store.configs.vanConfig.tbm / totalWeight < 0.08) {
+    tbmStatus = status.WARNING;
+  } else if (store.configs.vanConfig.tbm / totalWeight > 0.13) {
+    tbmStatus = status.WARNING;
+  }
+
+  return {
+    totalWeight,
+    status: vanStatus,
+    remainingPayload,
+    loadWeight,
+    accessoryWeight,
+    tbmStatus,
+  };
 };
 
 export const getCombinedStatus = (store) => {

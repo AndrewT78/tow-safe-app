@@ -17,7 +17,7 @@ describe("Van selectors", () => {
       vanConfig: {
         tare: 2150,
         atm: 3300,
-        tbm: 180,
+        tbm: 190,
       },
     },
     loads: {
@@ -99,6 +99,58 @@ describe("Van selectors", () => {
     },
   };
 
+  const storeTBMUnder = {
+    configs: {
+      vanConfig: {
+        tare: 2150,
+        atm: 3300,
+        tbm: 180,
+      },
+    },
+    loads: {
+      vanLoad: [
+        { item: "Food", quantity: 5, weight: 20, enabled: true },
+        { item: "Cases", quantity: 4, weight: 10, enabled: true },
+      ],
+    },
+    accessories: {
+      vanAccessories: [
+        { accessory: "Gas", weight: 9 },
+        { accessory: "Annex", weight: 26 },
+      ],
+      carAccessories: [
+        { accessory: "Bullbar", weight: 80 },
+        { accessory: "Roofrack", weight: 18 },
+      ],
+    },
+  };
+
+  const storeTBMOver = {
+    configs: {
+      vanConfig: {
+        tare: 2150,
+        atm: 3300,
+        tbm: 305,
+      },
+    },
+    loads: {
+      vanLoad: [
+        { item: "Food", quantity: 5, weight: 20, enabled: true },
+        { item: "Cases", quantity: 4, weight: 10, enabled: true },
+      ],
+    },
+    accessories: {
+      vanAccessories: [
+        { accessory: "Gas", weight: 9 },
+        { accessory: "Annex", weight: 26 },
+      ],
+      carAccessories: [
+        { accessory: "Bullbar", weight: 80 },
+        { accessory: "Roofrack", weight: 18 },
+      ],
+    },
+  };
+
   it("should return the totalWeight of the van including the tare, load and accessories", () => {
     expect(getVanStatus(store).totalWeight).toEqual(2325);
   });
@@ -109,6 +161,14 @@ describe("Van selectors", () => {
 
   it("should return the remaining payload of the van", () => {
     expect(getVanStatus(store).remainingPayload).toEqual(975);
+  });
+
+  it("should return the total load weight in the van", () => {
+    expect(getVanStatus(storeWithDisabled).loadWeight).toEqual(140);
+  });
+
+  it("should return the total accessory weight in the van", () => {
+    expect(getVanStatus(store).accessoryWeight).toEqual(35);
   });
 
   it("should return a status of OK when the weight is less than the warning threshold", () => {
@@ -123,8 +183,20 @@ describe("Van selectors", () => {
     expect(getVanStatus(storeError).status).toEqual(status.OVER);
   });
 
+  it("should return a TBM status of OK when the TBM is within the recommendations", () => {
+    expect(getVanStatus(store).tbmStatus).toEqual(status.OK);
+  });
+
+  it("should return a TBM status of WARNING when the TBM is below the recommendation", () => {
+    expect(getVanStatus(storeTBMUnder).tbmStatus).toEqual(status.WARNING);
+  });
+
+  it("should return a TBM status of WARNING when the TBM is over the recommendation", () => {
+    expect(getVanStatus(storeTBMOver).tbmStatus).toEqual(status.WARNING);
+  });
+
   it("should return the van config from the store", () => {
-    expect(getVanConfig(store)).toEqual({ atm: 3300, tare: 2150, tbm: 180 });
+    expect(getVanConfig(store)).toEqual({ atm: 3300, tare: 2150, tbm: 190 });
   });
 
   it("should return load items for a van", () => {

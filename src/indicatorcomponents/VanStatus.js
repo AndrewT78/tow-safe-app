@@ -47,20 +47,15 @@ const VanStatus = ({ vanConfig, vanStatus }) => {
 };
 
 const getStatusVariant = (vanStatus) => {
-  var variant;
-  switch (vanStatus.status) {
-    case status.OK:
-      variant = "success";
-      break;
-    case status.WARNING:
-      variant = "warning";
-      break;
-    case status.OVER:
-      variant = "danger";
-      break;
-    default:
-      variant = "secondary";
-      break;
+  var variant = "success";
+
+  if (vanStatus.status === status.OVER) {
+    variant = "danger";
+  } else if (
+    vanStatus.status === status.WARNING ||
+    vanStatus.tbmStatus == status.WARNING
+  ) {
+    variant = "warning";
   }
 
   return variant;

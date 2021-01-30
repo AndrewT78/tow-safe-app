@@ -55,6 +55,15 @@ const CarDetailStatus = ({ carConfig, carStatus }) => {
             )}
           </Col>
         </Row>
+        <hr />
+        <Row>
+          <Col>
+            <span style={{ fontSize: 12 }}>
+              * This does not include your Tow Ball Weight from your Caravan,
+              see the combined status
+            </span>
+          </Col>
+        </Row>
       </Alert>
     </>
   );

@@ -52,7 +52,7 @@ it("shows the amount of payloadload remaining", () => {
   expect(payloadRemaining).toBeInTheDocument();
 });
 
-it("renders green when weight is below the threshold", () => {
+it("renders green when weight is below the threshold and the TBM is within Range", () => {
   renderComponent(<VanStatus />, {
     initialState: {
       configs: { vanConfig: { atm: 2000, tare: 1899, tbm: 180 }, vanLoad: [] },
@@ -80,6 +80,36 @@ it("renders red when weight is above the atm", () => {
   });
   const alertBox = screen.getByTestId("van-status-box");
   expect(alertBox).toHaveClass("alert-danger");
+});
+
+it("renders red when weight is above the atm but the tbm is warning", () => {
+  renderComponent(<VanStatus />, {
+    initialState: {
+      configs: { vanConfig: { atm: 2000, tare: 2001, tbm: 100 }, vanLoad: [] },
+    },
+  });
+  const alertBox = screen.getByTestId("van-status-box");
+  expect(alertBox).toHaveClass("alert-danger");
+});
+
+it("renders orange when tbm is below the recommendation", () => {
+  renderComponent(<VanStatus />, {
+    initialState: {
+      configs: { vanConfig: { atm: 3000, tare: 2000, tbm: 159 }, vanLoad: [] },
+    },
+  });
+  const alertBox = screen.getByTestId("van-status-box");
+  expect(alertBox).toHaveClass("alert-warning");
+});
+
+it("renders orange when tbm is above the recommendation", () => {
+  renderComponent(<VanStatus />, {
+    initialState: {
+      configs: { vanConfig: { atm: 3000, tare: 2000, tbm: 261 }, vanLoad: [] },
+    },
+  });
+  const alertBox = screen.getByTestId("van-status-box");
+  expect(alertBox).toHaveClass("alert-warning");
 });
 
 it("navigates to the van load page when the load icon is clicked", async () => {
