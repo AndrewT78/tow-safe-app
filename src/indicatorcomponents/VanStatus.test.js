@@ -38,18 +38,21 @@ it("shows total weight and atm", () => {
       configs: { vanConfig: { atm: 3300, tare: 2150, tbm: 180 }, vanLoad: [] },
     },
   });
-  const totalWeight = screen.getByText("2150 (3300) - Total Weight (ATM)");
+  const totalWeight = screen.getByText("2150 (3300)");
   expect(totalWeight).toBeInTheDocument();
 });
 
-it("shows the amount of payloadload remaining", () => {
+it("navigates to the van detail info button is clicked", async () => {
   renderComponent(<VanStatus />, {
     initialState: {
-      configs: { vanConfig: { atm: 2000, tare: 1600, tbm: 180 }, vanLoad: [] },
+      configs: { vanConfig: { atm: 3300, tare: 2150, tbm: 180 }, vanLoad: [] },
     },
   });
-  const payloadRemaining = screen.getByText("400 - Remaining Payload");
-  expect(payloadRemaining).toBeInTheDocument();
+  const alertArea = screen.getByTestId("van-detail-status-link");
+  act(() => {
+    fireEvent.click(alertArea);
+  });
+  expect(historySpy).toHaveBeenCalledWith("/vandetail");
 });
 
 it("renders green when weight is below the threshold and the TBM is within Range", () => {

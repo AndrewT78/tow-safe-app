@@ -135,3 +135,16 @@ it("navigates to the car detail page when the route specifies", () => {
 
   screen.getByTestId("car-detail-status-box");
 });
+it("navigates to the van detail page when the route specifies", () => {
+  renderApp(<MainPane />, {
+    initialState: {
+      configs: {
+        vanConfig: { tare: 2150, atm: 3300 },
+        carConfig: { tare: 1000, gvm: 2200 },
+      },
+    },
+    initialRoute: "/vandetail",
+  });
+
+  screen.getByTestId("van-detail-status-box");
+});

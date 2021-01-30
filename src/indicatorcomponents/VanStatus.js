@@ -5,6 +5,7 @@ import { getVanStatus } from "./../redux/selectors";
 import { Alert, Container, Row, Col } from "react-bootstrap";
 
 import { FaCaravan, FaSuitcase } from "react-icons/fa";
+import { BsInfoCircle } from "react-icons/bs";
 import { status } from "./../redux/statusConstants";
 
 import { Link } from "react-router-dom";
@@ -25,11 +26,21 @@ const VanStatus = ({ vanConfig, vanStatus }) => {
         <Col>
           <Row>
             <Col>
-              {`${vanStatus.totalWeight} (${vanConfig.atm}) - Total Weight (ATM)`}
+              <Alert.Heading>{`${vanStatus.totalWeight} (${vanConfig.atm})`}</Alert.Heading>
             </Col>
           </Row>
           <Row>
-            <Col>{`${vanStatus.remainingPayload} - Remaining Payload`}</Col>
+            <Col>
+              <Link
+                to="/vandetail"
+                data-testid="van-detail-status-link"
+                style={{ color: "inherit" }}
+              >
+                <span style={{ fontSize: 10 }}>
+                  <BsInfoCircle></BsInfoCircle> Click to see more information
+                </span>
+              </Link>
+            </Col>
           </Row>
         </Col>
         <Col xs={"auto"}>
