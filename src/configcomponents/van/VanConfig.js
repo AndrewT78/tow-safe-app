@@ -62,6 +62,7 @@ class VanConfig extends React.Component {
               value={this.state.atm}
               onChange={(e) => this.updateATM(e.target.value)}
               autoFocus={true}
+              onFocus={(e) => e.target.select()}
             />
           </InputGroup>
         </Form.Group>
@@ -75,6 +76,7 @@ class VanConfig extends React.Component {
               placeholder="Tare"
               value={this.state.tare}
               onChange={(e) => this.updateTare(e.target.value)}
+              onFocus={(e) => e.target.select()}
             />
           </InputGroup>
         </Form.Group>
@@ -88,6 +90,7 @@ class VanConfig extends React.Component {
               placeholder="TBM"
               value={this.state.tbm}
               onChange={(e) => this.updateTBM(e.target.value)}
+              onFocus={(e) => e.target.select()}
             />
           </InputGroup>
         </Form.Group>

@@ -62,6 +62,7 @@ class CarConfig extends React.Component {
               value={this.state.gvm}
               onChange={(e) => this.updateGVM(e.target.value)}
               autoFocus={true}
+              onFocus={(e) => e.target.select()}
             />
           </InputGroup>
         </Form.Group>
@@ -75,6 +76,7 @@ class CarConfig extends React.Component {
               placeholder="Tare"
               value={this.state.tare}
               onChange={(e) => this.updateTare(e.target.value)}
+              onFocus={(e) => e.target.select()}
             />
           </InputGroup>
         </Form.Group>
@@ -88,6 +90,7 @@ class CarConfig extends React.Component {
               placeholder="GCM"
               value={this.state.gcm}
               onChange={(e) => this.updateGCM(e.target.value)}
+              onFocus={(e) => e.target.select()}
             />
           </InputGroup>
         </Form.Group>
