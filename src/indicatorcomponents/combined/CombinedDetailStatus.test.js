@@ -62,7 +62,7 @@ it("shows the warning about TBM being outside the range", () => {
   );
 });
 
-it("does not show the warning about TBM being outside the rangem if its within range", () => {
+it("does not show the warning about TBM being outside the range if its within range", () => {
   renderComponent(<CombinedDetailStatus />, {
     initialState: {
       configs: {
@@ -87,6 +87,174 @@ it("does not show the warning about TBM being outside the rangem if its within r
   });
 
   expect(screen.queryByText(/Your Tow Ball Mass is outside/i)).toBeNull();
+});
+
+it("shows the car weight inc TBM", () => {
+  renderComponent(<CombinedDetailStatus />, {
+    initialState: {
+      configs: {
+        vanConfig: { atm: 3000, tare: 2000, tbm: 159 },
+        carConfig: { tare: 2000, gvm: 3000, gcm: 7000 },
+      },
+      loads: {
+        vanLoad: [],
+        carLoad: [],
+      },
+      accessories: {
+        vanAccessories: [],
+        carAccessories: [],
+      },
+    },
+  });
+
+  screen.getByText("Car Weight (inc TBM): 2159kg");
+});
+
+it("shows the combined weight", () => {
+  renderComponent(<CombinedDetailStatus />, {
+    initialState: {
+      configs: {
+        vanConfig: { atm: 3000, tare: 2000, tbm: 159 },
+        carConfig: { tare: 2000, gvm: 3000, gcm: 7000 },
+      },
+      loads: {
+        vanLoad: [],
+        carLoad: [],
+      },
+      accessories: {
+        vanAccessories: [],
+        carAccessories: [],
+      },
+    },
+  });
+
+  screen.getByText("Total Combined Weight: 4000kg");
+});
+
+it("shows the car allowed GCM", () => {
+  renderComponent(<CombinedDetailStatus />, {
+    initialState: {
+      configs: {
+        vanConfig: { atm: 3000, tare: 2000, tbm: 159 },
+        carConfig: { tare: 2000, gvm: 3000, gcm: 7000 },
+      },
+      loads: {
+        vanLoad: [],
+        carLoad: [],
+      },
+      accessories: {
+        vanAccessories: [],
+        carAccessories: [],
+      },
+    },
+  });
+
+  screen.getByText("Car Allowed GCM: 7000kg");
+});
+
+it("shows the car allowed GVM", () => {
+  renderComponent(<CombinedDetailStatus />, {
+    initialState: {
+      configs: {
+        vanConfig: { atm: 3000, tare: 2000, tbm: 159 },
+        carConfig: { tare: 2000, gvm: 3000, gcm: 7000 },
+      },
+      loads: {
+        vanLoad: [],
+        carLoad: [],
+      },
+      accessories: {
+        vanAccessories: [],
+        carAccessories: [],
+      },
+    },
+  });
+
+  screen.getByText("Car Allowed GVM: 3000kg");
+});
+
+it("shows a warning message if over GCM", () => {
+  renderComponent(<CombinedDetailStatus />, {
+    initialState: {
+      configs: {
+        vanConfig: { atm: 3000, tare: 2000, tbm: 300 },
+        carConfig: { tare: 2701, gvm: 3000, gcm: 3000 },
+      },
+      loads: {
+        vanLoad: [],
+        carLoad: [],
+      },
+      accessories: {
+        vanAccessories: [],
+        carAccessories: [],
+      },
+    },
+  });
+
+  screen.getByText("Your car is over its GCM");
+});
+
+it("does not show a warning message if over GCM", () => {
+  renderComponent(<CombinedDetailStatus />, {
+    initialState: {
+      configs: {
+        vanConfig: { atm: 3000, tare: 2000, tbm: 200 },
+        carConfig: { tare: 2701, gvm: 3000, gcm: 7000 },
+      },
+      loads: {
+        vanLoad: [],
+        carLoad: [],
+      },
+      accessories: {
+        vanAccessories: [],
+        carAccessories: [],
+      },
+    },
+  });
+
+  expect(screen.queryByText(/Your car is over its GCM/i)).toBeNull();
+});
+
+it("shows a warning message if over GVM", () => {
+  renderComponent(<CombinedDetailStatus />, {
+    initialState: {
+      configs: {
+        vanConfig: { atm: 3000, tare: 2000, tbm: 300 },
+        carConfig: { tare: 2701, gvm: 3000, gcm: 7000 },
+      },
+      loads: {
+        vanLoad: [],
+        carLoad: [],
+      },
+      accessories: {
+        vanAccessories: [],
+        carAccessories: [],
+      },
+    },
+  });
+
+  screen.getByText("Your car is over its GVM");
+});
+
+it("does not shows a warning message if over GVM", () => {
+  renderComponent(<CombinedDetailStatus />, {
+    initialState: {
+      configs: {
+        vanConfig: { atm: 3000, tare: 2000, tbm: 200 },
+        carConfig: { tare: 2701, gvm: 3000, gcm: 7000 },
+      },
+      loads: {
+        vanLoad: [],
+        carLoad: [],
+      },
+      accessories: {
+        vanAccessories: [],
+        carAccessories: [],
+      },
+    },
+  });
+
+  expect(screen.queryByText(/Your car is over its GVM/i)).toBeNull();
 });
 
 it("renders green when combined weight and car combined weight are below the gcm threshold", () => {
