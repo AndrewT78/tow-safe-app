@@ -1,7 +1,12 @@
-import { render as rtlRender, screen, fireEvent } from "@testing-library/react";
-import CombinedStatus from "./CombinedStatus";
+import {
+  render as rtlRender,
+  screen,
+  fireEvent,
+  waitFor,
+} from "@testing-library/react";
+import CombinedDetailStatus from "./CombinedDetailStatus";
 import { Provider } from "react-redux";
-import rootReducer from "../redux/reducers";
+import rootReducer from "../../redux/reducers";
 import { createStore } from "redux";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
@@ -28,27 +33,64 @@ function renderComponent(
   return rtlRender(ui, { wrapper: Wrapper, ...renderOptions });
 }
 
-const storeState = {
-  configs: {
-    vanConfig: { atm: 3000, tare: 2000, tbm: 180 },
-    carConfig: { gvm: 3500, tare: 3000, gcm: 7000 },
-  },
-};
+it("shows the warning about TBM being outside the range", () => {
+  renderComponent(<CombinedDetailStatus />, {
+    initialState: {
+      configs: {
+        vanConfig: { atm: 3000, tare: 2000, tbm: 159 },
+        carConfig: { tare: 2000, gvm: 3000, gcm: 7000 },
+      },
+      loads: {
+        vanLoad: [
+          { item: "Something", weight: 100, quantity: 1, enabled: true },
+          { item: "Something Else", weight: 30, quantity: 2, enabled: true },
+        ],
+        carLoad: [],
+      },
+      accessories: {
+        vanAccessories: [
+          { accessory: "Gas", weight: 10 },
+          { accessory: "Annex", weight: 30 },
+        ],
+        carAccessories: [],
+      },
+    },
+  });
 
-it("shows total weight and gcm", () => {
-  renderComponent(<CombinedStatus />, { initialState: storeState });
-  const totalWeight = screen.getByText("5000 (7000)");
-  expect(totalWeight).toBeInTheDocument();
+  screen.getByText(
+    "Your Tow Ball Mass is outside of recommendations, its is recommended to keep your TBM approx 10% of your overall van weight. TowSafe App will display this warning when you are outside of the 8-12% range"
+  );
 });
 
-it("shows the total car weight with the towball applied, and the gvm", () => {
-  renderComponent(<CombinedStatus />, { initialState: storeState });
-  const totalCarWeight = screen.getByText("3180 (3500)");
-  expect(totalCarWeight).toBeInTheDocument();
+it("does not show the warning about TBM being outside the rangem if its within range", () => {
+  renderComponent(<CombinedDetailStatus />, {
+    initialState: {
+      configs: {
+        vanConfig: { atm: 3000, tare: 2000, tbm: 200 },
+        carConfig: { gcm: 700, tare: 2800, gvm: 3500 },
+      },
+      loads: {
+        vanLoad: [
+          { item: "Something", weight: 100, quantity: 1, enabled: true },
+          { item: "Something Else", weight: 30, quantity: 2, enabled: true },
+        ],
+        carLoad: [],
+      },
+      accessories: {
+        vanAccessories: [
+          { accessory: "Gas", weight: 10 },
+          { accessory: "Annex", weight: 30 },
+        ],
+        carAccessories: [],
+      },
+    },
+  });
+
+  expect(screen.queryByText(/Your Tow Ball Mass is outside/i)).toBeNull();
 });
 
 it("renders green when combined weight and car combined weight are below the gcm threshold", () => {
-  renderComponent(<CombinedStatus />, {
+  renderComponent(<CombinedDetailStatus />, {
     initialState: {
       configs: {
         carConfig: { gvm: 3000, tare: 2000, gcm: 7000 },
@@ -56,12 +98,12 @@ it("renders green when combined weight and car combined weight are below the gcm
       },
     },
   });
-  const alertBox = screen.getByTestId("combined-status-box");
+  const alertBox = screen.getByTestId("combined-detail-status-box");
   expect(alertBox).toHaveClass("alert-success");
 });
 
 it("renders warning when combined weight is above the gcm threshold", () => {
-  renderComponent(<CombinedStatus />, {
+  renderComponent(<CombinedDetailStatus />, {
     initialState: {
       configs: {
         carConfig: {
@@ -77,12 +119,12 @@ it("renders warning when combined weight is above the gcm threshold", () => {
       },
     },
   });
-  const alertBox = screen.getByTestId("combined-status-box");
+  const alertBox = screen.getByTestId("combined-detail-status-box");
   expect(alertBox).toHaveClass("alert-warning");
 });
 
 it("renders warning when car combined weight is above the gvm threshold", () => {
-  renderComponent(<CombinedStatus />, {
+  renderComponent(<CombinedDetailStatus />, {
     initialState: {
       configs: {
         carConfig: {
@@ -99,12 +141,12 @@ it("renders warning when car combined weight is above the gvm threshold", () => 
     },
   });
 
-  const alertBox = screen.getByTestId("combined-status-box");
+  const alertBox = screen.getByTestId("combined-detail-status-box");
   expect(alertBox).toHaveClass("alert-warning");
 });
 
 it("renders warning when tbm is outside of threshold", () => {
-  renderComponent(<CombinedStatus />, {
+  renderComponent(<CombinedDetailStatus />, {
     initialState: {
       configs: {
         carConfig: {
@@ -121,12 +163,12 @@ it("renders warning when tbm is outside of threshold", () => {
     },
   });
 
-  const alertBox = screen.getByTestId("combined-status-box");
+  const alertBox = screen.getByTestId("combined-detail-status-box");
   expect(alertBox).toHaveClass("alert-warning");
 });
 
 it("renders over when combined weight is above the gcm", () => {
-  renderComponent(<CombinedStatus />, {
+  renderComponent(<CombinedDetailStatus />, {
     initialState: {
       configs: {
         carConfig: {
@@ -142,12 +184,12 @@ it("renders over when combined weight is above the gcm", () => {
       },
     },
   });
-  const alertBox = screen.getByTestId("combined-status-box");
+  const alertBox = screen.getByTestId("combined-detail-status-box");
   expect(alertBox).toHaveClass("alert-danger");
 });
 
 it("renders over when car combined weight is above the gvm", () => {
-  renderComponent(<CombinedStatus />, {
+  renderComponent(<CombinedDetailStatus />, {
     initialState: {
       configs: {
         carConfig: {
@@ -164,12 +206,12 @@ it("renders over when car combined weight is above the gvm", () => {
     },
   });
 
-  const alertBox = screen.getByTestId("combined-status-box");
+  const alertBox = screen.getByTestId("combined-detail-status-box");
   expect(alertBox).toHaveClass("alert-danger");
 });
 
 it("renders over when combined weight fine, car is fine but van is over ATM", () => {
-  renderComponent(<CombinedStatus />, {
+  renderComponent(<CombinedDetailStatus />, {
     initialState: {
       configs: {
         carConfig: {
@@ -185,15 +227,30 @@ it("renders over when combined weight fine, car is fine but van is over ATM", ()
       },
     },
   });
-  const alertBox = screen.getByTestId("combined-status-box");
+  const alertBox = screen.getByTestId("combined-detail-status-box");
   expect(alertBox).toHaveClass("alert-danger");
 });
 
-it("navigates to the combined detail info button is clicked", async () => {
-  renderComponent(<CombinedStatus />, { initialState: storeState });
-  const alertArea = screen.getByTestId("combined-detail-status-link");
-  act(() => {
-    fireEvent.click(alertArea);
+it("navigates back to the main page when back is clicked", async () => {
+  renderComponent(<CombinedDetailStatus />, {
+    initialState: {
+      configs: {
+        carConfig: {
+          tare: 7001,
+          gvm: 8000,
+          gcm: 10000,
+        },
+        vanConfig: {
+          tare: 3000,
+          atm: 2000,
+          tbm: 250,
+        },
+      },
+    },
   });
-  expect(historySpy).toHaveBeenCalledWith("/combineddetail");
+  const backButton = screen.getByText("Back");
+  act(() => {
+    fireEvent.click(backButton);
+  });
+  expect(historySpy).toHaveBeenCalledWith("/");
 });

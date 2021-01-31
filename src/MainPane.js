@@ -16,6 +16,7 @@ import VanSetup from "./configcomponents/van/VanSetup";
 import CarSetup from "./configcomponents/car/CarSetup";
 import CarDetailStatus from "./indicatorcomponents/car/CarDetailStatus";
 import VanDetailStatus from "./indicatorcomponents/van/VanDetailStatus";
+import CombinedDetailStatus from "./indicatorcomponents/combined/CombinedDetailStatus";
 
 const MainPane = ({ vanConfig, carConfig }) => {
   const isVanConfigured = () => {
@@ -51,6 +52,9 @@ const MainPane = ({ vanConfig, carConfig }) => {
       </Route>
       <Route path="/vandetail">
         <VanDetailStatus></VanDetailStatus>
+      </Route>
+      <Route path="/combineddetail">
+        <CombinedDetailStatus></CombinedDetailStatus>
       </Route>
       <Route path="/">
         <>

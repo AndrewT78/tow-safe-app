@@ -4,9 +4,11 @@ import { getVanConfig } from "./../redux/selectors";
 import { getCombinedStatus } from "./../redux/selectors";
 
 import { Alert, Container, Row, Col } from "react-bootstrap";
+import { BsInfoCircle } from "react-icons/bs";
 
 import { FaCaravan, FaTruckPickup } from "react-icons/fa";
 import { status } from "./../redux/statusConstants";
+import { Link } from "react-router-dom";
 
 const CombinedStatus = ({
   carConfig,
@@ -27,11 +29,26 @@ const CombinedStatus = ({
         <Col>
           <Row>
             <Col>
-              {`${combinedStatus.totalCombinedWeight} (${carConfig.gcm}) - Combined Weight (GCM)`}
+              <Alert.Heading>{`${combinedStatus.totalCombinedWeight} (${carConfig.gcm})`}</Alert.Heading>
             </Col>
           </Row>
           <Row>
-            <Col>{`${combinedStatus.totalCarWeight} (${carConfig.gvm}) - Car Weight inc TBM (GVM)`}</Col>
+            <Col>
+              <Alert.Heading>{`${combinedStatus.totalCarWeight} (${carConfig.gvm})`}</Alert.Heading>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Link
+                to="/combineddetail"
+                data-testid="combined-detail-status-link"
+                style={{ color: "inherit" }}
+              >
+                <span style={{ fontSize: 10 }}>
+                  <BsInfoCircle></BsInfoCircle> Click to see more information
+                </span>
+              </Link>
+            </Col>
           </Row>
         </Col>
       </Row>
