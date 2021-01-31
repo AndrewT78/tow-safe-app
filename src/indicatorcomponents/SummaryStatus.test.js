@@ -8,7 +8,11 @@ import SummaryStatus from "./SummaryStatus";
 import { Provider } from "react-redux";
 import rootReducer from "../redux/reducers";
 import { createStore } from "redux";
+import { Router } from "react-router-dom";
+import { createMemoryHistory } from "history";
 
+const history = createMemoryHistory();
+const historySpy = jest.spyOn(history, "push");
 var testData;
 
 beforeEach(() => {
@@ -30,7 +34,11 @@ function renderComponent(
   } = {}
 ) {
   function Wrapper({ children }) {
-    return <Provider store={store}>{children}</Provider>;
+    return (
+      <Provider store={store}>
+        <Router history={history}>{children}</Router>
+      </Provider>
+    );
   }
   return rtlRender(ui, { wrapper: Wrapper, ...renderOptions });
 }
@@ -196,4 +204,40 @@ it("renders the combined red when the combined is above the gcm", () => {
   });
   const alertBox = screen.getByTestId("combined-status");
   expect(alertBox).toHaveClass("alert-danger");
+});
+
+it("navigates to the car detail when car is clicked", async () => {
+  renderComponent(<SummaryStatus />, {
+    initialState: testData,
+  });
+
+  const alertArea = screen.getByTestId("car-status");
+  act(() => {
+    fireEvent.click(alertArea);
+  });
+  expect(historySpy).toHaveBeenCalledWith("/cardetail");
+});
+
+it("navigates to the van detail when van is clicked", async () => {
+  renderComponent(<SummaryStatus />, {
+    initialState: testData,
+  });
+
+  const alertArea = screen.getByTestId("van-status");
+  act(() => {
+    fireEvent.click(alertArea);
+  });
+  expect(historySpy).toHaveBeenCalledWith("/vandetail");
+});
+
+it("navigates to the combined detail when combined is clicked", async () => {
+  renderComponent(<SummaryStatus />, {
+    initialState: testData,
+  });
+
+  const alertArea = screen.getByTestId("combined-status");
+  act(() => {
+    fireEvent.click(alertArea);
+  });
+  expect(historySpy).toHaveBeenCalledWith("/combineddetail");
 });

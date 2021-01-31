@@ -5,6 +5,8 @@ import {
   getVanStatus,
 } from "./../redux/selectors";
 
+import { Link } from "react-router-dom";
+
 import { Container, Row, Col, Alert } from "react-bootstrap";
 
 import { FaCaravan, FaTruckPickup } from "react-icons/fa";
@@ -69,32 +71,44 @@ const SummaryStatus = ({ combinedStatus, carStatus, vanStatus }) => {
     <>
       <Row>
         <Col xs={3}>
-          <Alert
-            variant={getSummaryStatusVariantCar(carStatus)}
-            data-testid="car-status"
-          >
-            <FaTruckPickup size="30"></FaTruckPickup>
-          </Alert>
+          <Link to="/cardetail" style={{ color: "inherit" }}>
+            <Alert
+              variant={getSummaryStatusVariantCar(carStatus)}
+              data-testid="car-status"
+            >
+              <FaTruckPickup size="30"></FaTruckPickup>
+            </Alert>
+          </Link>
         </Col>
         <Col xs={3}>
-          <Alert
-            variant={getSummaryStatusVariantVan(vanStatus)}
-            data-testid="van-status"
-          >
-            <FaCaravan size="30"></FaCaravan>
-          </Alert>
+          <Link to="/vandetail" style={{ color: "inherit" }}>
+            <Alert
+              variant={getSummaryStatusVariantVan(vanStatus)}
+              data-testid="van-status"
+            >
+              <FaCaravan size="30"></FaCaravan>
+            </Alert>
+          </Link>
         </Col>
         <Col xs={6}>
-          <Alert
-            variant={getSummaryStatusVariantCombined(combinedStatus, vanStatus)}
-            data-testid="combined-status"
-          >
-            <FaCaravan size="30" data-testid="combined-status-van"></FaCaravan>
-            <FaTruckPickup
-              size="30"
-              data-testid="combined-status-car"
-            ></FaTruckPickup>
-          </Alert>
+          <Link to="/combineddetail" style={{ color: "inherit" }}>
+            <Alert
+              variant={getSummaryStatusVariantCombined(
+                combinedStatus,
+                vanStatus
+              )}
+              data-testid="combined-status"
+            >
+              <FaCaravan
+                size="30"
+                data-testid="combined-status-van"
+              ></FaCaravan>
+              <FaTruckPickup
+                size="30"
+                data-testid="combined-status-car"
+              ></FaTruckPickup>
+            </Alert>
+          </Link>
         </Col>
       </Row>
     </>
