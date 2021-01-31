@@ -59,8 +59,10 @@ const CarDetailStatus = ({ carConfig, carStatus }) => {
         <Row>
           <Col>
             <span style={{ fontSize: 12 }}>
-              * This does not include your Tow Ball Weight from your Caravan,
-              see the combined status
+              <Link to="/combineddetail" style={{ color: "inherit" }}>
+                This does not include your Tow Ball Weight from your Caravan,
+                see the combined status (click here)
+              </Link>
             </span>
           </Col>
         </Row>

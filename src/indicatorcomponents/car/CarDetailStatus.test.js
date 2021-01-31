@@ -149,3 +149,16 @@ it("navigates back to the main page when back is clicked", async () => {
   });
   expect(historySpy).toHaveBeenCalledWith("/");
 });
+
+it("navigates to the combined detail page when the note about inc TBM is clicked", async () => {
+  renderComponent(<CarDetailStatus />, {
+    initialState: {
+      configs: { carConfig: { gvm: 2000, tare: 2001, gcm: 3000 } },
+    },
+  });
+  const linkButton = screen.getByText(/see the combined status/);
+  act(() => {
+    fireEvent.click(linkButton);
+  });
+  expect(historySpy).toHaveBeenCalledWith("/combineddetail");
+});
