@@ -6,7 +6,11 @@ import { Button, Alert, Row, Col } from "react-bootstrap";
 import { getVanConfig } from "./../../redux/selectors";
 import AccessoriesAdder from "../accessories/AccessoriesAdder";
 import LoadAdder from "../load/LoadAdder";
-import { addVanAccessory, addVanLoad } from "../../redux/actions";
+import {
+  addVanAccessory,
+  addVanLoad,
+  deleteVanAccessory,
+} from "../../redux/actions";
 
 class VanSetup extends React.Component {
   constructor(props) {
@@ -22,6 +26,10 @@ class VanSetup extends React.Component {
     this.props.addVanAccessory(acc);
   };
 
+  handleDeleteAccessory = (id) => {
+    this.props.deleteVanAccessory(id);
+  };
+
   handleAddNewLoad = (load) => {
     this.props.addVanLoad(load);
   };
@@ -31,8 +39,8 @@ class VanSetup extends React.Component {
   };
 
   vanAccessories = [
-    { accessory: "Gas Bottle(s)", weight: 18 },
-    { accessory: "Annex", weight: 30 },
+    { accessory: "Gas Bottle(s)", weight: 18, id: "WizardGas1" },
+    { accessory: "Annex", weight: 30, id: "WizardAnnex1" },
   ];
 
   vanLoad = [
@@ -78,6 +86,7 @@ class VanSetup extends React.Component {
                 <AccessoriesAdder
                   accessories={this.vanAccessories}
                   handleAdd={this.handleAddNewAccessory}
+                  handleDelete={this.handleDeleteAccessory}
                 ></AccessoriesAdder>
                 <div style={{ marginTop: "20px" }}>
                   <Row>
@@ -121,6 +130,8 @@ const mapStateToProps = (state) => {
   return { vanConfig };
 };
 
-export default connect(mapStateToProps, { addVanAccessory, addVanLoad })(
-  VanSetup
-);
+export default connect(mapStateToProps, {
+  addVanAccessory,
+  addVanLoad,
+  deleteVanAccessory,
+})(VanSetup);

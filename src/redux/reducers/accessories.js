@@ -30,7 +30,9 @@ function removeAccessoryItem(accArray, id) {
 export default function (state = initialState, action) {
   switch (action.type) {
     case ADD_CAR_ACC: {
-      action.accessory.id = guid();
+      if (action.accessory.id === undefined) {
+        action.accessory.id = guid();
+      }
 
       return {
         ...state,
@@ -38,7 +40,9 @@ export default function (state = initialState, action) {
       };
     }
     case ADD_VAN_ACC: {
-      action.accessory.id = guid();
+      if (action.accessory.id === undefined) {
+        action.accessory.id = guid();
+      }
 
       return {
         ...state,

@@ -4,7 +4,11 @@ import CarConfig from "./CarConfig";
 import { Link } from "react-router-dom";
 import { Button, Alert, Row, Col } from "react-bootstrap";
 import { getCarConfig } from "../../redux/selectors";
-import { addCarAccessory, addCarLoad } from "../../redux/actions";
+import {
+  addCarAccessory,
+  addCarLoad,
+  deleteCarAccessory,
+} from "../../redux/actions";
 import AccessoriesAdder from "../accessories/AccessoriesAdder";
 import LoadAdder from "../load/LoadAdder";
 
@@ -22,6 +26,10 @@ class CarSetup extends React.Component {
     this.props.addCarAccessory(acc);
   };
 
+  handleDeleteAccessory = (id) => {
+    this.props.deleteCarAccessory(id);
+  };
+
   handleAddNewLoad = (load) => {
     this.props.addCarLoad(load);
   };
@@ -31,10 +39,10 @@ class CarSetup extends React.Component {
   };
 
   carAccessories = [
-    { accessory: "Bullbar", weight: 80 },
-    { accessory: "Roofrack", weight: 12 },
-    { accessory: "Towbar", weight: 20 },
-    { accessory: "Snorkel", weight: 5 },
+    { accessory: "Bullbar", weight: 80, id: "WizardBullbar" },
+    { accessory: "Roofrack", weight: 12, id: "WizardRoofRack" },
+    { accessory: "Towbar", weight: 20, id: "WizardTowbar" },
+    { accessory: "Snorkel", weight: 5, id: "WizardSnorkel" },
   ];
 
   carLoad = [
@@ -83,6 +91,7 @@ class CarSetup extends React.Component {
                 <AccessoriesAdder
                   accessories={this.carAccessories}
                   handleAdd={this.handleAddNewAccessory}
+                  handleDelete={this.handleDeleteAccessory}
                 ></AccessoriesAdder>
                 <div style={{ marginTop: "20px" }}>
                   <Row>
@@ -126,6 +135,8 @@ const mapStateToProps = (state) => {
   return { carConfig };
 };
 
-export default connect(mapStateToProps, { addCarAccessory, addCarLoad })(
-  CarSetup
-);
+export default connect(mapStateToProps, {
+  addCarAccessory,
+  addCarLoad,
+  deleteCarAccessory,
+})(CarSetup);

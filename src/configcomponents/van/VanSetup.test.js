@@ -110,14 +110,52 @@ it("adds an accessory to the van", () => {
   const saveButton = screen.getByText("Save");
   fireEvent.click(saveButton);
 
-  const addButton = screen.getAllByText("Add")[0];
+  const addButton = screen.getAllByText("+")[0];
   fireEvent.click(addButton);
 
   expect(myStore.getState().accessories.vanAccessories).toEqual(
     expect.arrayContaining([
-      expect.objectContaining({ accessory: "Gas Bottle(s)", weight: 18 }),
+      expect.objectContaining({
+        accessory: "Gas Bottle(s)",
+        weight: 18,
+        id: "WizardGas1",
+      }),
     ])
   );
+});
+
+it("removes an accessory from the van", () => {
+  renderApp(<VanSetup />);
+
+  const atmInput = screen.getByPlaceholderText("ATM");
+  fireEvent.change(atmInput, { target: { value: "2000" } });
+
+  const tareInput = screen.getByPlaceholderText("Tare");
+  fireEvent.change(tareInput, { target: { value: "1000" } });
+
+  const tbmInput = screen.getByPlaceholderText("TBM");
+  fireEvent.change(tbmInput, { target: { value: "150" } });
+
+  const saveButton = screen.getByText("Save");
+  fireEvent.click(saveButton);
+
+  const addButton = screen.getAllByText("+")[0];
+  fireEvent.click(addButton);
+
+  expect(myStore.getState().accessories.vanAccessories).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({
+        accessory: "Gas Bottle(s)",
+        weight: 18,
+        id: "WizardGas1",
+      }),
+    ])
+  );
+
+  const removeButton = screen.getAllByText("-")[0];
+  fireEvent.click(removeButton);
+
+  expect(myStore.getState().accessories.vanAccessories).toHaveLength(0);
 });
 
 it("shows the load setup when the user moves to load", () => {

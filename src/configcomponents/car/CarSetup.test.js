@@ -104,14 +104,52 @@ it("adds an accessory to the car", () => {
   const saveButton = screen.getByText("Save");
   fireEvent.click(saveButton);
 
-  const addButton = screen.getAllByText("Add")[0];
+  const addButton = screen.getAllByText("+")[0];
   fireEvent.click(addButton);
 
   expect(myStore.getState().accessories.carAccessories).toEqual(
     expect.arrayContaining([
-      expect.objectContaining({ accessory: "Bullbar", weight: 80 }),
+      expect.objectContaining({
+        accessory: "Bullbar",
+        weight: 80,
+        id: "WizardBullbar",
+      }),
     ])
   );
+});
+
+it("removes an accessory from the car", () => {
+  renderApp(<CarSetup />);
+
+  const gvmInput = screen.getByPlaceholderText("GVM");
+  fireEvent.change(gvmInput, { target: { value: "2000" } });
+
+  const tareInput = screen.getByPlaceholderText("Tare");
+  fireEvent.change(tareInput, { target: { value: "1000" } });
+
+  const gcmInput = screen.getByPlaceholderText("GCM");
+  fireEvent.change(gcmInput, { target: { value: "3000" } });
+
+  const saveButton = screen.getByText("Save");
+  fireEvent.click(saveButton);
+
+  const addButton = screen.getAllByText("+")[0];
+  fireEvent.click(addButton);
+
+  expect(myStore.getState().accessories.carAccessories).toEqual(
+    expect.arrayContaining([
+      expect.objectContaining({
+        accessory: "Bullbar",
+        weight: 80,
+        id: "WizardBullbar",
+      }),
+    ])
+  );
+
+  const removeButton = screen.getAllByText("-")[0];
+  fireEvent.click(removeButton);
+
+  expect(myStore.getState().accessories.carAccessories).toHaveLength(0);
 });
 
 it("shows the load setup when the user moves to load", () => {
@@ -128,9 +166,6 @@ it("shows the load setup when the user moves to load", () => {
 
   const saveButton = screen.getByText("Save");
   fireEvent.click(saveButton);
-
-  const addButton = screen.getAllByText("Add")[0];
-  fireEvent.click(addButton);
 
   const loadButton = screen.getByText("Next: Load");
   fireEvent.click(loadButton);
