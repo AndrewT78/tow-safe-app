@@ -10,7 +10,7 @@ const mockAccessory = {
   id: "Solar1",
 };
 
-xit("renders a form for accessory and weight", () => {
+it("renders a form for accessory and weight", () => {
   render(
     <AccessoryToggle
       handleAddAccessory={mockHandleAddAccessory}
@@ -28,7 +28,7 @@ xit("renders a form for accessory and weight", () => {
   expect(toggleOn).toBeInTheDocument();
 });
 
-xit("renders a prefilled form for the accessory and weight", () => {
+it("renders a prefilled form for the accessory and weight", () => {
   render(
     <AccessoryToggle
       handleAddAccessory={mockHandleAddAccessory}
@@ -43,7 +43,7 @@ xit("renders a prefilled form for the accessory and weight", () => {
   expect(weightInput.value).toBe("20");
 });
 
-xit("renders a disabled form for accessory and weight when toggled on", () => {
+it("renders a disabled form for accessory and weight when toggled on", () => {
   render(
     <AccessoryToggle
       handleAddAccessory={mockHandleAddAccessory}
@@ -64,7 +64,7 @@ xit("renders a disabled form for accessory and weight when toggled on", () => {
   expect(screen.getByText("-")).toBeInTheDocument();
 });
 
-xit("disables the toggle on button until all fields are valid", () => {
+it("disables the toggle on button until all fields are valid", () => {
   render(
     <AccessoryToggle
       handleAddAccessory={mockHandleAddAccessory}
@@ -87,7 +87,7 @@ xit("disables the toggle on button until all fields are valid", () => {
   expect(toggleOn).toBeEnabled();
 });
 
-xit("adds an accessory when the toggled on", () => {
+it("adds an accessory when the toggled on", () => {
   render(
     <AccessoryToggle
       handleAddAccessory={mockHandleAddAccessory}
@@ -112,7 +112,7 @@ xit("adds an accessory when the toggled on", () => {
   });
 });
 
-xit("swaps the button to be remove when toggled on", () => {
+it("swaps the button to be remove when toggled on", () => {
   render(
     <AccessoryToggle
       handleAddAccessory={mockHandleAddAccessory}
@@ -126,7 +126,7 @@ xit("swaps the button to be remove when toggled on", () => {
   expect(screen.getByText("-")).toBeInTheDocument();
 });
 
-xit("swaps the button to be add when toggled off", () => {
+it("swaps the button to be add when toggled off", () => {
   render(
     <AccessoryToggle
       handleAddAccessory={mockHandleAddAccessory}
@@ -165,7 +165,7 @@ it("does on and then off", () => {
   expect(screen.getByText("+")).toBeInTheDocument();
 });
 
-xit("removes an accessory when the toggled off", () => {
+it("removes an accessory when the toggled off", () => {
   render(
     <AccessoryToggle
       handleAddAccessory={mockHandleAddAccessory}
