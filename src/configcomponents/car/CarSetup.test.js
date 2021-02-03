@@ -237,3 +237,21 @@ it("goes back to the main screen when 'Done' is pressed", () => {
   fireEvent.click(skipButton);
   expect(historySpy).toHaveBeenCalledWith("/");
 });
+
+it("presets to on the accessories already added in the wizard", () => {
+  initialState.configs.carConfig = { tare: 2000, gcm: 3000, gvm: 200 };
+  initialState.accessories.carAccessories = [
+    { accessory: "BullbarEdited", weight: 75, id: "WizardBullbar" },
+  ];
+
+  renderApp(<CarSetup />);
+
+  const addButtons = screen.getAllByText("+");
+  const deleteButtons = screen.getAllByText("-");
+
+  expect(addButtons).toHaveLength(3);
+  expect(deleteButtons).toHaveLength(1);
+
+  const nameFields = screen.getAllByPlaceholderText("Accessory");
+  expect(nameFields[0].value).toBe("BullbarEdited");
+});

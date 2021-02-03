@@ -12,10 +12,23 @@ import {
 import AccessoriesAdder from "../accessories/AccessoriesAdder";
 import LoadAdder from "../load/LoadAdder";
 
+import { getCarAccessories } from "../../redux/selectors";
 class CarSetup extends React.Component {
   constructor(props) {
     super(props);
     this.state = { screen: "accessories" };
+
+    // turn on the ones which are already in the store
+    this.carAccessories.forEach((acc) => {
+      const matchingStoreAcc = this.props.carAccessories.find(
+        (storeAcc) => storeAcc.id === acc.id
+      );
+      if (matchingStoreAcc) {
+        acc.exists = true;
+        acc.accessory = matchingStoreAcc.accessory;
+        acc.weight = matchingStoreAcc.weight;
+      }
+    });
   }
 
   isCarConfigured = () => {
@@ -132,7 +145,8 @@ class CarSetup extends React.Component {
 
 const mapStateToProps = (state) => {
   const carConfig = getCarConfig(state);
-  return { carConfig };
+  const carAccessories = getCarAccessories(state);
+  return { carConfig, carAccessories };
 };
 
 export default connect(mapStateToProps, {
