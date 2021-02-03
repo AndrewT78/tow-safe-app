@@ -109,7 +109,7 @@ it("adds an accessory to the van", () => {
   const saveButton = screen.getByText("Save");
   fireEvent.click(saveButton);
 
-  const addButton = screen.getAllByText("+")[0];
+  const addButton = screen.getAllByTestId("btn-acc-off")[0];
   fireEvent.click(addButton);
 
   expect(myStore.getState().accessories.vanAccessories).toEqual(
@@ -138,7 +138,7 @@ it("removes an accessory from the van", () => {
   const saveButton = screen.getByText("Save");
   fireEvent.click(saveButton);
 
-  const addButton = screen.getAllByText("+")[0];
+  const addButton = screen.getAllByTestId("btn-acc-off")[0];
   fireEvent.click(addButton);
 
   expect(myStore.getState().accessories.vanAccessories).toEqual(
@@ -151,7 +151,7 @@ it("removes an accessory from the van", () => {
     ])
   );
 
-  const removeButton = screen.getAllByText("-")[0];
+  const removeButton = screen.getAllByTestId("btn-acc-on")[0];
   fireEvent.click(removeButton);
 
   expect(myStore.getState().accessories.vanAccessories).toHaveLength(0);
@@ -253,8 +253,8 @@ it("presets to on the accessories already added in the wizard", () => {
 
   renderApp(<VanSetup />);
 
-  const addButtons = screen.getAllByText("+");
-  const deleteButtons = screen.getAllByText("-");
+  const addButtons = screen.getAllByTestId("btn-acc-off");
+  const deleteButtons = screen.getAllByTestId("btn-acc-on");
 
   expect(addButtons).toHaveLength(1);
   expect(deleteButtons).toHaveLength(1);

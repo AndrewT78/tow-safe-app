@@ -24,7 +24,7 @@ it("renders a form for accessory and weight", () => {
   const weightInput = screen.getByPlaceholderText("kg");
   expect(weightInput).toBeInTheDocument();
 
-  const toggleOn = screen.getByText("+");
+  const toggleOn = screen.getByTestId("btn-acc-off");
   expect(toggleOn).toBeInTheDocument();
 });
 
@@ -61,7 +61,7 @@ it("renders a disabled form for accessory and weight when toggled on", () => {
   expect(weightInput).toBeDisabled();
 
   expect(screen.queryByText("+")).toBeNull();
-  expect(screen.getByText("-")).toBeInTheDocument();
+  expect(screen.getByTestId("btn-acc-on")).toBeInTheDocument();
 });
 
 it("disables the toggle on button until all fields are valid", () => {
@@ -73,7 +73,7 @@ it("disables the toggle on button until all fields are valid", () => {
     />
   );
 
-  const toggleOn = screen.getByText("+");
+  const toggleOn = screen.getByTestId("btn-acc-off");
   expect(toggleOn).toBeEnabled();
 
   const accInput = screen.getByPlaceholderText("Accessory");
@@ -102,7 +102,7 @@ it("adds an accessory when the toggled on", () => {
   const weightInput = screen.getByPlaceholderText("kg");
   fireEvent.change(weightInput, { target: { value: "18" } });
 
-  const onToggle = screen.getByText("+");
+  const onToggle = screen.getByTestId("btn-acc-off");
   fireEvent.click(onToggle);
 
   expect(mockHandleAddAccessory).toHaveBeenCalledWith({
@@ -123,7 +123,7 @@ it("swaps the button to be remove when toggled on", () => {
   );
 
   expect(screen.queryByText("+")).toBeNull();
-  expect(screen.getByText("-")).toBeInTheDocument();
+  expect(screen.getByTestId("btn-acc-on")).toBeInTheDocument();
 });
 
 it("swaps the button to be add when toggled off", () => {
@@ -137,7 +137,7 @@ it("swaps the button to be add when toggled off", () => {
   );
 
   expect(screen.queryByText("-")).toBeNull();
-  expect(screen.getByText("+")).toBeInTheDocument();
+  expect(screen.getByTestId("btn-acc-off")).toBeInTheDocument();
 });
 
 it("does on and then off", () => {
@@ -150,19 +150,19 @@ it("does on and then off", () => {
   );
 
   expect(screen.queryByText("-")).toBeNull();
-  expect(screen.getByText("+")).toBeInTheDocument();
+  expect(screen.getByTestId("btn-acc-off")).toBeInTheDocument();
 
-  const onToggle = screen.getByText("+");
+  const onToggle = screen.getByTestId("btn-acc-off");
   fireEvent.click(onToggle);
 
   expect(screen.queryByText("+")).toBeNull();
-  expect(screen.getByText("-")).toBeInTheDocument();
+  expect(screen.getByTestId("btn-acc-on")).toBeInTheDocument();
 
-  const offToggle = screen.getByText("-");
+  const offToggle = screen.getByTestId("btn-acc-on");
   fireEvent.click(offToggle);
 
   expect(screen.queryByText("-")).toBeNull();
-  expect(screen.getByText("+")).toBeInTheDocument();
+  expect(screen.getByTestId("btn-acc-off")).toBeInTheDocument();
 });
 
 it("removes an accessory when the toggled off", () => {
@@ -175,7 +175,7 @@ it("removes an accessory when the toggled off", () => {
     />
   );
 
-  const onToggle = screen.getByText("-");
+  const onToggle = screen.getByTestId("btn-acc-on");
   fireEvent.click(onToggle);
 
   expect(mockHandleDeleteAccessory).toHaveBeenCalledWith("Solar1");

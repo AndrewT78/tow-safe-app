@@ -104,7 +104,7 @@ it("adds an accessory to the car", () => {
   const saveButton = screen.getByText("Save");
   fireEvent.click(saveButton);
 
-  const addButton = screen.getAllByText("+")[0];
+  const addButton = screen.getAllByTestId("btn-acc-off")[0];
   fireEvent.click(addButton);
 
   expect(myStore.getState().accessories.carAccessories).toEqual(
@@ -133,7 +133,7 @@ it("removes an accessory from the car", () => {
   const saveButton = screen.getByText("Save");
   fireEvent.click(saveButton);
 
-  const addButton = screen.getAllByText("+")[0];
+  const addButton = screen.getAllByTestId("btn-acc-off")[0];
   fireEvent.click(addButton);
 
   expect(myStore.getState().accessories.carAccessories).toEqual(
@@ -146,7 +146,7 @@ it("removes an accessory from the car", () => {
     ])
   );
 
-  const removeButton = screen.getAllByText("-")[0];
+  const removeButton = screen.getAllByTestId("btn-acc-on")[0];
   fireEvent.click(removeButton);
 
   expect(myStore.getState().accessories.carAccessories).toHaveLength(0);
@@ -246,8 +246,8 @@ it("presets to on the accessories already added in the wizard", () => {
 
   renderApp(<CarSetup />);
 
-  const addButtons = screen.getAllByText("+");
-  const deleteButtons = screen.getAllByText("-");
+  const addButtons = screen.getAllByTestId("btn-acc-off");
+  const deleteButtons = screen.getAllByTestId("btn-acc-on");
 
   expect(addButtons).toHaveLength(3);
   expect(deleteButtons).toHaveLength(1);

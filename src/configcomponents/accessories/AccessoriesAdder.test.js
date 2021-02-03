@@ -36,7 +36,7 @@ describe("Accessories Adder", () => {
         handleAdd={mockAdd}
       ></AccessoriesAdder>
     );
-    var addButton = screen.getAllByText("+")[1];
+    var addButton = screen.getAllByTestId("btn-acc-off")[1];
     fireEvent.click(addButton);
     expect(mockAdd).toHaveBeenCalledWith({
       accessory: "Roof Rack",
@@ -55,7 +55,7 @@ describe("Accessories Adder", () => {
     var field = screen.getAllByPlaceholderText("kg")[2];
     fireEvent.change(field, { target: { value: "100" } });
 
-    var addButton = screen.getAllByText("+")[2];
+    var addButton = screen.getAllByTestId("btn-acc-off")[2];
     fireEvent.click(addButton);
     expect(mockAdd).toHaveBeenCalledWith({
       accessory: "Towbar",
@@ -72,14 +72,14 @@ describe("Accessories Adder", () => {
       ></AccessoriesAdder>
     );
 
-    var addButton = screen.getAllByText("+")[1];
+    var addButton = screen.getAllByTestId("btn-acc-off")[1];
     fireEvent.click(addButton);
 
     var accessoryNameFields = screen.getAllByPlaceholderText("Accessory");
     expect(accessoryNameFields).toHaveLength(3);
 
-    expect(screen.getAllByText("-")).toHaveLength(1);
-    expect(screen.getAllByText("+")).toHaveLength(2);
+    expect(screen.getAllByTestId("btn-acc-on")).toHaveLength(1);
+    expect(screen.getAllByTestId("btn-acc-off")).toHaveLength(2);
   });
 
   it("Marks the accessory as added in the list when its added, even if you change its name", () => {
@@ -93,13 +93,13 @@ describe("Accessories Adder", () => {
     var field = screen.getAllByPlaceholderText("Accessory")[1];
     fireEvent.change(field, { target: { value: "RhinoRack" } });
 
-    var addButton = screen.getAllByText("+")[1];
+    var addButton = screen.getAllByTestId("btn-acc-off")[1];
     fireEvent.click(addButton);
 
     var accessoryNameFields = screen.getAllByPlaceholderText("Accessory");
     expect(accessoryNameFields).toHaveLength(3);
-    expect(screen.getAllByText("-")).toHaveLength(1);
-    expect(screen.getAllByText("+")).toHaveLength(2);
+    expect(screen.getAllByTestId("btn-acc-on")).toHaveLength(1);
+    expect(screen.getAllByTestId("btn-acc-off")).toHaveLength(2);
   });
 
   it("Prefills the form and sets the accessory to on when initialised", () => {
@@ -112,8 +112,8 @@ describe("Accessories Adder", () => {
       ></AccessoriesAdder>
     );
 
-    expect(screen.getAllByText("-")).toHaveLength(1);
-    expect(screen.getAllByText("+")).toHaveLength(2);
+    expect(screen.getAllByTestId("btn-acc-on")).toHaveLength(1);
+    expect(screen.getAllByTestId("btn-acc-off")).toHaveLength(2);
   });
 
   it("removes an item from the list of accessories", () => {
@@ -125,10 +125,10 @@ describe("Accessories Adder", () => {
       ></AccessoriesAdder>
     );
 
-    var addButton = screen.getAllByText("+")[1];
+    var addButton = screen.getAllByTestId("btn-acc-off")[1];
     fireEvent.click(addButton);
 
-    var removeButton = screen.getByText("-");
+    var removeButton = screen.getByTestId("btn-acc-on");
     fireEvent.click(removeButton);
 
     expect(mockAdd).toHaveBeenCalledWith({
