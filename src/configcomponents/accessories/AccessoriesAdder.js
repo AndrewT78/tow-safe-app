@@ -31,7 +31,7 @@ class AccessoriesAdder extends React.Component {
 
   getSampleAccessories() {
     return this.props.accessories.map((prop, key) => {
-      if (this.state.hidden.indexOf(key) < 0) {
+      if (this.state.hidden.indexOf(key) < 0 && !prop.exists) {
         return (
           <div style={{ marginBottom: "20px" }} key={prop.accessory}>
             <AccessoryToggle

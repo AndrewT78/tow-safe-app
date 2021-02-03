@@ -102,6 +102,20 @@ describe("Accessories Adder", () => {
     expect(screen.getAllByText("+")).toHaveLength(2);
   });
 
+  it("Prefills the form and sets the accessory to on when initialised", () => {
+    accessoryList[2].exists = true;
+
+    render(
+      <AccessoriesAdder
+        accessories={accessoryList}
+        handleAdd={mockAdd}
+      ></AccessoriesAdder>
+    );
+
+    expect(screen.getAllByText("-")).toHaveLength(1);
+    expect(screen.getAllByText("+")).toHaveLength(2);
+  });
+
   it("removes an item from the list of accessories", () => {
     render(
       <AccessoriesAdder

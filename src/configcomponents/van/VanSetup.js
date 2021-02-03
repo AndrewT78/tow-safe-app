@@ -12,10 +12,24 @@ import {
   deleteVanAccessory,
 } from "../../redux/actions";
 
+import { getVanAccessories } from "../../redux/selectors";
+
 class VanSetup extends React.Component {
   constructor(props) {
     super(props);
     this.state = { screen: "accessories" };
+
+    // turn on the ones which are already in the store
+    this.vanAccessories.forEach((acc) => {
+      const matchingStoreAcc = this.props.vanAccessories.find(
+        (storeAcc) => storeAcc.id === acc.id
+      );
+      if (matchingStoreAcc) {
+        acc.exists = true;
+        acc.accessory = matchingStoreAcc.accessory;
+        acc.weight = matchingStoreAcc.weight;
+      }
+    });
   }
 
   isVanConfigured = () => {
@@ -127,7 +141,8 @@ class VanSetup extends React.Component {
 
 const mapStateToProps = (state) => {
   const vanConfig = getVanConfig(state);
-  return { vanConfig };
+  const vanAccessories = getVanAccessories(state);
+  return { vanConfig, vanAccessories };
 };
 
 export default connect(mapStateToProps, {

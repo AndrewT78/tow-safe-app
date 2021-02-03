@@ -77,7 +77,6 @@ it("can update the van config", () => {
 
 it("shows the accessories setup once the config has been saved", () => {
   renderApp(<VanSetup />);
-  expect(screen.queryByText(/Skip/i)).toBeNull();
 
   const atmInput = screen.getByPlaceholderText("ATM");
   fireEvent.change(atmInput, { target: { value: "2000" } });
@@ -244,4 +243,23 @@ it("goes back to the main screen when 'Done' is pressed", () => {
   const skipButton = screen.getByText("Done");
   fireEvent.click(skipButton);
   expect(historySpy).toHaveBeenCalledWith("/");
+});
+
+it("presets to on the accessories already added in the wizard", () => {
+  initialState.configs.vanConfig = { tare: 2000, atm: 3000, tbm: 200 };
+  initialState.accessories.vanAccessories = [
+    { accessory: "AnnexEdited", weight: 30, id: "WizardAnnex1" },
+  ];
+
+  renderApp(<VanSetup />);
+
+  const addButtons = screen.getAllByText("+");
+  const deleteButtons = screen.getAllByText("-");
+
+  expect(addButtons).toHaveLength(1);
+  expect(deleteButtons).toHaveLength(1);
+
+  const nameFields = screen.getAllByPlaceholderText("Accessory");
+  expect(nameFields[0].value).toBe("Gas Bottle(s)");
+  expect(nameFields[1].value).toBe("AnnexEdited");
 });
