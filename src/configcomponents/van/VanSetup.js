@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import VanConfig from "./VanConfig";
 import { Link } from "react-router-dom";
 import { Button, Alert, Row, Col } from "react-bootstrap";
-import { getVanConfig } from "./../../redux/selectors";
+import { getVanConfig, getVanLoad } from "./../../redux/selectors";
 import AccessoriesAdder from "../accessories/AccessoriesAdder";
 import LoadAdder from "../load/LoadAdder";
 import {
@@ -28,6 +28,18 @@ class VanSetup extends React.Component {
         acc.exists = true;
         acc.accessory = matchingStoreAcc.accessory;
         acc.weight = matchingStoreAcc.weight;
+      }
+    });
+
+    this.vanLoad.forEach((load) => {
+      const matchingStoreLoad = this.props.vanLoad.find(
+        (storeLoad) => storeLoad.id === load.id
+      );
+      if (matchingStoreLoad) {
+        load.exists = true;
+        load.item = matchingStoreLoad.item;
+        load.weight = matchingStoreLoad.weight;
+        load.quantity = matchingStoreLoad.quantity;
       }
     });
   }
@@ -58,8 +70,8 @@ class VanSetup extends React.Component {
   ];
 
   vanLoad = [
-    { item: "Case", weight: 20, quantity: 2 },
-    { item: "Sleeping Bags", weight: 2, quantity: 2 },
+    { item: "Case", weight: 20, quantity: 2, id: "WizardCase" },
+    { item: "Sleeping Bags", weight: 2, quantity: 2, id: "WizardSleepingBags" },
   ];
 
   render() {
@@ -142,7 +154,8 @@ class VanSetup extends React.Component {
 const mapStateToProps = (state) => {
   const vanConfig = getVanConfig(state);
   const vanAccessories = getVanAccessories(state);
-  return { vanConfig, vanAccessories };
+  const vanLoad = getVanLoad(state);
+  return { vanConfig, vanAccessories, vanLoad };
 };
 
 export default connect(mapStateToProps, {

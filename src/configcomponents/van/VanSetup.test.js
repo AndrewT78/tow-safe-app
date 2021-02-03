@@ -263,3 +263,25 @@ it("presets to on the accessories already added in the wizard", () => {
   expect(nameFields[0].value).toBe("Gas Bottle(s)");
   expect(nameFields[1].value).toBe("AnnexEdited");
 });
+
+it("presets to on the load already added in the wizard", () => {
+  initialState.configs.vanConfig = { tare: 2000, atm: 3000, tbm: 200 };
+  initialState.loads.vanLoad = [
+    { item: "CaseEdited", weight: 10, quantity: 4, id: "WizardCase" },
+  ];
+
+  renderApp(<VanSetup />);
+
+  const loadButton = screen.getByText("Next: Load");
+  fireEvent.click(loadButton);
+
+  const addButtons = screen.getAllByTestId("btn-load-off");
+  const deleteButtons = screen.getAllByTestId("btn-load-on");
+
+  expect(addButtons).toHaveLength(1);
+  expect(deleteButtons).toHaveLength(1);
+
+  const nameFields = screen.getAllByPlaceholderText("Item Name");
+  expect(nameFields[0].value).toBe("CaseEdited");
+  expect(nameFields[1].value).toBe("Sleeping Bags");
+});

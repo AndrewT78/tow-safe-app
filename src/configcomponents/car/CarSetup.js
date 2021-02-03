@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import CarConfig from "./CarConfig";
 import { Link } from "react-router-dom";
 import { Button, Alert, Row, Col } from "react-bootstrap";
-import { getCarConfig } from "../../redux/selectors";
+import { getCarConfig, getCarLoad } from "../../redux/selectors";
 import {
   addCarAccessory,
   addCarLoad,
@@ -27,6 +27,18 @@ class CarSetup extends React.Component {
         acc.exists = true;
         acc.accessory = matchingStoreAcc.accessory;
         acc.weight = matchingStoreAcc.weight;
+      }
+    });
+
+    this.carLoad.forEach((load) => {
+      const matchingStoreLoad = this.props.carLoad.find(
+        (storeLoad) => storeLoad.id === load.id
+      );
+      if (matchingStoreLoad) {
+        load.exists = true;
+        load.item = matchingStoreLoad.item;
+        load.weight = matchingStoreLoad.weight;
+        load.quantity = matchingStoreLoad.quantity;
       }
     });
   }
@@ -59,11 +71,11 @@ class CarSetup extends React.Component {
   ];
 
   carLoad = [
-    { item: "Adult Pass", weight: 75, quantity: 2 },
-    { item: "Child Pass", weight: 25, quantity: 2 },
-    { item: "Furry Pass", weight: 15, quantity: 1 },
-    { item: "Fuel", weight: 60, quantity: 1 },
-    { item: "Engel", weight: 25, quantity: 1 },
+    { item: "Adult Pass", weight: 75, quantity: 2, id: "WizardAdultPass" },
+    { item: "Child Pass", weight: 25, quantity: 2, id: "WizardChildPass" },
+    { item: "Furry Pass", weight: 15, quantity: 1, id: "WizardFurryPass" },
+    { item: "Fuel", weight: 60, quantity: 1, id: "WizardFuel" },
+    { item: "Engel", weight: 25, quantity: 1, id: "WizardEngel" },
   ];
 
   render() {
@@ -146,7 +158,8 @@ class CarSetup extends React.Component {
 const mapStateToProps = (state) => {
   const carConfig = getCarConfig(state);
   const carAccessories = getCarAccessories(state);
-  return { carConfig, carAccessories };
+  const carLoad = getCarLoad(state);
+  return { carConfig, carAccessories, carLoad };
 };
 
 export default connect(mapStateToProps, {

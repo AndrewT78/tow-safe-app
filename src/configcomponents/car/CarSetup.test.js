@@ -255,3 +255,25 @@ it("presets to on the accessories already added in the wizard", () => {
   const nameFields = screen.getAllByPlaceholderText("Accessory");
   expect(nameFields[0].value).toBe("BullbarEdited");
 });
+
+it("presets to on the load already added in the wizard", () => {
+  initialState.configs.carConfig = { tare: 2000, gcm: 3000, gvm: 200 };
+  initialState.loads.carLoad = [
+    { item: "Super", weight: 0.8, quantity: 120, id: "WizardFuel" },
+  ];
+
+  renderApp(<CarSetup />);
+
+  const loadButton = screen.getByText("Next: Load");
+  fireEvent.click(loadButton);
+
+  const addButtons = screen.getAllByTestId("btn-load-off");
+  const deleteButtons = screen.getAllByTestId("btn-load-on");
+
+  expect(addButtons).toHaveLength(4);
+  expect(deleteButtons).toHaveLength(1);
+
+  const nameFields = screen.getAllByPlaceholderText("Item Name");
+  expect(nameFields[0].value).toBe("Adult Pass");
+  expect(nameFields[3].value).toBe("Super");
+});
