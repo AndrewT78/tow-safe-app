@@ -55,7 +55,6 @@ class AccessoryToggle extends React.Component {
               placeholder="Accessory"
               onChange={(e) => this.updateAccessory(e.target.value)}
               value={this.state.accessory}
-              autoFocus={true}
               onFocus={(e) => e.target.select()}
               disabled={this.state.toggle}
             />

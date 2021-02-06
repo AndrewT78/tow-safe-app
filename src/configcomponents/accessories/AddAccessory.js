@@ -12,7 +12,7 @@ class AddAccessory extends React.Component {
         weight: props.accessory.weight,
       };
     } else {
-      this.state = { accessory: "", weight: 1.0 };
+      this.state = { accessory: "", weight: undefined };
     }
   }
 
@@ -31,7 +31,7 @@ class AddAccessory extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
     this.props.handleAccessory(this.state);
-    this.setState({ item: "", weight: 1 });
+    this.setState({ item: "", weight: undefined });
   };
 
   render() {
@@ -48,21 +48,16 @@ class AddAccessory extends React.Component {
               onFocus={(e) => e.target.select()}
             />
           </Col>
-          <Col xs={4}>
-            <InputGroup>
-              <Form.Control
-                type="number"
-                placeholder="kg"
-                value={this.state.weight}
-                onChange={(e) => this.updateWeight(e.target.value)}
-                onFocus={(e) => e.target.select()}
-              />
-              <InputGroup.Append>
-                <InputGroup.Text>kg</InputGroup.Text>
-              </InputGroup.Append>
-            </InputGroup>
-          </Col>
           <Col xs={2}>
+            <Form.Control
+              type="number"
+              placeholder="kg"
+              value={this.state.weight}
+              onChange={(e) => this.updateWeight(e.target.value)}
+              onFocus={(e) => e.target.select()}
+            />
+          </Col>
+          <Col xs={3}>
             <Button
               style={{ width: "100%" }}
               type="submit"

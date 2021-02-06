@@ -1,4 +1,4 @@
-import { Button, Form, Col, InputGroup } from "react-bootstrap";
+import { Button, Form, Col, Row, InputGroup } from "react-bootstrap";
 import React from "react";
 import LoadToggle from "./LoadToggle";
 
@@ -47,7 +47,21 @@ class LoadAdder extends React.Component {
   }
 
   render() {
-    return <div style={{ marginTop: "20px" }}>{this.getSampleLoad()}</div>;
+    return (
+      <div style={{ marginTop: 20 }}>
+        <Row style={{ marginBottom: 5 }}>
+          <Col style={{ paddingLeft: 20 }}>Item Name</Col>
+          <Col style={{ paddingLeft: 20 }} xs={2}>
+            kg
+          </Col>
+          <Col style={{ paddingLeft: 20 }} xs={2}>
+            x
+          </Col>
+          <Col xs={3}></Col>
+        </Row>
+        {this.getSampleLoad()}
+      </div>
+    );
   }
 }
 

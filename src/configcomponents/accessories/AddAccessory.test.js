@@ -20,6 +20,10 @@ it("disables the add button until all fields are valid", () => {
 
   const accInput = screen.getByPlaceholderText("Accessory");
   fireEvent.change(accInput, { target: { value: "Bullbar" } });
+  expect(addButton).toBeDisabled();
+
+  const weightInput = screen.getByPlaceholderText("kg");
+  fireEvent.change(weightInput, { target: { value: "80" } });
 
   expect(addButton).toBeEnabled();
 });

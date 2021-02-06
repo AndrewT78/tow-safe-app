@@ -63,42 +63,31 @@ class LoadToggle extends React.Component {
               placeholder="Item Name"
               onChange={(e) => this.updateLoad(e.target.value)}
               value={this.state.item}
-              autoFocus={true}
               onFocus={(e) => e.target.select()}
               disabled={this.state.toggle}
             />
           </Col>
-          <Col xs={4}>
-            <InputGroup>
-              <Form.Control
-                type="number"
-                placeholder="kg"
-                value={this.state.weight}
-                onChange={(e) => this.updateWeight(e.target.value)}
-                onFocus={(e) => e.target.select()}
-                disabled={this.state.toggle}
-              />
-              <InputGroup.Append>
-                <InputGroup.Text>kg</InputGroup.Text>
-              </InputGroup.Append>
-            </InputGroup>
-          </Col>
-          <Col xs={3}>
-            <InputGroup>
-              <InputGroup.Prepend>
-                <InputGroup.Text>x</InputGroup.Text>
-              </InputGroup.Prepend>
-              <Form.Control
-                type="number"
-                placeholder="Quantity"
-                value={this.state.quantity}
-                onChange={(e) => this.updateQuantity(e.target.value)}
-                onFocus={(e) => e.target.select()}
-                disabled={this.state.toggle}
-              />
-            </InputGroup>
+          <Col xs={2}>
+            <Form.Control
+              type="number"
+              placeholder="kg"
+              value={this.state.weight}
+              onChange={(e) => this.updateWeight(e.target.value)}
+              onFocus={(e) => e.target.select()}
+              disabled={this.state.toggle}
+            />
           </Col>
           <Col xs={2}>
+            <Form.Control
+              type="number"
+              placeholder="x1"
+              value={this.state.quantity}
+              onChange={(e) => this.updateQuantity(e.target.value)}
+              onFocus={(e) => e.target.select()}
+              disabled={this.state.toggle}
+            />
+          </Col>
+          <Col xs={3}>
             {this.state.toggle ? (
               <Button
                 onClick={this.toggleOff}

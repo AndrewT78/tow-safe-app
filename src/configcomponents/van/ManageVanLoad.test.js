@@ -52,7 +52,7 @@ it("renders a form for Item, weight and quantity", () => {
   renderApp(<ManageVanLoad />);
   screen.getByPlaceholderText("Item Name");
   screen.getByPlaceholderText("kg");
-  screen.getByPlaceholderText("Quantity");
+  screen.getByPlaceholderText("x1");
 });
 
 it("renders a list of the load items", () => {
@@ -69,7 +69,7 @@ it("adds a load item when the add button is pressed", () => {
   const weightInput = screen.getByPlaceholderText("kg");
   fireEvent.change(weightInput, { target: { value: "2" } });
 
-  const quantityInput = screen.getByPlaceholderText("Quantity");
+  const quantityInput = screen.getByPlaceholderText("x1");
   fireEvent.change(quantityInput, { target: { value: "8" } });
 
   const addButton = screen.getByText("Add");

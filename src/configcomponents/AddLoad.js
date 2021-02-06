@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Form, Button, Col, InputGroup } from "react-bootstrap";
+import { Form, Button, Col, InputGroup, Row } from "react-bootstrap";
 
 class AddLoad extends React.Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class AddLoad extends React.Component {
         weight: props.load.weight,
       };
     } else {
-      this.state = { quantity: 1, item: "", weight: 1.0 };
+      this.state = { quantity: undefined, item: "", weight: undefined };
     }
   }
 
@@ -52,33 +52,23 @@ class AddLoad extends React.Component {
               onFocus={(e) => e.target.select()}
             />
           </Col>
-          <Col xs={3}>
-            <InputGroup>
-              <Form.Control
-                type="number"
-                placeholder="kg"
-                value={this.state.weight}
-                onChange={(e) => this.updateWeight(e.target.value)}
-                onFocus={(e) => e.target.select()}
-              />
-              <InputGroup.Append>
-                <InputGroup.Text>kg</InputGroup.Text>
-              </InputGroup.Append>
-            </InputGroup>
+          <Col xs={2}>
+            <Form.Control
+              type="number"
+              placeholder="kg"
+              value={this.state.weight}
+              onChange={(e) => this.updateWeight(e.target.value)}
+              onFocus={(e) => e.target.select()}
+            />
           </Col>
-          <Col xs={3}>
-            <InputGroup>
-              <InputGroup.Prepend>
-                <InputGroup.Text>x</InputGroup.Text>
-              </InputGroup.Prepend>
-              <Form.Control
-                type="number"
-                placeholder="Quantity"
-                value={this.state.quantity}
-                onChange={(e) => this.updateQuantity(e.target.value)}
-                onFocus={(e) => e.target.select()}
-              />
-            </InputGroup>
+          <Col xs={2}>
+            <Form.Control
+              type="number"
+              placeholder="x1"
+              value={this.state.quantity}
+              onChange={(e) => this.updateQuantity(e.target.value)}
+              onFocus={(e) => e.target.select()}
+            />
           </Col>
           <Col xs={3}>
             <Button
