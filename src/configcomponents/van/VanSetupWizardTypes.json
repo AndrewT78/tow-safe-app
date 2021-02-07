@@ -1,0 +1,13 @@
+{
+    "accessories" : [
+        { "accessory": "Gas Bottle(s)", "weight": 18, "id": "WizardVanGas" },
+        { "accessory": "Annex", "weight": 30, "id": "WizardVanAnnex" },
+        { "accessory": "Bike Rack", "weight": 5, "id": "WizardVanBikeRack" }
+    ],
+
+    "load": [
+    { "item": "Case", "weight": 20, "quantity": 2, "id": "WizardVanCase" },
+    { "item": "Sleeping Bags", "weight": 2, "quantity": 2, "id": "WizardVanSleepingBags" },
+    { "item": "Cooking Gear", "weight": 20, "quantity": 2, "id": "WizardVanCookingGear" }
+    ]
+}

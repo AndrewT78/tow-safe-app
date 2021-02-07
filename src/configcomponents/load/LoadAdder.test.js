@@ -28,7 +28,7 @@ describe("Load Adder", () => {
     expect(weightFields[1].value).toBe("20");
     expect(weightFields[2].value).toBe("2");
 
-    var quantityFields = screen.getAllByPlaceholderText("x1");
+    var quantityFields = screen.getAllByPlaceholderText("Qty");
     expect(quantityFields[0].value).toBe("2");
     expect(quantityFields[1].value).toBe("2");
     expect(quantityFields[2].value).toBe("5");

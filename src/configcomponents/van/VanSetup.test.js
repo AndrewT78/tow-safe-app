@@ -6,6 +6,8 @@ import VanSetup from "./VanSetup";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
 
+import vanSetupWizard from "./VanSetupWizardTypes.json";
+
 var myStore;
 
 var initialState;
@@ -91,7 +93,9 @@ it("shows the accessories setup once the config has been saved", () => {
   fireEvent.click(saveButton);
 
   var accessoryNameFields = screen.getAllByPlaceholderText("Accessory");
-  expect(accessoryNameFields[0].value).toBe("Gas Bottle(s)");
+  expect(accessoryNameFields[0].value).toBe(
+    vanSetupWizard.accessories[0].accessory
+  );
 });
 
 it("adds an accessory to the van", () => {
@@ -115,9 +119,9 @@ it("adds an accessory to the van", () => {
   expect(myStore.getState().accessories.vanAccessories).toEqual(
     expect.arrayContaining([
       expect.objectContaining({
-        accessory: "Gas Bottle(s)",
-        weight: 18,
-        id: "WizardGas1",
+        accessory: vanSetupWizard.accessories[0].accessory,
+        weight: vanSetupWizard.accessories[0].weight,
+        id: vanSetupWizard.accessories[0].id,
       }),
     ])
   );
@@ -144,9 +148,9 @@ it("removes an accessory from the van", () => {
   expect(myStore.getState().accessories.vanAccessories).toEqual(
     expect.arrayContaining([
       expect.objectContaining({
-        accessory: "Gas Bottle(s)",
-        weight: 18,
-        id: "WizardGas1",
+        accessory: vanSetupWizard.accessories[0].accessory,
+        weight: vanSetupWizard.accessories[0].weight,
+        id: vanSetupWizard.accessories[0].id,
       }),
     ])
   );
@@ -176,8 +180,8 @@ it("shows the load setup when the user moves to load", () => {
   const loadButton = screen.getByText("Next: Load");
   fireEvent.click(loadButton);
 
-  var accessoryNameFields = screen.getAllByPlaceholderText("Item Name");
-  expect(accessoryNameFields[0].value).toBe("Case");
+  var loadFields = screen.getAllByPlaceholderText("Item Name");
+  expect(loadFields[0].value).toBe(vanSetupWizard.load[0].item);
 });
 
 it("adds load to the van", () => {
@@ -203,7 +207,11 @@ it("adds load to the van", () => {
 
   expect(myStore.getState().loads.vanLoad).toEqual(
     expect.arrayContaining([
-      expect.objectContaining({ item: "Case", weight: 20, quantity: 2 }),
+      expect.objectContaining({
+        item: vanSetupWizard.load[0].item,
+        weight: vanSetupWizard.load[0].weight,
+        quantity: vanSetupWizard.load[0].quantity,
+      }),
     ])
   );
 });
@@ -248,7 +256,11 @@ it("goes back to the main screen when 'Done' is pressed", () => {
 it("presets to on the accessories already added in the wizard", () => {
   initialState.configs.vanConfig = { tare: 2000, atm: 3000, tbm: 200 };
   initialState.accessories.vanAccessories = [
-    { accessory: "AnnexEdited", weight: 30, id: "WizardAnnex1" },
+    {
+      accessory: "EditedItemName",
+      weight: 666,
+      id: vanSetupWizard.accessories[1].id,
+    },
   ];
 
   renderApp(<VanSetup />);
@@ -256,18 +268,23 @@ it("presets to on the accessories already added in the wizard", () => {
   const addButtons = screen.getAllByTestId("btn-acc-off");
   const deleteButtons = screen.getAllByTestId("btn-acc-on");
 
-  expect(addButtons).toHaveLength(1);
+  expect(addButtons.length).toBeGreaterThanOrEqual(2);
   expect(deleteButtons).toHaveLength(1);
 
   const nameFields = screen.getAllByPlaceholderText("Accessory");
-  expect(nameFields[0].value).toBe("Gas Bottle(s)");
-  expect(nameFields[1].value).toBe("AnnexEdited");
+  expect(nameFields[0].value).toBe(vanSetupWizard.accessories[0].accessory);
+  expect(nameFields[1].value).toBe("EditedItemName");
 });
 
 it("presets to on the load already added in the wizard", () => {
   initialState.configs.vanConfig = { tare: 2000, atm: 3000, tbm: 200 };
   initialState.loads.vanLoad = [
-    { item: "CaseEdited", weight: 10, quantity: 4, id: "WizardCase" },
+    {
+      item: "EditedLoadItem",
+      weight: 10,
+      quantity: 4,
+      id: vanSetupWizard.load[0].id,
+    },
   ];
 
   renderApp(<VanSetup />);
@@ -278,10 +295,10 @@ it("presets to on the load already added in the wizard", () => {
   const addButtons = screen.getAllByTestId("btn-load-off");
   const deleteButtons = screen.getAllByTestId("btn-load-on");
 
-  expect(addButtons).toHaveLength(1);
+  expect(addButtons.length).toBeGreaterThanOrEqual(2);
   expect(deleteButtons).toHaveLength(1);
 
   const nameFields = screen.getAllByPlaceholderText("Item Name");
-  expect(nameFields[0].value).toBe("CaseEdited");
-  expect(nameFields[1].value).toBe("Sleeping Bags");
+  expect(nameFields[0].value).toBe("EditedLoadItem");
+  expect(nameFields[1].value).toBe(vanSetupWizard.load[1].item);
 });

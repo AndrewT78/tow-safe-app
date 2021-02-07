@@ -6,6 +6,8 @@ import CarSetup from "./CarSetup";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
 
+import carSetupWizard from "./CarSetupWizardTypes.json";
+
 var myStore;
 
 var initialState;
@@ -71,7 +73,6 @@ it("can update the car config", () => {
 
 it("shows the accessories setup once the config has been saved", () => {
   renderApp(<CarSetup />);
-  expect(screen.queryByText(/Skip/i)).toBeNull();
 
   const gvmInput = screen.getByPlaceholderText("GVM");
   fireEvent.change(gvmInput, { target: { value: "2000" } });
@@ -86,7 +87,9 @@ it("shows the accessories setup once the config has been saved", () => {
   fireEvent.click(saveButton);
 
   var accessoryNameFields = screen.getAllByPlaceholderText("Accessory");
-  expect(accessoryNameFields[0].value).toBe("Bullbar");
+  expect(accessoryNameFields[0].value).toBe(
+    carSetupWizard.accessories[0].accessory
+  );
 });
 
 it("adds an accessory to the car", () => {
@@ -110,9 +113,9 @@ it("adds an accessory to the car", () => {
   expect(myStore.getState().accessories.carAccessories).toEqual(
     expect.arrayContaining([
       expect.objectContaining({
-        accessory: "Bullbar",
-        weight: 80,
-        id: "WizardBullbar",
+        accessory: carSetupWizard.accessories[0].accessory,
+        weight: carSetupWizard.accessories[0].weight,
+        id: carSetupWizard.accessories[0].id,
       }),
     ])
   );
@@ -139,9 +142,9 @@ it("removes an accessory from the car", () => {
   expect(myStore.getState().accessories.carAccessories).toEqual(
     expect.arrayContaining([
       expect.objectContaining({
-        accessory: "Bullbar",
-        weight: 80,
-        id: "WizardBullbar",
+        accessory: carSetupWizard.accessories[0].accessory,
+        weight: carSetupWizard.accessories[0].weight,
+        id: carSetupWizard.accessories[0].id,
       }),
     ])
   );
@@ -171,7 +174,7 @@ it("shows the load setup when the user moves to load", () => {
   fireEvent.click(loadButton);
 
   var accessoryNameFields = screen.getAllByPlaceholderText("Item Name");
-  expect(accessoryNameFields[0].value).toBe("Adult Pass");
+  expect(accessoryNameFields[0].value).toBe(carSetupWizard.load[0].item);
 });
 
 it("adds load to the car", () => {
@@ -197,7 +200,11 @@ it("adds load to the car", () => {
 
   expect(myStore.getState().loads.carLoad).toEqual(
     expect.arrayContaining([
-      expect.objectContaining({ item: "Adult Pass", weight: 75, quantity: 2 }),
+      expect.objectContaining({
+        item: carSetupWizard.load[0].item,
+        weight: carSetupWizard.load[0].weight,
+        quantity: carSetupWizard.load[0].quantity,
+      }),
     ])
   );
 });
@@ -241,7 +248,11 @@ it("goes back to the main screen when 'Done' is pressed", () => {
 it("presets to on the accessories already added in the wizard", () => {
   initialState.configs.carConfig = { tare: 2000, gcm: 3000, gvm: 200 };
   initialState.accessories.carAccessories = [
-    { accessory: "BullbarEdited", weight: 75, id: "WizardBullbar" },
+    {
+      accessory: "EditedAcc",
+      weight: 75,
+      id: carSetupWizard.accessories[1].id,
+    },
   ];
 
   renderApp(<CarSetup />);
@@ -249,17 +260,22 @@ it("presets to on the accessories already added in the wizard", () => {
   const addButtons = screen.getAllByTestId("btn-acc-off");
   const deleteButtons = screen.getAllByTestId("btn-acc-on");
 
-  expect(addButtons).toHaveLength(3);
+  expect(addButtons.length).toBeGreaterThan(2);
   expect(deleteButtons).toHaveLength(1);
 
   const nameFields = screen.getAllByPlaceholderText("Accessory");
-  expect(nameFields[0].value).toBe("BullbarEdited");
+  expect(nameFields[1].value).toBe("EditedAcc");
 });
 
 it("presets to on the load already added in the wizard", () => {
   initialState.configs.carConfig = { tare: 2000, gcm: 3000, gvm: 200 };
   initialState.loads.carLoad = [
-    { item: "Super", weight: 0.8, quantity: 120, id: "WizardFuel" },
+    {
+      item: "EditedLoad",
+      weight: 0.8,
+      quantity: 120,
+      id: carSetupWizard.load[0].id,
+    },
   ];
 
   renderApp(<CarSetup />);
@@ -270,10 +286,10 @@ it("presets to on the load already added in the wizard", () => {
   const addButtons = screen.getAllByTestId("btn-load-off");
   const deleteButtons = screen.getAllByTestId("btn-load-on");
 
-  expect(addButtons).toHaveLength(4);
+  expect(addButtons.length).toBeGreaterThanOrEqual(2);
   expect(deleteButtons).toHaveLength(1);
 
   const nameFields = screen.getAllByPlaceholderText("Item Name");
-  expect(nameFields[0].value).toBe("Adult Pass");
-  expect(nameFields[3].value).toBe("Super");
+  expect(nameFields[0].value).toBe("EditedLoad");
+  expect(nameFields[1].value).toBe(carSetupWizard.load[1].item);
 });

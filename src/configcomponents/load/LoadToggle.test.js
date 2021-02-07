@@ -25,7 +25,7 @@ it("renders a form for load, quantity and weight", () => {
   const weightInput = screen.getByPlaceholderText("kg");
   expect(weightInput).toBeInTheDocument();
 
-  const quantityInput = screen.getByPlaceholderText("x1");
+  const quantityInput = screen.getByPlaceholderText("Qty");
   expect(quantityInput).toBeInTheDocument();
 
   const toggleOn = screen.getByTestId("btn-load-off");
@@ -46,7 +46,7 @@ it("renders a prefilled form for the load, quantity and weight", () => {
   const weightInput = screen.getByPlaceholderText("kg");
   expect(weightInput.value).toBe("20");
 
-  const quantityInput = screen.getByPlaceholderText("x1");
+  const quantityInput = screen.getByPlaceholderText("Qty");
   expect(quantityInput.value).toBe("4");
 });
 

@@ -12,6 +12,8 @@ import {
 import AccessoriesAdder from "../accessories/AccessoriesAdder";
 import LoadAdder from "../load/LoadAdder";
 
+import carSetupWizard from "./CarSetupWizardTypes.json";
+
 import { getCarAccessories } from "../../redux/selectors";
 class CarSetup extends React.Component {
   constructor(props) {
@@ -63,20 +65,9 @@ class CarSetup extends React.Component {
     this.setState({ screen: "load" });
   };
 
-  carAccessories = [
-    { accessory: "Bullbar", weight: 80, id: "WizardBullbar" },
-    { accessory: "Roofrack", weight: 12, id: "WizardRoofRack" },
-    { accessory: "Towbar", weight: 20, id: "WizardTowbar" },
-    { accessory: "Snorkel", weight: 5, id: "WizardSnorkel" },
-  ];
+  carAccessories = carSetupWizard.accessories;
 
-  carLoad = [
-    { item: "Adult Pass", weight: 75, quantity: 2, id: "WizardAdultPass" },
-    { item: "Child Pass", weight: 25, quantity: 2, id: "WizardChildPass" },
-    { item: "Furry Pass", weight: 15, quantity: 1, id: "WizardFurryPass" },
-    { item: "Fuel", weight: 60, quantity: 1, id: "WizardFuel" },
-    { item: "Engel", weight: 25, quantity: 1, id: "WizardEngel" },
-  ];
+  carLoad = carSetupWizard.load;
 
   render() {
     return (

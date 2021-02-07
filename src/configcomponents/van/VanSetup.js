@@ -14,6 +14,8 @@ import {
 
 import { getVanAccessories } from "../../redux/selectors";
 
+import vanSetupWizard from "./VanSetupWizardTypes.json";
+
 class VanSetup extends React.Component {
   constructor(props) {
     super(props);
@@ -64,15 +66,9 @@ class VanSetup extends React.Component {
     this.setState({ screen: "load" });
   };
 
-  vanAccessories = [
-    { accessory: "Gas Bottle(s)", weight: 18, id: "WizardGas1" },
-    { accessory: "Annex", weight: 30, id: "WizardAnnex1" },
-  ];
+  vanAccessories = vanSetupWizard.accessories;
 
-  vanLoad = [
-    { item: "Case", weight: 20, quantity: 2, id: "WizardCase" },
-    { item: "Sleeping Bags", weight: 2, quantity: 2, id: "WizardSleepingBags" },
-  ];
+  vanLoad = vanSetupWizard.load;
 
   render() {
     return (

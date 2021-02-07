@@ -80,7 +80,7 @@ class LoadToggle extends React.Component {
           <Col xs={2}>
             <Form.Control
               type="number"
-              placeholder="x1"
+              placeholder="Qty"
               value={this.state.quantity}
               onChange={(e) => this.updateQuantity(e.target.value)}
               onFocus={(e) => e.target.select()}

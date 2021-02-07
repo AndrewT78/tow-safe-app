@@ -59,20 +59,15 @@ class AccessoryToggle extends React.Component {
               disabled={this.state.toggle}
             />
           </Col>
-          <Col xs={4}>
-            <InputGroup>
-              <Form.Control
-                type="number"
-                placeholder="kg"
-                value={this.state.weight}
-                onChange={(e) => this.updateWeight(e.target.value)}
-                onFocus={(e) => e.target.select()}
-                disabled={this.state.toggle}
-              />
-              <InputGroup.Append>
-                <InputGroup.Text>kg</InputGroup.Text>
-              </InputGroup.Append>
-            </InputGroup>
+          <Col xs={2}>
+            <Form.Control
+              type="number"
+              placeholder="kg"
+              value={this.state.weight}
+              onChange={(e) => this.updateWeight(e.target.value)}
+              onFocus={(e) => e.target.select()}
+              disabled={this.state.toggle}
+            />
           </Col>
           <Col xs={2}>
             {this.state.toggle ? (

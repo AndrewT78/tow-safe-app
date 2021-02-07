@@ -1,0 +1,15 @@
+{
+    "accessories" : [
+        { "accessory": "Bullbar", "weight": 80, "id": "WizardCarBullbar" },
+    { "accessory": "Roofrack", "weight": 42, "id": "WizardCarRoofRack" },
+    { "accessory": "Towbar", "weight": 20, "id": "WizardCarTowbar" },
+    { "accessory": "Snorkel", "weight": 5, "id": "WizardCarSnorkel" }
+    ],
+
+    "load": [
+    { "item": "Adult Passenger", "weight": 75, "quantity": 2, "id": "WizardCarPassAdult" },
+    { "item": "Child Pass", "weight": 25, "quantity": 2, "id": "WizardCarPassChild" },
+    { "item": "Fuel", "weight": 60, "quantity": 1, "id": "WizardCarFuel" },
+    { "item": "Fridge", "weight": 25, "quantity": 1, "id": "WizardCarFridge" }
+    ]
+}

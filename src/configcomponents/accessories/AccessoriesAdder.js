@@ -1,4 +1,4 @@
-import { Button, Form, Col, InputGroup } from "react-bootstrap";
+import { Button, Form, Col, Row } from "react-bootstrap";
 import React from "react";
 import AddAccessory from "./AddAccessory";
 import AccessoryToggle from "./AccessoryToggle";
@@ -50,7 +50,16 @@ class AccessoriesAdder extends React.Component {
 
   render() {
     return (
-      <div style={{ marginTop: "20px" }}>{this.getSampleAccessories()}</div>
+      <div style={{ marginTop: "20px" }}>
+        <Row style={{ marginBottom: 5 }}>
+          <Col style={{ paddingLeft: 20 }}>Accessory</Col>
+          <Col style={{ paddingLeft: 20 }} xs={2}>
+            kg
+          </Col>
+          <Col xs={2}></Col>
+        </Row>
+        {this.getSampleAccessories()}
+      </div>
     );
   }
 }
