@@ -138,6 +138,13 @@ class CarSetup extends React.Component {
               You can find the details below on your car's compliance plate or
               consult your handbook or manufacturer's specifications
             </Alert>
+            <Link
+              to="/carselector"
+              data-testid="car-selector-btn"
+              style={{ color: "inherit" }}
+            >
+              <Button>Search Vehicle</Button>
+            </Link>
             <CarConfig></CarConfig>
           </>
         )}
