@@ -1,0 +1,8 @@
+{
+    "vehicles": [
+        { "make": "Nissan", "model": "Patrol", "variant": "Y62 S5 Ti", "tare": 2715, "gvm": 3500, "gcm": 7000},
+        { "make": "Nissan", "model": "Patrol", "variant": "Y62 S5 TiL", "tare": 2730, "gvm": 3500, "gcm": 7000},
+        { "make": "Toyota", "model": "Landcruiser", "variant": "VDJ200R GXL", "tare": 2630, "gvm": 3350, "gcm": 6850},
+        { "make": "Nissan", "model": "Navara", "variant": "D23 S4 ST-X", "tare": 1972, "gvm": 2910, "gcm": 5910}
+    ]
+}

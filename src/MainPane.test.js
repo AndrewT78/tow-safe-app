@@ -94,6 +94,21 @@ it("shows the car config when the route specifies car config", () => {
   expect(carGCMInput).toBeInTheDocument();
 });
 
+it("shows the car selector when the route specifies car selector", () => {
+  renderApp(<MainPane />, {
+    initialState: {
+      configs: {
+        vanConfig: {},
+        carConfig: {},
+      },
+    },
+    initialRoute: "/carselector",
+  });
+
+  const modelButton = screen.getByText("Make");
+  expect(modelButton).toBeInTheDocument();
+});
+
 it("navigates to the van load page when the route specifies", () => {
   renderApp(<MainPane />, {
     initialState: {
