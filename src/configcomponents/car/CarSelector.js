@@ -1,7 +1,9 @@
 import React from "react";
-import { DropdownButton, Dropdown } from "react-bootstrap";
+import { Button, DropdownButton, Dropdown } from "react-bootstrap";
 import { connect } from "react-redux";
 import CarSpecifications from "./CarSpecifications.json";
+import { updateCarConfig } from "../../redux/actions";
+import { Link } from "react-router-dom";
 
 class CarSelector extends React.Component {
   constructor(props) {
@@ -79,9 +81,28 @@ class CarSelector extends React.Component {
         )}
         {this.state.vehicle && (
           <>
-            <>{this.state.vehicle.tare}</>
-            <>{this.state.vehicle.gvm}</>
-            <>{this.state.vehicle.gcm}</>
+            <div>{this.state.vehicle.tare}</div>
+            <div>{this.state.vehicle.gvm}</div>
+            <div>{this.state.vehicle.gcm}</div>
+            <div>
+              <Link
+                to="/carsetup"
+                data-testid="car-selector-apply"
+                style={{ color: "inherit" }}
+              >
+                <Button
+                  onClick={() =>
+                    this.props.updateCarConfig({
+                      tare: this.state.vehicle.tare,
+                      gvm: this.state.vehicle.gvm,
+                      gcm: this.state.vehicle.gcm,
+                    })
+                  }
+                >
+                  Apply
+                </Button>
+              </Link>
+            </div>
           </>
         )}
       </>
@@ -93,4 +114,4 @@ const mapStateToProps = (state) => {
   return {};
 };
 
-export default connect(mapStateToProps, {})(CarSelector);
+export default connect(mapStateToProps, { updateCarConfig })(CarSelector);

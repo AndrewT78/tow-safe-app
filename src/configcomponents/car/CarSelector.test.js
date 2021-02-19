@@ -8,11 +8,15 @@ import { Provider } from "react-redux";
 import rootReducer from "../../redux/reducers";
 import { createStore } from "redux";
 import CarSelector from "./CarSelector";
+import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
 
 var myStore;
 
 var initialState;
+
+const history = createMemoryHistory();
+const historySpy = jest.spyOn(history, "push");
 
 beforeEach(() => {
   initialState = {
@@ -34,7 +38,11 @@ beforeEach(() => {
 
 function renderApp(ui, { store = myStore, ...renderOptions } = {}) {
   function Wrapper({ children }) {
-    return <Provider store={store}>{children}</Provider>;
+    return (
+      <Provider store={store}>
+        <Router history={history}>{children}</Router>
+      </Provider>
+    );
   }
   return rtlRender(ui, { wrapper: Wrapper, ...renderOptions });
 }
@@ -257,4 +265,108 @@ it("previews the tare, gvm and gcm when the variant is selected", async () => {
   await screen.findByText(/2715/);
   await screen.findByText(/3500/);
   await screen.findByText(/7000/);
+});
+
+it("sets the tare, gvm and gcm when the apply button is pressed", async () => {
+  renderApp(<CarSelector />);
+
+  var button = screen.getByText("Make");
+
+  act(() => {
+    fireEvent.click(button);
+  });
+
+  await screen.findByText("Nissan");
+
+  var nissanButton = screen.getByText("Nissan");
+  act(() => {
+    fireEvent.click(nissanButton);
+  });
+
+  var modelButton = screen.getByText("Model");
+  act(() => {
+    fireEvent.click(modelButton);
+  });
+
+  await screen.findByText("Patrol");
+
+  var patrolButton = screen.getByText("Patrol");
+  act(() => {
+    fireEvent.click(patrolButton);
+  });
+
+  var variantButton = screen.getByText("Variant");
+  act(() => {
+    fireEvent.click(variantButton);
+  });
+
+  await screen.findByText("Y62 S5 Ti");
+
+  var variantButton = screen.getByText("Y62 S5 Ti");
+  act(() => {
+    fireEvent.click(variantButton);
+  });
+
+  await screen.findByText(/2715/);
+
+  var applyButton = screen.getByText("Apply");
+  act(() => {
+    fireEvent.click(applyButton);
+  });
+
+  expect(myStore.getState().configs.carConfig).toEqual({
+    gvm: 3500,
+    tare: 2715,
+    gcm: 7000,
+  });
+});
+
+it("navigates back to car setup when complete", async () => {
+  renderApp(<CarSelector />);
+
+  var button = screen.getByText("Make");
+
+  act(() => {
+    fireEvent.click(button);
+  });
+
+  await screen.findByText("Nissan");
+
+  var nissanButton = screen.getByText("Nissan");
+  act(() => {
+    fireEvent.click(nissanButton);
+  });
+
+  var modelButton = screen.getByText("Model");
+  act(() => {
+    fireEvent.click(modelButton);
+  });
+
+  await screen.findByText("Patrol");
+
+  var patrolButton = screen.getByText("Patrol");
+  act(() => {
+    fireEvent.click(patrolButton);
+  });
+
+  var variantButton = screen.getByText("Variant");
+  act(() => {
+    fireEvent.click(variantButton);
+  });
+
+  await screen.findByText("Y62 S5 Ti");
+
+  var variantButton = screen.getByText("Y62 S5 Ti");
+  act(() => {
+    fireEvent.click(variantButton);
+  });
+
+  await screen.findByText(/2715/);
+
+  var applyButton = screen.getByText("Apply");
+  act(() => {
+    fireEvent.click(applyButton);
+  });
+
+  expect(historySpy).toHaveBeenCalledWith("/carsetup");
 });
