@@ -4,7 +4,8 @@ import {
   DropdownButton,
   Dropdown,
   Alert,
-  ButtonGroup,
+  Row,
+  Col,
 } from "react-bootstrap";
 import { connect } from "react-redux";
 import CarSpecifications from "./CarSpecifications.json";
@@ -85,35 +86,51 @@ class CarSelector extends React.Component {
           main screen
         </Alert>
 
-        <DropdownButton
-          title={this.state.make ?? "Make"}
-          style={{ marginBottom: 20 }}
-        >
-          {this.getMakes()}
-        </DropdownButton>
-        {this.state.make && (
-          <DropdownButton
-            title={this.state.model ?? "Model"}
-            style={{ marginBottom: 20 }}
-          >
-            {this.getModels()}
-          </DropdownButton>
-        )}
-
-        {this.state.model && (
-          <DropdownButton
-            title={this.state.variant ?? "Variant"}
-            style={{ marginBottom: 20 }}
-          >
-            {this.getVariants()}
-          </DropdownButton>
-        )}
+        <Row>
+          <Col>
+            <DropdownButton
+              block
+              variant="outline-primary"
+              title={this.state.make ?? "Make"}
+            >
+              {this.getMakes()}
+            </DropdownButton>
+          </Col>
+          <Col>
+            {this.state.make && (
+              <DropdownButton
+                block
+                variant="outline-primary"
+                title={this.state.model ?? "Model"}
+              >
+                {this.getModels()}
+              </DropdownButton>
+            )}
+          </Col>
+        </Row>
+        <Row style={{ marginTop: 10 }}>
+          <Col>
+            {this.state.model && (
+              <DropdownButton
+                variant="outline-primary"
+                title={this.state.variant ?? "Variant"}
+              >
+                {this.getVariants()}
+              </DropdownButton>
+            )}
+          </Col>
+          <Col></Col>
+        </Row>
         {this.state.vehicle && (
-          <>
-            <div>{this.state.vehicle.tare}</div>
-            <div>{this.state.vehicle.gvm}</div>
-            <div>{this.state.vehicle.gcm}</div>
-            <div>
+          <Row style={{ marginTop: 10 }}>
+            <Col>Tare: {this.state.vehicle.tare}</Col>
+            <Col>GVM: {this.state.vehicle.gvm}</Col>
+            <Col>GCM: {this.state.vehicle.gcm}</Col>
+          </Row>
+        )}
+        <Row style={{ marginTop: 10 }}>
+          <Col>
+            {this.state.vehicle && (
               <Link
                 to="/carsetup"
                 data-testid="car-selector-apply"
@@ -131,18 +148,19 @@ class CarSelector extends React.Component {
                   Apply
                 </Button>
               </Link>
-            </div>
-          </>
-        )}
-        <Link
-          to="/"
-          data-testid="car-selector-cancel"
-          style={{ color: "inherit" }}
-        >
-          <Button variant="outline-primary" style={{ marginTop: 10 }}>
-            Cancel
-          </Button>
-        </Link>
+            )}
+          </Col>
+          <Col></Col>
+          <Col>
+            <Link
+              to="/"
+              data-testid="car-selector-cancel"
+              style={{ color: "inherit" }}
+            >
+              <Button variant="outline-primary">Cancel</Button>
+            </Link>
+          </Col>
+        </Row>
       </>
     );
   }

@@ -424,7 +424,7 @@ it("clears the variant and details when the model is changed", async () => {
     fireEvent.click(variantButton);
   });
 
-  await screen.findByText("2715");
+  await screen.findByText(/2715/);
 
   var patrolButton = screen.getAllByText("Patrol")[0];
   act(() => {
@@ -439,5 +439,5 @@ it("clears the variant and details when the model is changed", async () => {
   });
   await screen.findByText("Variant");
 
-  expect(screen.queryByText("2715")).toBeNull();
+  expect(screen.queryByText(/2715/)).toBeNull();
 });
