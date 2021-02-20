@@ -297,7 +297,7 @@ it("presets to on the load already added in the wizard", () => {
 it("navigates to the car selector when car selector is pressed", () => {
   renderApp(<CarSetup />);
 
-  const selectorButton = screen.getByText("Search Vehicle");
+  const selectorButton = screen.getByText("Lookup Vehicle");
   fireEvent.click(selectorButton);
   expect(historySpy).toHaveBeenCalledWith("/carselector");
 });

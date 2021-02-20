@@ -206,7 +206,7 @@ it("clears the variant when make is changed", async () => {
 
   screen.getByText("Variant");
 
-  var button = screen.getByText("Make");
+  var button = screen.getAllByText("Nissan")[0];
 
   act(() => {
     fireEvent.click(button);
@@ -369,4 +369,75 @@ it("navigates back to car setup when complete", async () => {
   });
 
   expect(historySpy).toHaveBeenCalledWith("/carsetup");
+});
+
+it("navigates back when back is selected", async () => {
+  renderApp(<CarSelector />);
+
+  var cancelButton = screen.getByText("Cancel");
+  act(() => {
+    fireEvent.click(cancelButton);
+  });
+
+  expect(historySpy).toHaveBeenCalledWith("/");
+});
+
+it("clears the variant and details when the model is changed", async () => {
+  renderApp(<CarSelector />);
+
+  var button = screen.getByText("Make");
+
+  act(() => {
+    fireEvent.click(button);
+  });
+
+  await screen.findByText("Nissan");
+
+  var nissanButton = screen.getByText("Nissan");
+  act(() => {
+    fireEvent.click(nissanButton);
+  });
+
+  var modelButton = screen.getByText("Model");
+  act(() => {
+    fireEvent.click(modelButton);
+  });
+
+  await screen.findByText("Patrol");
+
+  var patrolButton = screen.getByText("Patrol");
+  act(() => {
+    fireEvent.click(patrolButton);
+  });
+
+  await screen.findByText("Variant");
+  var variantButton = screen.getByText("Variant");
+
+  act(() => {
+    fireEvent.click(variantButton);
+  });
+
+  await screen.findByText("Y62 S5 Ti");
+
+  var variantButton = screen.getByText("Y62 S5 Ti");
+  act(() => {
+    fireEvent.click(variantButton);
+  });
+
+  await screen.findByText("2715");
+
+  var patrolButton = screen.getAllByText("Patrol")[0];
+  act(() => {
+    fireEvent.click(patrolButton);
+  });
+
+  await screen.findByText("Navara");
+
+  var navaraButton = screen.getByText("Navara");
+  act(() => {
+    fireEvent.click(navaraButton);
+  });
+  await screen.findByText("Variant");
+
+  expect(screen.queryByText("2715")).toBeNull();
 });

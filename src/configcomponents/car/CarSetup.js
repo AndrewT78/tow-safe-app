@@ -15,6 +15,7 @@ import LoadAdder from "../load/LoadAdder";
 import carSetupWizard from "./CarSetupWizardTypes.json";
 
 import { getCarAccessories } from "../../redux/selectors";
+import { FaSearch } from "react-icons/fa";
 class CarSetup extends React.Component {
   constructor(props) {
     super(props);
@@ -143,7 +144,9 @@ class CarSetup extends React.Component {
               data-testid="car-selector-btn"
               style={{ color: "inherit" }}
             >
-              <Button>Search Vehicle</Button>
+              <Button style={{ marginBottom: 10 }}>
+                <FaSearch></FaSearch> Lookup Vehicle
+              </Button>
             </Link>
             <CarConfig></CarConfig>
           </>
