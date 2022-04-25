@@ -8,7 +8,7 @@ const App = () => {
   return (
     <Router>
       <Container>
-        <MainPane></MainPane>
+        <Text>Under construction...back soon</Text>
       </Container>
     </Router>
   );
